@@ -13,7 +13,7 @@
 		<property name="driverClassName"
 			value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url"
-			value="jdbc:oracle:thin:@testdb_medium?TNS_ADMIN=C:/Users/admin91/Wallet_testdb/" />
+			value="jdbc:oracle:thin:@testdb_medium?TNS_ADMIN=/Users/admin91/Wallet_testdb/" />
 		<property name="username" value="dltkdgns" />
 		<property name="password" value="tkdgnsWkd111" />
 	</bean>

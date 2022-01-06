@@ -19,6 +19,8 @@
 <link rel="stylesheet" type="text/css" href="resources/styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
 </head>
 
 <body>
@@ -47,7 +49,8 @@
 <script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="resources/js/contact_custom.js"></script>
-
+<script type="text/javascript"
+	src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>
