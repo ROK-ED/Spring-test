@@ -6,40 +6,35 @@
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-<!-- 
-	<context:property-placeholder location="classpath:db.properties" />
 
-	
+	<!-- DB Connection Pool define -->
 	<bean class="org.apache.commons.dbcp2.BasicDataSource"
-		id="dataSource" destroy-method="close">
-		<property name="driverClassName" value="${driver}" />
-		<property name="url" value="${url}" />
-		<property name="username" value="${user}" />
-		<property name="password" value="${password}" />
+		id="dataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@testdb_medium?TNS_ADMIN=C:/Users/admin91/Wallet_testdb/" />
+		<property name="username" value="dltkdgns" />
+		<property name="password" value="tkdgnsWkd111" />
 	</bean>
- -->
- 
-   <!-- DB Connection Pool define -->
-   <bean class="org.apache.commons.dbcp2.BasicDataSource" id="dataSource">
-      <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-      <property name="url" value="jdbc:oracle:thin:@testdb_high?TNS_ADMIN=/Users/admin91/Wallet_testdb/"/>
-      <property name="username" value="dltkdgns"/>
-      <property name="password" value="tkdgnsWkd111"/>   
-   </bean>
- 
- 
+
+
+
 	<!-- Mybatis define -->
-   <!-- classpath: 경로 src/main/resources로 연결 -->
-   <!-- classpath*: 경로 src/main/java -->
-  <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
-      <property name="dataSource" ref="dataSource"/>
-      <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
-      <property name="mapperLocations" value="classpath*:co/yo/prj/**/service/*-map.xml"/>
-   </bean>	
-	  
-   <bean class="org.mybatis.spring.SqlSessionTemplate">
-      <constructor-arg ref="sqlSessionFactoryBean"/>
-   </bean>
-   
-   <mybatis-spring:scan base-package="co.yo.prj"/>
+	<!-- classpath: 경로 src/main/resources로 연결 -->
+	<!-- classpath*: 경로 src/main/java -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		id="sqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation"
+			value="classpath:mybatis/mybatis-config.xml" />
+		<property name="mapperLocations"
+			value="classpath*:co/yo/prj/**/service/*-map.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean" />
+	</bean>
+
+	<mybatis-spring:scan base-package="co.yo.prj" />
 </beans>

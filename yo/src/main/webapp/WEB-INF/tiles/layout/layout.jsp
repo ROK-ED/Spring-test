@@ -17,6 +17,8 @@
 <link rel="stylesheet" type="text/css" href="resources/plugins/OwlCarousel2-2.2.1/animate.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="resources/styles/contact_styles.css">
+<link rel="stylesheet" type="text/css" href="resources/styles/contact_responsive.css">
 </head>
 
 <body>
@@ -42,6 +44,9 @@
 <script src="resources/plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="resources/plugins/easing/easing.js"></script>
 <script src="resources/js/custom.js"></script>
+<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+<script src="resources/js/contact_custom.js"></script>
 
 </body>
 

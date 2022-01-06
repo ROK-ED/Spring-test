@@ -55,7 +55,7 @@
 								<li class="main_nav_item"><a href="#">home</a></li>
 								<li class="main_nav_item"><a href="about.html">장소</a></li>
 								<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
-								<li class="main_nav_item"><a href="blog.html">news</a></li>
+								<li class="main_nav_item"><a href="food.do">food</a></li>
 								<li class="main_nav_item"><a href="contact.html">contact</a></li>
 								<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
 							</ul>
