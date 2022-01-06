@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.hotel.service.Hotelmapper">
+	<select id="HotelSelectList" resultType="co.yo.prj.hotel.service.HotelVO">
+		SELECT * FROM YO_HOTEL
+	</select>
+	
+	<select id="HotelSelect" parameterType="co.yo.prj.hotel.service.HotelVO" resultType="co.yo.prj.hotel.service.HotelVO">
+		SELECT * FROM YO_HOTEL WHERE HOTEL_ID = #{hotel_id}
+	</select>
+
+	<insert id="HotelInsert" parameterType="co.yo.prj.hotel.service.HotelVO">
+	INSERT INTO YO_HOTEL(HOTEL_ID,HOTEL_TITLE,HOTEL_LOCX,HOTEL_LOCY,HOTEL_LOOM,HOTEL_TEL,
+	HOTEL_ADDRESS,HOTEL_CONTENT,HOTEL_PRICE,HOTEL_ENROLL_EMAIL,HOTEL_TFILE,HOTEL_THUMBNAIL,
+	HOTEL_PFILE,HOTEL_PICTURE,HOTEL_HIT)
+	VALUES (#{hotel_id},#{hotel_title},#{hotel_locx},#{hotel_locy},#{hotel_loom},#{hotel_tel},#{hotel_address},#{hotel_content},#{hotel_price},#{hotel_enroll_email},
+	#{hotel_tfile},#{hotel_thumbnail},#{hotel_pfile},#{hotel_picture},#{hotel_hit})	
+	</insert>
+	
+	<update id="HotelUpdate" parameterType="co.yo.prj.hotel.service.HotelVO">
+	UPDATE HOTEL
+		<if test="hotel_title !=null">SET HOTEL_TITLE = #{hotel_title}	</if>
+		<if test="hotel_locx !=null">SET HOTEL_LOCX = #{hotel_locx}	</if>
+		<if test="hotel_locy !=null">SET HOTEL_LOCY= #{hotel_locy}	</if>
+		<if test="hotel_loom !=null">SET HOTEL_LOOM = #{hotel_loom}	</if>
+		<if test="hotel_tel !=null">SET HOTEL_TEL = #{hotel_tel}	</if>
+		<if test="hotel_address !=null">SET HOTEL_ADDRESS = #{hotel_address}	</if>
+		<if test="hotel_content !=null">SET HOTEL_CONTENT = #{hotel_content}	</if>
+		<if test="hotel_price !=null">SET HOTEL_PRICE = #{hotel_price}	</if>
+		<if test="hotel_enroll_email !=null">SET HOTEL_ENROLLEMAIL = #{hotel_enrollEmail}	</if>
+		<if test="hotel_hotel_tfile !=null">SET HOTEL_TFILE = #{hotel_tfile}	</if>
+		<if test="hotel_thumbnail !=null">SET HOTEL_THUMBNAIL = #{hotel_thumbnail}	</if>
+		<if test="hotel_pfile !=null">SET HOTEL_PFILE = #{hotel_pfile}	</if>
+		<if test="hotel_picture !=null">SET HOTEL_PICTURE = #{hotel_picture}	</if>
+		<if test="hotel_hit !=null">SET HOTEL_HIT = #{hotel_hit}	</if>
+	WHERE HOTEL_ID = #{hotel_id}
+	</update>
+
+	<delete id="HotelDelete">
+	DELETE FROM HOTEL WHERE HOTEL_ID = #{hotel_id}
+	</delete>
+
+
+
+
+</mapper>
