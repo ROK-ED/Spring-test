@@ -52,7 +52,7 @@
 							<ul class="main_nav_list">
 								<li class="main_nav_item"><a href="#">home</a></li>
 								<li class="main_nav_item"><a href="about.html">about us</a></li>
-								<li class="main_nav_item"><a href="offers.html">offers</a></li>
+								<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
 								<li class="main_nav_item"><a href="blog.html">news</a></li>
 								<li class="main_nav_item"><a href="contact.html">contact</a></li>
 							</ul>
