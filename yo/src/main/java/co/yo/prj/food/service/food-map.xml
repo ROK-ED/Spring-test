@@ -8,6 +8,15 @@
 	
 	
 	
+	<select id="foodSelectOption" resultType="co.yo.prj.food.service.FoodVO">
+		SELECT * FROM YO_FOOD
+		<if test="key == null">WHERE 1 = 1</if>
+		<if test="key == 'food_name'">WHERE food_name LIKE '%'|| #{food_name} ||'%' </if>
+		<if test="key == 'food_address'">WHERE food_address LIKE '%'|| #{food_address} ||'%' </if>
+		<if test="key == 'food_parking'">WHERE food_parking is not null</if>
+		<if test="key == 'food_menu'">WHERE food_menu LIKE '%'|| #{food_menu} ||'%' </if>
+		<if test="key == 'food_class'">WHERE food_class LIKE '%'|| #{food_class} ||'%' </if>
+	</select>
 	
 	
 	
