@@ -10,7 +10,8 @@
 		<div class="home_title">board</div>
 	</div>
 </div>
-<table id="table" class="table table-bordered">
+
+<table>
 	<thead>
 		<tr>
 			<th>Title</th>
