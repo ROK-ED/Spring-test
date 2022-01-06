@@ -8,4 +8,6 @@ public interface FoodService {
 	int foodInsert(FoodVO food);
 	int foodDelete(FoodVO food);
 	int foodUpdate(FoodVO food);
+
+	List<FoodVO> foodSelectOption(String key, String data);
 }

@@ -40,4 +40,9 @@ public class FoodServiceImpl implements FoodService {
 		return map.foodUpdate(food);
 	}
 
+	@Override
+	public List<FoodVO> foodSelectOption(String key, String data) {
+		return map.foodSelectOption(key, data);
+	}
+
 }
