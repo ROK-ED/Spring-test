@@ -45,7 +45,7 @@
 						class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
 						<div class="logo_container">
 							<div class="logo">
-								<a href="#"><img src="images/logo.png" alt="">travelix</a>
+								<a href="#"><img src="resources/images/logo.png" alt="">travelix</a>
 							</div>
 						</div>
 						<div class="main_nav_container ml-auto">
