@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.yo.prj.hotel.service.HotelService;
+import co.yo.prj.hotel.service.HotelVO;
 
 @Controller
 public class HotelController {
@@ -20,10 +21,16 @@ public class HotelController {
 		return "hotel/hotelSelectList";
 	}
 	
-	@RequestMapping("/hotelSelct.do")
+	@RequestMapping("/hotelSelect.do")
 	public String hotelSelct(Model model)
 	{
-		return "hotel/hotelSelct";
+		return "hotel/hotelSelect";
+	}
+	@RequestMapping("/hotelInsert.do")
+	public String hotelInsert(HotelVO hotel)
+	{
+		
+		return "hotel/hotelInsert";
 	}
 	
 }
