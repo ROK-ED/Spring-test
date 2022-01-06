@@ -7,18 +7,18 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- DB Connection Pool define -->
+
+	<context:property-placeholder
+		location="classpath:db.properties" />
+
+	<!-- DBCP -->
 	<bean class="org.apache.commons.dbcp2.BasicDataSource"
-		id="dataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver" />
-		<property name="url"
-			value="jdbc:oracle:thin:@testdb_high?TNS_ADMIN=C:/Users/admin91/Wallet_testdb/" />
-		<property name="username" value="dltkdgns" />
-		<property name="password" value="tkdgnsWkd111" />
+		id="dataSource" destroy-method="close">
+		<property name="driverClassName" value="${driver}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${user}" />
+		<property name="password" value="${password}" />
 	</bean>
-
-
 
 	<!-- Mybatis define -->
 	<!-- classpath: 경로 src/main/resources로 연결 -->
