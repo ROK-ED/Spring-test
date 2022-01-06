@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.board.service.BoardMapper">
+
+	<select id="boardSelectList"
+		resultType="co.yo.prj.board.service.BoardVO">
+		SELECT * FROM YO_BOARD ORDER BY BOARD_ID DESC
+	</select>
+
+	<select id="boardSelect"
+		resultType="co.yo.prj.board.service.BoardVO">
+		SELECT * FROM YO_BOARD
+		WHERE BOARD_ID = #{board_id}
+	</select>
+
+	<insert id="boardInsert"
+		parameterType="co.yo.prj.board.service.BoardVO">
+		INSERT INTO YO_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_EMAIL)
+		VALUES (board_seq.nextval, #{board_title}, #{board_content}, #{member_id})
+	</insert>
+
+	<update id="boardUpdate" parameterType="co.yo.prj.board.service.BoardVO" >
+		UPDATE YO_BOARD
+		<if test="board_title != null">
+			SET BOARD_TITLE = #{board_title}
+		</if>
+		<if test="board_content != null">
+			SET BOARD_CONTENT = #{board_content}
+		</if>
+		<if test="board_DATE_RE != null">
+			SET BOARD_DATE_RE = #{board_date_re}
+		</if>
+	</update>
+
+	<delete id="boardDelete" parameterType="co.yo.prj.board.service.BoardVO" >
+		DELETE YO_BOARD
+		WHERE BOARD_ID = #{board_id}
+	</delete>
+
+	<select id="boardSearch" parameterType="co.yo.prj.board.service.BoardVO">
+		SELECT * FROM YO_BOARD
+		WHERE
+		<if test="key == ''">WHERE 1 = 1</if>
+		<if test="key == 'member_id'">BOARD_ID LIKE '%' || #{val} ||'%' </if>
+		<if test="key == 'board_title'">BOARD_TITLE '%' || #{val} ||'%' </if>
+		<if test="key == 'board_content'">BOARD_CONTENT LIKE '%' || #{val} ||'%' </if>
+	</select>
+
+</mapper>

@@ -57,6 +57,7 @@
 								<li class="main_nav_item"><a href="offers.html">offers</a></li>
 								<li class="main_nav_item"><a href="blog.html">news</a></li>
 								<li class="main_nav_item"><a href="contact.html">contact</a></li>
+								<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
 							</ul>
 						</div>
 						<div class="content_search ml-lg-0 ml-auto">
