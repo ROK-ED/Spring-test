@@ -26,7 +26,7 @@ public class HomeController {
 //		String formattedDate = dateFormat.format(date);
 //		
 //		model.addAttribute("serverTime", formattedDate );
-		
+		//나원엽 수정확인
 		return "home/home";
 	}
 	
