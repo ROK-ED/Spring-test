@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.food.service.FoodMapper">
+	
+	<select id="foodSelectList" resultType="co.yo.prj.food.service.FoodVO">
+		SELECT * FROM YO_FOOD
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<insert id="foodInsert"
+	parameterType="co.yo.prj.food.service.FoodVO">
+		INSERT INTO YO_FOOD(FOOD_NAME, FOOD_ADDRESS, FOOD_TEL, FOOD_SEAT, FOOD_OT, FOOD_HOLIDAY, FOOD_PARKING, FOOD_MENU, FOOD_CLASS, FOOD_X, FOOD_Y, FOOD_DATE, FOOD_GRADE, FOOD_VISITOR, FOOD_PICTURE1, FOOD_PFILE1, FOOD_PICTURE2, FOOD_PFILE2, FOOD_PICTURE3, FOOD_PFILE3)
+		VALUES(#{food_name}, #{food_address}, #{food_tel}, #{food_seat}, #{food_ot}, #{food_holiday}, #{food_parking}, #{food_menu}, #{food_x}, #{food_y}, #{food_date}, #{food_grade}, #{food_visitor}, #{food_picture1}, #{food_pfile1}, #{food_picture2}, #{food_pfile2}, #{food_picture3}, #{food_pfile3}) 
+	</insert>
+	
+
+	<select id="foodSelect"
+	parameterType="co.yo.prj.food.service.FoodVO">
+		SELECT * FROM YO_FOOD
+		WHERE FOOD_NAME = #{food_name}
+	</select>
+	
+	<delete id="foodDelete"
+	parameterType="co.yo.prj.food.service.FoodVO">
+		DELETE FROM MEMBER WHERE FOOD_NAME = #{food_name}
+	</delete>
+	
+	
+	<update id="foodUpdate"
+	parameterType="co.yo.prj.food.service.FoodVO">
+		UPDATE YO_FOOD
+		<if test="food_name != null">set food_name = #{food_name}</if>
+		<if test="food_phone != null">set food_phone = #{food_phone}</if>
+		<if test="food_address != null">set food_address = #{food_address}</if>
+		<if test="food_seat != null">set food_seat = #{food_seat}</if>
+		<if test="food_ot != null">set food_ot = #{food_ot}</if>
+		<if test="food_holiday != null">set food_holiday = #{food_holiday}</if>
+		<if test="food_parking != null">set food_parking = #{food_parking}</if>
+		<if test="food_menu != null">set food_menu = #{food_menu}</if>
+		<if test="food_class != null">set food_class = #{food_class}</if>
+		<if test="food_x != null">set food_x = #{food_x}</if>
+		<if test="food_y != null">set food_y = #{food_y}</if>
+		<if test="food_picture1 != null">set food_picture1 = #{food_picture1}</if>
+		<if test="food_pfile1 != null">set food_pfile1 = #{food_pfile1}</if>
+		<if test="food_picture2 != null">set food_picture2 = #{food_picture2}</if>
+		<if test="food_pfile2 != null">set food_pfile2 = #{food_pfile2}</if>
+		<if test="food_picture3 != null">set food_picture3 = #{food_picture3}</if>
+		<if test="food_pfile3 != null">set food_pfile3 = #{food_pfile3}</if>
+		WHERE FOOD_NAME = #{food_name}
+	</update>
+</mapper>
