@@ -1,11 +1,8 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=refs/remotes/origin/snowleeeee
 eclipse.preferences.version=1
-<<<<<<< HEAD
-<<<<<<< HEAD
-encoding//src/main/webapp/WEB-INF/tiles/layout/header.jsp=UTF-8
-=======
-encoding//src/main/webapp/WEB-INF/views/hotel/hotelSelectList.jsp=UTF-8
->>>>>>> refs/remotes/origin/wonyeop
-=======
 encoding//src/main/webapp/WEB-INF/tiles/layout/header.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/food/foodInsert.jsp=UTF-8
->>>>>>> refs/remotes/origin/snowleeeee
+encoding//src/main/webapp/WEB-INF/views/hotel/hotelSelect.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/hotel/hotelSelectList.jsp=UTF-8

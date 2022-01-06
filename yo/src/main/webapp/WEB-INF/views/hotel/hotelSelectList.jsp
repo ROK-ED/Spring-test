@@ -51,32 +51,23 @@
 
 								<!-- Search Tabs -->
 
-								<div class="search_tabs_container">
-									<div
-										class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-										<div
-											class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
-											<img src="resources/images/suitcase.png" alt=""><span>hotels</span>
-										</div>
-										<div
-											class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
-											<img src="resources/images/bus.png" alt="">car rentals
-										</div>
-
-									</div>
-								</div>
 
 								<!-- Search Panel -->
 
 								<div class="search_panel active">
+
 									<form action="#" id="search_form_1"
 										class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 										<div class="search_item">
-											<div>destination</div>
+											<br>
+											<br>
+											<div>이름</div>
 											<input type="text" class="destination search_input"
 												required="required">
 										</div>
 										<div class="search_item">
+											<br>
+											<br>
 											<div>check in</div>
 											<input type="text" class="check_in search_input"
 												placeholder="YYYY-MM-DD">
@@ -89,56 +80,12 @@
 								</div>
 
 								<!-- Search Panel -->
-
-								<div class="search_panel">
-									<form action="#" id="search_form_2"
-										class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-										<div class="search_item">
-											<div>destination</div>
-											<input type="text" class="destination search_input"
-												required="required">
-										</div>
-										<div class="search_item">
-											<div>check in</div>
-											<input type="text" class="check_in search_input"
-												placeholder="YYYY-MM-DD">
-										</div>
-										<div class="search_item">
-											<div>check out</div>
-											<input type="text" class="check_out search_input"
-												placeholder="YYYY-MM-DD">
-										</div>
-										<div class="search_item">
-											<div>adults</div>
-											<select name="adults" id="adults_2"
-												class="dropdown_item_select search_input">
-												<option>01</option>
-												<option>02</option>
-												<option>03</option>
-											</select>
-										</div>
-										<div class="search_item">
-											<div>children</div>
-											<select name="children" id="children_2"
-												class="dropdown_item_select search_input">
-												<option>0</option>
-												<option>02</option>
-												<option>03</option>
-											</select>
-										</div>
-										<button class="button search_button">
-											search<span></span><span></span><span></span>
-										</button>
-									</form>
-								</div>
-
 
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<!-- Offers -->
 
 			<div class="container">
@@ -150,7 +97,7 @@
 
 						<div class="offers_grid">
 
-							<!-- Offers Item -->
+							<!-- Offers Item(사용할것) -->
 
 							<div class="offers_item rating_4">
 								<div class="row">
@@ -160,30 +107,26 @@
 											<!-- Image by https://unsplash.com/@kensuarez -->
 											<div class="offers_image_background"
 												style="background-image: url(resources/images/offer_1.jpg)"
-												OnClick="location.href ='hotelSelct.do'"></div>
+												OnClick="location.href ='hotelSelect.do'"></div>
 
 										</div>
 									</div>
 									<div class="col-lg-7">
-										<div class="offers_content">
+										<div class="offers_content"></div>
+										<div class="offers_price">프린스 호텔</div>
+										<div class="offer_reviews">
+											<div class="offer_reviews_content">
+												<div class="offer_reviews_title">10,000원</div>
+
 											</div>
-												<div class="offers_price">
-												프린스 호텔
-											</div>
-												<div class="offer_reviews">
-												<div class="offer_reviews_content">
-													<div class="offer_reviews_title">10,000원</div>
-												
-											</div>
-											</div>
-											<p class="offers_text">Suspendisse potenti. In faucibus
-												massa. Lorem ipsum dolor sit amet, consectetur adipiscing
-												elit. Nullam eu convallis tortor. Lorem ipsum dolor sit
-												amet.</p>
-											
-											<div class="button book_button">
-												<a href="hotelselect.do">예약<span></span><span></span><span></span></a>
-										
+										</div>
+										<p class="offers_text">Suspendisse potenti. In faucibus
+											massa. Lorem ipsum dolor sit amet, consectetur adipiscing
+											elit. Nullam eu convallis tortor. Lorem ipsum dolor sit amet.</p>
+
+										<div class="button book_button">
+											<a href="hotelRes.do">예약<span></span><span></span><span></span></a>
+
 										</div>
 									</div>
 								</div>
@@ -246,11 +189,11 @@
 
 
 
-						
+
 						</div>
 					</div>
 					<div class="col-lg-5">
-						<div id="map" style="width:500px;height:400px;"></div>
+						<div id="mapi" style="width: 500px; height: 400px;"></div>
 					</div>
 				</div>
 			</div>
@@ -282,15 +225,17 @@
 		src="resources/plugins/jquery-circle-progress-1.2.2/circle-progress.js"></script>
 	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 	<script src="resources/js/elements_custom.js"></script>
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
 	<script>
-	var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-	var options = { //지도를 생성할 때 필요한 기본 옵션
-		center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-		level: 3 //지도의 레벨(확대, 축소 정도)
-	};
+		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level : 3
+		//지도의 레벨(확대, 축소 정도)
+		};
 
-	var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	</script>
 </body>
 
