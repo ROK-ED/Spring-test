@@ -17,7 +17,7 @@ public class HotelController {
 	@RequestMapping("/hotelSelectList.do")
 	public String hotelSelectList(Model model)
 	{
-		//model.addAttribute("hotels",hotelDao.HotelSelectList());
+		model.addAttribute("hotels",hotelDao.HotelSelectList());
 		return "hotel/hotelSelectList";
 	}
 	
