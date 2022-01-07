@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.member.service.MemberMapper">
+	<select id="memberSelectList"
+		resultType="co.yo.prj.member.service.MemberVO">
+	SELECT * FROM YO_MEMBER
+	</select>
+	
+	<select id="memberselect" parameterType="co.yo.prj.member.service.MemberVO"
+		resultType="co.yo.prj.member.service.MemberVO">
+		SELECT * FROM yo_member
+		WHERE MEMBER_EMAIL = #{member_email}
+		<if test="member_pwd != null">
+			AND MEMBER_PWD = #{member_pwd}
+		</if>
+	</select>
+	
+	<insert id="memberInsert" ></insert>
+	
+	<update id="memberUpdate"></update>
+	
+	<delete id="memberDelete"></delete>
+	
+	<select id="isIdCheck"></select>
+	
+	<select id="memberSearch"></select>
+
+</mapper>
