@@ -19,10 +19,10 @@
 <link rel="stylesheet" type="text/css" href="resources/styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.css"/>
 </head>
 
 <body>
-
 <div class="super_container">
 	
 	<!-- Header -->
@@ -47,7 +47,7 @@
 <script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="resources/js/contact_custom.js"></script>
-
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/datatables.min.js"></script>
 </body>
 
 </html>
