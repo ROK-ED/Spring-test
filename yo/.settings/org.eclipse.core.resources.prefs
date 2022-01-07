@@ -3,6 +3,7 @@
 >>>>>>>=refs/remotes/origin/snowleeeee
 eclipse.preferences.version=1
 encoding//src/main/webapp/WEB-INF/tiles/layout/header.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/board/boardDetail.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/food/foodInsert.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/hotel/hotelSelect.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/hotel/hotelSelectList.jsp=UTF-8
