@@ -6,7 +6,10 @@
 		SELECT * FROM YO_FOOD
 	</select>
 	
-	
+	<select id="mapSelectList" resultType="co.yo.prj.food.service.FoodVO">
+		SELECT FOOD_ID, FOOD_NAME, FOOD_ADDRESS, FOOD_X, FOOD_Y, FOOD_SCORE, FOOD_VISITOR
+		FROM YO_FOOD
+	</select>
 	
 	<select id="foodSelectOption" resultType="co.yo.prj.food.service.FoodVO">
 		SELECT * FROM YO_FOOD

@@ -10,4 +10,5 @@ public interface FoodService {
 	int foodUpdate(FoodVO food);
 
 	List<FoodVO> foodSelectOption(String key, String data);
+	List<FoodVO> mapSelectList();
 }
