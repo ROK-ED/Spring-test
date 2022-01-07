@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%><!DOCTYPE html>
+    	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
 <title>Single Listing</title>
 <meta charset="utf-8">
@@ -61,13 +62,17 @@
 							<!-- Title -->
 							<div class="hotel_title_container d-flex flex-lg-row flex-column">
 								<div class="hotel_title_content">
-									<h1 class="hotel_title">프린스 호텔</h1>
-									<div class="hotel_info_text">전화번호</div>
-									<div class="hotel_location">주소넣는부분</div>
+									<h1 class="hotel_title">${hotel.hotel_title }</h1>
+									<div class="hotel_info_text">
+									<c:if test="${hotel.hotel_tel eq null}">
+									번호가 등록되지 않았습니다.
+									</c:if>
+									${hotel.hotel_tel }</div>
+									<div class="hotel_location">${hotel.hotel_address }</div>
 								</div>
 								<div class="hotel_title_button ml-lg-auto text-lg-right">
 									<br>
-									<div class="room_text"><h2>가격<h3></h3></div>
+									<div class="room_text"><h2>${hotel.hotel_price }원<h3></h3></div>
 										
 									
 								</div>
@@ -86,12 +91,12 @@
 							<!-- Hotel Info Text -->
 
 							<div class="hotel_info_text">
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu convallis tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis vulputate eros, iaculis consequat nisl. Nunc et suscipit urna. Integer elementum orci eu vehicula pretium. Donec bibendum tristique condimentum. Aenean in lacus ligula. Phasellus euismod gravida eros. Aenean nec ipsum aliquet, pharetra magna id, interdum sapien. Etiam id lorem eu nisl pellentesque semper. Nullam tincidunt metus placerat, suscipit leo ut, tempus nulla. Fusce at eleifend tellus. Ut eleifend dui nunc, non fermentum quam placerat non. Etiam venenatis nibh augue, sed eleifend justo tristique eu</p>
+								<p>${hotel.hotel_content }</p>
 							</div>
 						
 							<div class="col-lg-12 text-lg-right">
 								<div class="room_button">
-									<div class="button book_button trans_200"><a href="hotelRes.do">예약<span></span><span></span><span></span></a></div>
+									<div class="button book_button trans_200"><a href="hotelResForm.do?hotel_id=${hotel.hotel_id }">예약<span></span><span></span><span></span></a></div>
 								</div>
 							</div>
 						
@@ -112,6 +117,12 @@
 						
 
 						</div>
+						<div class="col-lg-11 text-lg-right">
+								<div class="room_button">
+									<div class="button book_button trans_200"><a href="hotelUpadteForm.do?hotel_id=${hotel.hotel_id }">수정<span></span><span></span><span></span></a></div>
+									<div class="button book_button trans_200"><a href="hotelResForm.do?hotel_id=${hotel.hotel_id }">삭제<span></span><span></span><span></span></a></div>
+								</div>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -139,12 +150,33 @@
 	<script>
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			center : new kakao.maps.LatLng(${hotel.hotel_locx },${hotel.hotel_locy }), //지도의 중심좌표.
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
 
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		var markerPosition  = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); 
+
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(mapi);
+
+		var iwContent = '<div style="padding:5px; color: black; font-size:70%;">${hotel.hotel_title }</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		    iwPosition = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); //인포윈도우 표시 위치입니다
+
+		// 인포윈도우를 생성합니다
+		var infowindow = new kakao.maps.InfoWindow({
+		    position : iwPosition, 
+		    content : iwContent 
+		});
+		  
+		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+		infowindow.open(mapi, marker); 
 	</script>
 </body>
 
