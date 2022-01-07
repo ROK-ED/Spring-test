@@ -11,5 +11,5 @@ public interface FoodMapper {
 	int foodDelete(FoodVO food);
 	int foodUpdate(FoodVO food);
 	List<FoodVO> foodSelectOption(@Param("key") String key, @Param("data") String data);
-	
+	List<FoodVO> mapSelectList();
 }

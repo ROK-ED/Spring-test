@@ -45,4 +45,10 @@ public class FoodServiceImpl implements FoodService {
 		return map.foodSelectOption(key, data);
 	}
 
+	@Override
+	public List<FoodVO> mapSelectList() {
+		
+		return map.mapSelectList();
+	}
+
 }

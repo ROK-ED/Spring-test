@@ -34,7 +34,7 @@ public class FoodController {
 	
 	@RequestMapping("/foodList.do")
 	public String foodSelectList(Model model) {
-		System.out.println(foodDao.foodSelectList());
+		model.addAttribute("mapSelectList",foodDao.mapSelectList());
 		model.addAttribute("foodSelectList", foodDao.foodSelectList());
 		return "food/foodList";
 	}
@@ -45,6 +45,12 @@ public class FoodController {
 	public List<FoodVO> foodSelectOption(@RequestParam("key") String key, @RequestParam("data") String data){
 		return foodDao.foodSelectOption(key, data);
 		
+	}
+	@PostMapping("makeMarker.do")
+	@ResponseBody
+	public List<FoodVO> makeMarker(){
+		return foodDao.foodSelectList();
+				
 	}
 	
 }
