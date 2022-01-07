@@ -59,15 +59,13 @@
 									<form action="#" id="search_form_1"
 										class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 										<div class="search_item">
-											<br>
-											<br>
+											<br> <br>
 											<div>이름</div>
 											<input type="text" class="destination search_input"
 												required="required">
 										</div>
 										<div class="search_item">
-											<br>
-											<br>
+											<br> <br>
 											<div>check in</div>
 											<input type="text" class="check_in search_input"
 												placeholder="YYYY-MM-DD">
@@ -134,59 +132,6 @@
 
 							<!-- Offers Item -->
 
-							<div class="offers_item rating_3">
-								<div class="row">
-									<div class="col-lg-1 temp_col"></div>
-									<div class="col-lg-3 col-1680-4">
-										<div class="offers_image_container">
-											<!-- Image by https://unsplash.com/@thoughtcatalog -->
-											<div class="offers_image_background"
-												style="background-image: url(resources/images/offer_5.jpg)"></div>
-											<div class="offer_name">
-												<a href="single_listing.html">eurostar hotel</a>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-8">
-										<div class="offers_content">
-											<div class="offers_price">
-												$50<span>per night</span>
-											</div>
-											<div class="rating_r rating_r_3 offers_rating"
-												data-rating="3">
-												<i></i> <i></i> <i></i> <i></i> <i></i>
-											</div>
-											<p class="offers_text">Suspendisse potenti. In faucibus
-												massa. Lorem ipsum dolor sit amet, consectetur adipiscing
-												elit. Nullam eu convallis tortor. Lorem ipsum dolor sit
-												amet.</p>
-											<div class="offers_icons">
-												<ul class="offers_icons_list">
-													<li class="offers_icons_item"><img
-														src="resources/images/post.png" alt=""></li>
-													<li class="offers_icons_item"><img
-														src="resources/images/compass.png" alt=""></li>
-													<li class="offers_icons_item"><img
-														src="resources/images/bicycle.png" alt=""></li>
-													<li class="offers_icons_item"><img
-														src="resources/images/sailboat.png" alt=""></li>
-												</ul>
-											</div>
-											<div class="button book_button">
-												<a href="#">book<span></span><span></span><span></span></a>
-											</div>
-											<div class="offer_reviews">
-												<div class="offer_reviews_content">
-													<div class="offer_reviews_title">very good</div>
-													<div class="offer_reviews_subtitle">100 reviews</div>
-												</div>
-												<div class="offer_reviews_rating text-center">8.1</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
 
 
 
@@ -194,6 +139,13 @@
 					</div>
 					<div class="col-lg-5">
 						<div id="mapi" style="width: 500px; height: 400px;"></div>
+					</div>
+				</div>
+				<div class="col-lg-12 text-lg-right">
+					<div class="room_button">
+						<div class="button book_button trans_200">
+							<a href="hotelInsert.do">등록<span></span><span></span><span></span></a>
+						</div>
 					</div>
 				</div>
 			</div>
