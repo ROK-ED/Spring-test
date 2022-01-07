@@ -15,8 +15,11 @@
 
 	<insert id="boardInsert"
 		parameterType="co.yo.prj.board.service.BoardVO">
+		<selectKey keyProperty="board_id" resultType="int" order="BEFORE">
+			SELECT NVL(MAX(BOARD_ID) + 1, 1) AS ID FROM YO_BOARD
+		</selectKey>
 		INSERT INTO YO_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_EMAIL)
-		VALUES (board_seq.nextval, #{board_title}, #{board_content}, #{member_id})
+		VALUES (#{board_id}, #{board_title}, #{board_content}, #{member_email})
 	</insert>
 
 	<update id="boardUpdate" parameterType="co.yo.prj.board.service.BoardVO" >
