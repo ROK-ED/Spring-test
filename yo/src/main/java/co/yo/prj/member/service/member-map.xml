@@ -15,7 +15,10 @@
 		</if>
 	</select>
 	
-	<insert id="memberInsert" ></insert>
+	<insert id="memberInsert" parameterType="co.yo.prj.member.service.MemberVO">
+	INSERT INTO YO_MEMBER(MEMBER_EMAIL,MEMBER_PWD,MEMBER_NAME,MEMBER_NICK,MEMBER_TEL,MEMBER_ADDR,MEMBER_AUTHOR)
+	VALUES(#{MEMBER_EMAIL},#{MEMBER_PWD},#{MEMBER_NAME},#{MEMBER_NICK},#{MEMBER_TEL},#{MEMBER_ADDR},#{MEMBER_AUTHOR})
+	</insert>
 	
 	<update id="memberUpdate"></update>
 	

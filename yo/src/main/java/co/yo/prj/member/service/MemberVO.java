@@ -1,5 +1,7 @@
 package co.yo.prj.member.service;
 
+import java.sql.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +12,7 @@ public class MemberVO {
 	private String member_pwd; //*비밀번호
 	private String member_name; //*이름
 	private String member_nick; //*별명
-	private String member_birth; //생년월일
-	private String member_gender; //성별
+	private Date member_date; //가입일 default sysdate
 	private String member_tel; //연락처
 	private String member_addr; //주소
 	private String member_author; //권한 default USER
