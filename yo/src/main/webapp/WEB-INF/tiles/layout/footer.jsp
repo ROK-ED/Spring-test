@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <footer class="footer">
 	<div class="container">
 		<div class="row">
@@ -183,11 +183,11 @@
 					<div class="footer_nav">
 						<ul class="footer_nav_list">
 							<li class="footer_nav_item"><a href="#">home</a></li>
-							<li class="footer_nav_item"><a href="about.html">about
-									us</a></li>
-							<li class="footer_nav_item"><a href="offers.html">offers</a></li>
-							<li class="footer_nav_item"><a href="blog.html">news</a></li>
-							<li class="footer_nav_item"><a href="contact.html">contact</a></li>
+							<li class="footer_nav_item"><a href="placeSelectList.do">place</a></li>
+							<li class="footer_nav_item"><a href="hotelSelectList.do">offers</a></li>
+							<li class="footer_nav_item"><a href="food.do">food</a></li>
+							<li class="footer_nav_item"><a href="boardSelectList.do">board</a></li>
+							<li class="footer_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 						</ul>
 					</div>
 				</div>

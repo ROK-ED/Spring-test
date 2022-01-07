@@ -22,5 +22,10 @@ public class MemberController {
 		return "member/memberSelectList";
 	}
 	
+	@RequestMapping("memberJoinForm.do")
+	public String memberJoinForm() {
+		return "member/memberJoinForm";
+	}
+	
 	
 }
