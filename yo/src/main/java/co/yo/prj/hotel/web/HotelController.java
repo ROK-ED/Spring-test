@@ -1,9 +1,11 @@
 package co.yo.prj.hotel.web;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.yo.prj.hotel.service.HotelService;
 import co.yo.prj.hotel.service.HotelVO;
@@ -22,20 +24,34 @@ public class HotelController {
 	}
 	
 	@RequestMapping("/hotelSelect.do")
-	public String hotelSelct(Model model)
+	public String hotelSelct(@RequestParam("hotel_id") String id,Model model)
 	{
+		HotelVO vo=new HotelVO();
+		vo.setHotel_id(Integer.parseInt(id));
+		model.addAttribute("hotel",hotelDao.HotelSelect(vo));
 		return "hotel/hotelSelect";
 	}
-	@RequestMapping("/hotelInsert.do")
+	@RequestMapping("/hotelInsertForm.do")
 	public String hotelInsert(HotelVO hotel)
 	{
 		
-		return "hotel/hotelInsert";
+		return "hotel/hotelInsertForm";
 	}
 	
-	@RequestMapping("/hotelRes.do")
-	public String hotelRes(Model model)
+	@RequestMapping("/hotelResForm.do")
+	public String hotelRes(@RequestParam("hotel_id") String id,Model model)
 	{
-		return "hotel/hotelRes";
+		HotelVO vo=new HotelVO();
+		vo.setHotel_id(Integer.parseInt(id));
+		model.addAttribute("hotel",hotelDao.HotelSelect(vo));
+		return "hotel/hotelResForm";
+	}
+	@RequestMapping("/hotelUpadteForm.do")
+	public String hotelUpadte(@RequestParam("hotel_id") String id,Model model)
+	{
+		HotelVO vo=new HotelVO();
+		vo.setHotel_id(Integer.parseInt(id));
+		model.addAttribute("hotel",hotelDao.HotelSelect(vo));
+		return "hotel/hotelUpadteForm";
 	}
 }

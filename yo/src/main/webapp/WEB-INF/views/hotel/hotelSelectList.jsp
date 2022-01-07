@@ -69,7 +69,7 @@
 											<br> <br>
 											<div>check in</div>
 											<input type="text" class="check_in search_input"
-												placeholder="YYYY-MM-DD">
+												placeholder="YYMMDD">
 										</div>
 
 										<button class="button search_button">
@@ -106,7 +106,7 @@
 										<div class="offers_image_container">
 											<!-- Image by https://unsplash.com/@kensuarez -->
 											<div class="offers_image_background">
-												<a href="hotelSelect.do"><img alt="숙소 섬네일" src="resources/images/offer_1.jpg"
+												<a href="hotelSelect.do?hotel_id=${hotel.hotel_id }"><img alt="숙소 섬네일" src="resources/images/offer_1.jpg"
 													style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 												</a>
 											</div>
@@ -125,7 +125,7 @@
 										<p class="offers_text">${hotel.hotel_content }</p>
 
 										<div class="button book_button">
-											<a href="hotelRes.do">예약<span></span><span></span><span></span></a>
+											<a href="hotelResForm.do?hotel_id=${hotel.hotel_id }">예약<span></span><span></span><span></span></a>
 
 										</div>
 									</div>
@@ -147,7 +147,7 @@
 				<div class="col-lg-12 text-lg-right">
 					<div class="room_button">
 						<div class="button book_button trans_200">
-							<a href="hotelInsert.do">등록<span></span><span></span><span></span></a>
+							<a href="hotelInsertForm.do">등록<span></span><span></span><span></span></a>
 						</div>
 					</div>
 				</div>
@@ -189,7 +189,7 @@
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
-
+		
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	</script>
 </body>

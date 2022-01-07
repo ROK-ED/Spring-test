@@ -45,52 +45,57 @@
 				<!-- Contact Form -->
 				<div class="contact_form_container">
 
-					<div class="contact_title text-center">숙소 등록</div>
+					<div class="contact_title text-center">숙소 업데이트</div>
 
 					<form action="#" id="hotelForm" name="hotelForm"
 						class="contact_form text-left">
 						<div class="row">
 							<div class="col-lg-5">
-								<input type="email" id="hotel_title" name="hotel_title"
+								<input type="text" id="hotel_title" name="hotel_title"
 									class="contact_form_subject input_field" placeholder="숙소명"
-									required="required" data-error="email is required."> <input
+									required="required" data-error="email is required." value="${hotel.hotel_title }">
+								 <input
 									type="text" id="hotel_locx" name="hotel_locx"
 									class="contact_form_name input_field" placeholder="위도"
-									required="required" data-error="LocX is required."> <input
+									required="required" data-error="LocX is required." readonly  value="${hotel.hotel_locx }"> 
+								<input
 									type="text" id="hotel_locy" name="hotel_locy"
 									class="contact_form_email input_field" placeholder="경도"
-									required="required" data-error="LocY is required."> <input
+									required="required" data-error="LocY is required." readonly  value="${hotel.hotel_locy }"> 
+								 <input
 									type="text" id="hotel_address" name="hotel_address"
 									class="contact_form_subject input_field" placeholder="주소"
-									required="required" data-error="address is required.">
+									required="required" data-error="address is required." readonly  value="${hotel.hotel_address }">
 
 								<input type="text" id="hotel_tel" name="hotel_tel"
 									class="contact_form_subject input_field" placeholder="전화번호"
-									required="required" data-error="tel is required."> <input
+									required="required" data-error="tel is required."  value="${hotel.hotel_tel }">
+								 <input
 									type="number" id="hotel_loom" name="hotel_loom"
 									class="contact_form_name input_field" placeholder="객실수"
-									required="required" data-error="room is required."> <input
+									required="required" data-error="room is required."  value="${hotel.hotel_loom }">
+								 <input
 									type="number" id="hotel_locy" name="hotel_locy"
 									class="contact_form_email input_field" placeholder="가격"
-									required="required" data-error="LocY is required.">
+									required="required" data-error="LocY is required."  value="${hotel.hotel_price }">
 
 								<textarea id="hotel_content" name="hotel_content"
 									class="text_field contact_form_message" name="message" rows="4"
 									placeholder="내용" required="required"
-									data-error="Please, write us a content." style="resize: none;"></textarea>
+									data-error="Please, write us a content." style="resize: none;"> ${hotel.hotel_content }</textarea>
 							</div>
 							<div class="col-lg-7">
 
 								<div class="contact_title text-center">
 									<div id="mapi" style="width: 100%; height: 480px;"></div>
 									<div class="contact_title text-center">
-										<h4>클릭시 해당좌표의 주소정보가 입력됩니다.</h4>
+										<h4>주소정보는 지도를 클릭해야 입력됩니다.</h4>
 									</div>
 								</div>
 								<div class="contact_title text-right">
 									<button type="submit" id="form_submit_button"
 										class="form_submit_button button trans_200">
-										등록<span></span><span></span><span></span>
+										수정<span></span><span></span><span></span>
 									</button>
 								</div>
 							</div>
@@ -124,16 +129,43 @@
 	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 	<script src="resources/js/contact_custom.js"></script>
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d&libraries=services"></script>
 	<script>
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			center : new kakao.maps.LatLng(${hotel.hotel_locx},
+					${hotel.hotel_locy}), //지도의 중심좌표.
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
 
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		var marker = new kakao.maps.Marker(); // 클릭한 위치를 표시할 마커입니다
+
+		kakao.maps.event.addListener(mapi, 'click', function(mouseEvent) {
+			// 클릭한 위도, 경도 정보를 가져옵니다 
+			var latlng = mouseEvent.latLng;
+			$('#hotel_locx').val(latlng.getLat());
+			$('#hotel_locy').val(latlng.getLng());
+
+			searchDetailAddrFromCoords(mouseEvent.latLng, function(result,
+					status) {
+				if (status === kakao.maps.services.Status.OK) {
+					$('#hotel_address').val(result[0].address.address_name);
+					// 마커를 클릭한 위치에 표시합니다 
+					marker.setPosition(mouseEvent.latLng);
+					marker.setMap(mapi);
+
+				}
+			})
+		});
+
+		function searchDetailAddrFromCoords(coords, callback) {
+			// 좌표로 법정동 상세 주소 정보를 요청합니다
+			geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		}
 	</script>
 </body>
 
