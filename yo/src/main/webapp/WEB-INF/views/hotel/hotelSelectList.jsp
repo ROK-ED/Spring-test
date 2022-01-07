@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <head>
 <title>숙박</title>
@@ -96,31 +97,32 @@
 						<div class="offers_grid">
 
 							<!-- Offers Item(사용할것) -->
-
+							<!-- 여기서부터 -->
+							<c:forEach items="${hotels }" var="hotel">
 							<div class="offers_item rating_4">
 								<div class="row">
 									<div class="col-lg-0 temp_col"></div>
 									<div class="col-lg-5 col-1680-4">
 										<div class="offers_image_container">
 											<!-- Image by https://unsplash.com/@kensuarez -->
-											<div class="offers_image_background"
-												style="background-image: url(resources/images/offer_1.jpg)"
-												OnClick="location.href ='hotelSelect.do'"></div>
+											<div class="offers_image_background">
+												<a href="hotelSelect.do"><img alt="숙소 섬네일" src="resources/images/offer_1.jpg"
+													style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+												</a>
+											</div>
 
 										</div>
 									</div>
 									<div class="col-lg-7">
 										<div class="offers_content"></div>
-										<div class="offers_price">프린스 호텔</div>
+										<div class="offers_price">${hotel.hotel_title }</div>
 										<div class="offer_reviews">
 											<div class="offer_reviews_content">
-												<div class="offer_reviews_title">10,000원</div>
+												<div class="offer_reviews_title">${hotel.hotel_price} 원</div>
 
 											</div>
 										</div>
-										<p class="offers_text">Suspendisse potenti. In faucibus
-											massa. Lorem ipsum dolor sit amet, consectetur adipiscing
-											elit. Nullam eu convallis tortor. Lorem ipsum dolor sit amet.</p>
+										<p class="offers_text">${hotel.hotel_content }</p>
 
 										<div class="button book_button">
 											<a href="hotelRes.do">예약<span></span><span></span><span></span></a>
@@ -129,7 +131,8 @@
 									</div>
 								</div>
 							</div>
-
+							</c:forEach>
+							<!-- 여기까지 for문돌릴것 -->
 							<!-- Offers Item -->
 
 
