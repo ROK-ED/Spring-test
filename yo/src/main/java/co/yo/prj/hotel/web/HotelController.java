@@ -33,4 +33,9 @@ public class HotelController {
 		return "hotel/hotelInsert";
 	}
 	
+	@RequestMapping("/hotelRes.do")
+	public String hotelRes(Model model)
+	{
+		return "hotel/hotelRes";
+	}
 }
