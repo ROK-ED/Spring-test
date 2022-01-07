@@ -13,5 +13,5 @@ public class BoardVO {
 	private String board_content;
 	private Date board_date;
 	private Date board_date_re;
-	private String board_email;
+	private String member_email;
 }
