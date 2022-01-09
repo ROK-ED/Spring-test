@@ -30,7 +30,7 @@
 		<if test="board_content != null">
 			SET BOARD_CONTENT = #{board_content}
 		</if>
-		<if test="board_DATE_RE != null">
+		<if test="board_date_re != null">
 			SET BOARD_DATE_RE = #{board_date_re}
 		</if>
 	</update>
