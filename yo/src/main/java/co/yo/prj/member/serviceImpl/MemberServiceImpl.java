@@ -41,13 +41,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public boolean isIdCheck(String id) {
-		return map.isIdCheck(id);
+	public boolean isIdCheck(String member_email) {
+		return map.isIdCheck(member_email);
 	}
 
 	@Override
 	public List<MemberVO> memberSearch(String key, String data) {
 		return map.memberSearch(key, data);
+	}
+
+	@Override
+	public MemberVO memebrUpdateSelect(MemberVO member) {
+		return map.memebrUpdateSelect(member);
 	}
 
 }

@@ -8,7 +8,7 @@ public interface MemberService {
 	int memberInsert(MemberVO member);
 	int memberUpdate(MemberVO member);
 	int memberDelete(MemberVO member);
-	
-	boolean isIdCheck(String id);
+	MemberVO memebrUpdateSelect(MemberVO member); //수정용 셀렉트
+	boolean isIdCheck(String member_email);
 	List<MemberVO> memberSearch(String key, String data);
 }

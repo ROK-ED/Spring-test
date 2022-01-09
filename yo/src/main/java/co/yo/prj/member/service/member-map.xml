@@ -8,24 +8,58 @@
 	
 	<select id="memberselect" parameterType="co.yo.prj.member.service.MemberVO"
 		resultType="co.yo.prj.member.service.MemberVO">
-		SELECT * FROM yo_member
+		SELECT * FROM YO_MEMBER
 		WHERE MEMBER_EMAIL = #{member_email}
 		<if test="member_pwd != null">
 			AND MEMBER_PWD = #{member_pwd}
 		</if>
 	</select>
 	
+	<select id="memebrUpdateSelect" parameterType="co.yo.prj.member.service.MemberVO"
+		resultType="co.yo.prj.member.service.MemberVO">
+		SELECT * FROM YO_MEMBER
+		WHERE MEMBER_EMAIL = #{member_email}
+	</select>
+	
 	<insert id="memberInsert" parameterType="co.yo.prj.member.service.MemberVO">
 	INSERT INTO YO_MEMBER(MEMBER_EMAIL,MEMBER_PWD,MEMBER_NAME,MEMBER_NICK,MEMBER_TEL,MEMBER_ADDR,MEMBER_AUTHOR)
-	VALUES(#{MEMBER_EMAIL},#{MEMBER_PWD},#{MEMBER_NAME},#{MEMBER_NICK},#{MEMBER_TEL},#{MEMBER_ADDR},#{MEMBER_AUTHOR})
+	VALUES(#{member_email},#{member_pwd},#{member_name},#{member_nick},#{member_tel},#{member_addr},#{member_author})
 	</insert>
 	
-	<update id="memberUpdate"></update>
+	<update id="memberUpdate" parameterType="co.yo.prj.member.service.MemberVO">
 	
-	<delete id="memberDelete"></delete>
+	UPDATE YO_MEMBER 
+	SET MEMBER_AUTHOR = #{member_author},
+	MEMBER_NICK = #{member_nick},
+	MEMBER_TEL = #{member_tel},
+	MEMBER_ADDR = #{member_addr},
+	MEMBER_PWD = #{member_pwd}
+	WHERE MEMBER_EMAIL = #{member_email}
 	
-	<select id="isIdCheck"></select>
+	</update>
+<!-- 	
+
+	<if test="member_pwd != null">SET MEMBER_PWD = #{member_pwd}</if>
+		<if test="member_nick != null">SET MEMBER_NICK = #{member_nick}</if>
+		<if test="member_tel != null">SET MEMBER_TEL = #{member_tel}</if>
+		<if test="member_addr != null">SET MEMBER_ADDR = #{member_addr}</if>
+		<if test="member_author != null">SET MEMBER_AUTHOR = #{member_author}</if>
+		<if test="member_x != 0.0">SET MEMBER_X = #{member_x}</if>
+		<if test="member_y != 0.0">SET MEMBER_Y = #{member_y}</if>
+	 -->
+	<delete id="memberDelete" parameterType="co.yo.prj.member.service.MemberVO">
+	 DELETE FROM YO_MEMBER 
+	 WHERE MEMBER_EMAIL = #{member_email}
+	</delete>
 	
+	<!-- resultType이 boolean일 경우 1 : true, 0 : false -->
+	<select id="isIdCheck" parameterType="String" resultType="boolean">
+	SELECT CASE WHEN COUNT(*) = 1 THEN 0 ELSE 1 END AS MEMBER_EMAIL  
+		FROM YO_MEMBER 
+		WHERE MEMBER_EMAIL = #{member_email}
+	</select>
+	
+	<!-- 혹시나 만들었는데 안쓸듯? -->
 	<select id="memberSearch"></select>
 
 </mapper>

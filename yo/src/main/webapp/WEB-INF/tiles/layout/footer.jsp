@@ -182,7 +182,7 @@
 					class="footer_nav_container d-flex flex-row align-items-center justify-content-lg-end">
 					<div class="footer_nav">
 						<ul class="footer_nav_list">
-							<li class="footer_nav_item"><a href="#">home</a></li>
+							<li class="footer_nav_item"><a href="home.do">home</a></li>
 							<li class="footer_nav_item"><a href="placeSelectList.do">place</a></li>
 							<li class="footer_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="footer_nav_item"><a href="food.do">food</a></li>

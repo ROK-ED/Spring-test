@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <header class="header">
 
 	<!-- Top Bar -->
@@ -26,12 +27,32 @@
 						</ul>
 					</div>
 					<div class="user_box ml-auto">
-						<div class="user_box_login user_box_link">
-							<a href="#">login</a>
-						</div>
-						<div class="user_box_register user_box_link">
-							<a href="memberJoinForm.do">회원가입</a>
-						</div>
+						<c:choose>
+							<c:when test="${sessionScope.member_email == null }">
+								<!-- 로그인 전 -->
+								<div class="user_box_login user_box_link">
+									<a href="memberLoginForm.do">login</a>
+								</div>
+								<div class="user_box_register user_box_link">
+									<a href="memberJoinForm.do">회원가입</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<!-- 로그인 후 -->
+								<div class="user_box_register user_box_link">
+									${sessionScope.member_nick }님(${sessionScope.member_author }),
+									환영합니다.</div>
+								<div class="user_box_login user_box_link">
+									<a href="memberLogout.do">LOGOUT</a>
+								</div>
+								<div class="user_box_login user_box_link">
+									<a href="#">예정(미구현)</a>
+								</div>
+								<div class="user_box_register user_box_link">
+									<a href="memberselectForm.do">마이페이지</a>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
@@ -52,7 +73,7 @@
 					</div>
 					<div class="main_nav_container ml-auto">
 						<ul class="main_nav_list">
-							<li class="main_nav_item"><a href="#">home</a></li>
+							<li class="main_nav_item"><a href="home.do">home</a></li>
 							<li class="main_nav_item"><a href="placeSelectList.do">place</a></li>
 							<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="main_nav_item"><a href="food.do">food</a></li>
@@ -112,7 +133,7 @@
 			<a href="#"><img src="resources/images/logo.png" alt=""></a>
 		</div>
 		<ul>
-			<li class="menu_item"><a href="#">home</a></li>
+			<li class="menu_item"><a href="home.do">home</a></li>
 			<li class="menu_item"><a href="placeSelectList.do">place</a></li>
 			<li class="menu_item"><a href="hotelSelectList.do">offers</a></li>
 			<li class="menu_item"><a href="food.do">food</a></li>
