@@ -21,8 +21,7 @@
 	href="resources/styles/offers_responsive.css">
 <style>
 .wrap {
-	display:none;
-	z-index: 2;  
+	z-index: 2;
 	left: 0;
 	bottom: 40px;
 	width: 288px;
@@ -271,9 +270,24 @@
 															src="images/sailboat.png" alt=""></li>
 													</ul>
 												</div>
-												<div class="button book_button">
-													<a href="#">book<span></span><span></span><span></span></a>
-												</div>
+
+
+												<form action="">
+													<input type="text" class="formFoodName" id="formFoodName"
+														value="${food.food_name }"> <input type="text"
+														class="formFoodAddress" id="formFoodAddress"
+														value="${food.food_address }"> <input type="text"
+														class="formFoodX" id="formFoodX" value="${food.food_x }">
+													<input type="text" class="formFoodY" id="formFoodY"
+														value="${food.food_y }"> <input type="text"
+														class="plz" class="plz" value="${food}"> <input
+														type="submit" class="button book_button" value="예약"><span></span><span></span><span></span>
+													<button class="button book_button">
+														book<span></span><span></span><span></span>
+													</button>
+												</form>
+
+
 												<div class="offer_reviews">
 													<div class="offer_reviews_content">
 														<div class="offer_reviews_title">very good</div>
@@ -285,16 +299,7 @@
 										</div>
 									</div>
 								</div>
-								<form action="">
-									<input type="text" class="formFoodName" id="formFoodName"
-										value="${food.food_name }"> <input type="text"
-										class="formFoodAddress" id="formFoodAddress"
-										value="${food.food_address }"> <input type="text"
-										class="formFoodX" id="formFoodX" value="${food.food_x }">
-									<input type="text" class="formFoodY" id="formFoodY"
-										value="${food.food_y }"> <input type="text"
-										class="plz" class="plz" value="${food }">
-								</form>
+
 
 							</c:forEach>
 						</div>
@@ -388,11 +393,11 @@
 			});
 		}
 
-		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+		/* // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 		var infowindow = new kakao.maps.InfoWindow({
 			zIndex : 1
 		});
-
+		 */
 		var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
 		mapOption = {
 			center : new kakao.maps.LatLng(formFoodY, formFoodX), // 지도의 중심좌표
@@ -405,7 +410,9 @@
 
 		// 장소 검색 객체를 생성합니다
 		var ps = new kakao.maps.services.Places(mapi);
+		var count = 0;
 
+		//센터가 바뀔때 다시 로딩하기
 		kakao.maps.event
 				.addListener(
 						mapi,
@@ -416,9 +423,8 @@
 
 							var latlng = mapi.getCenter();
 
-							// 카테고리로 은행을 검색합니다
+							// 카테고리로 음식점을 검색합니다
 							ps.categorySearch('FD6', placesSearchCB, {
-
 								useMapBounds : true
 							});
 
@@ -433,7 +439,9 @@
 
 							// 지도에 마커를 표시하는 함수입니다
 							function displayMarker(place) {
-								var content = '<div class="wrap" id="mapWrap">'
+								var content = '<div class="wrap" id="mapWrap'
+										+ (count++)
+										+ '">'
 										+ '    <div class="info">'
 										+ '        <div class="title">'
 										+ '           '
@@ -471,28 +479,25 @@
 											infowindow.open(mapi, marker); */
 
 											// 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
-											document.getElementById("mapWrap").style.display="block";
+											//document.getElementById("mapWrap").style.display="block";
 											overlay.setMap(mapi);
 
-										});
+										});//마커 클릭 이벤트 끗...
 
 								var overlay = new kakao.maps.CustomOverlay({
 									content : content,
-									map : mapi,
 									position : marker.getPosition()
 								});
-								
+
 							}
 
-						});
+						}); //center_changed 찾는거 addEvent()
 		// 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
 		function closeOverlay() {
+			//document.getElementById("mapWrap").style.display="none";
 
-		    document.getElementById("mapWrap").style.display="none";
-			//overlay.setMap(null);
+			overlay.setMap(null);
 		}
-
-		
 	</script>
 
 </body>
