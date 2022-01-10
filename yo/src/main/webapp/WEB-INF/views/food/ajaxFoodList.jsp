@@ -170,7 +170,8 @@
 
 		// 지도를 생성합니다    
 		var mapi = new kakao.maps.Map(mapContainer, mapOption);
-		var arr = [];
+		var resultX = [];
+		var resultY = [];
 		function mapKakao(data, i) {
 			console.log("주소 찍히는지 확인히가 ===== " + data.data[0].BZ_NM);
 			console.log("사지으 좍인하기   ==" + data.data[0].length);
@@ -194,8 +195,11 @@
 							var coords = new kakao.maps.LatLng(result[0].y,
 									result[0].x);
 							console.log(result[0].x);
-							arr[i] = result[0].x;
-							console.log(arr[0])
+							resultX[i] = result[0].x;
+							resultY[i] = result[0].y;
+							
+							
+							console.log(resultX[i])
 							// 결과값으로 받은 위치를 마커로 표시합니다
 							var marker = new kakao.maps.Marker({
 								map : mapi,
