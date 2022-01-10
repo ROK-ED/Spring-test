@@ -145,45 +145,45 @@ public class MemberController {
 	public String memberUpdate(MemberVO member, Model model, HttpSession session) {
 		String email = (String) session.getAttribute("member_email");
 		member.setMember_email(email);
-		//System.out.println(member.getMember_email());
-		//System.out.println(member.getMember_pwd());
-		//System.out.println(member.getMember_author());//
-		//System.out.println(member.getMember_nick());//
+		// System.out.println(member.getMember_email());
+		// System.out.println(member.getMember_pwd());
+		// System.out.println(member.getMember_author());//
+		// System.out.println(member.getMember_nick());//
 
 		if (member.getMember_nick() == "") {
-			//System.out.println("빈칸");
-			//System.out.println(member.getMember_nick());
+			// System.out.println("빈칸");
+			// System.out.println(member.getMember_nick());
 			String result = memberDao.memebrUpdateSelect(member).getMember_nick();
-			//System.out.println(result);
+			// System.out.println(result);
 			member.setMember_nick(result);
 		}
 
 		if (member.getMember_tel() == "") {
-			//System.out.println(member.getMember_tel());
+			// System.out.println(member.getMember_tel());
 			String result = memberDao.memebrUpdateSelect(member).getMember_tel();
-			//System.out.println(result);
+			// System.out.println(result);
 			member.setMember_tel(result);
 		}
-		
+
 		if (member.getMember_addr() == "") {
-			//System.out.println(member.getMember_addr());
+			// System.out.println(member.getMember_addr());
 			String result = memberDao.memebrUpdateSelect(member).getMember_addr();
-			//System.out.println(result);
+			// System.out.println(result);
 			member.setMember_addr(result);
 		}
-		
+
 		if (member.getMember_pwd() == "") {
-			//System.out.println(member.getMember_pwd());
+			// System.out.println(member.getMember_pwd());
 			String result = memberDao.memebrUpdateSelect(member).getMember_pwd();
-			//System.out.println(result);
+			// System.out.println(result);
 			member.setMember_pwd(result);
 		}
 
 //		System.out.println(member.getMember_x());
 //		System.out.println(member.getMember_y());
-		//System.out.println("DB실행");
+		// System.out.println("DB실행");
 		int r = memberDao.memberUpdate(member);
-		//System.out.println(r + "건입력");
+		// System.out.println(r + "건입력");
 
 		// session 값 수정
 		if (member.getMember_author() != null) {
@@ -203,4 +203,48 @@ public class MemberController {
 //		mav.setViewName("Message");
 //		return mav;
 //	}
+
+	@PostMapping("/ajaxIce.do") // 동결 및 해제
+	@ResponseBody
+	public String ajaxIce(Model model, String member_email, MemberVO member) {
+
+		System.out.println(member_email);
+		//System.out.println(member_author);
+
+		member.setMember_email(member_email);
+		
+		System.out.println("기존 데이터를 불러옵니다.");
+		member = memberDao.memebrUpdateSelect(member);
+		String author = member.getMember_author();
+		System.out.println(member.getMember_author());
+		if (author.equals("USER")) {
+			System.out.println("USER ~ ice");
+			String author2 = "ice";
+			member.setMember_author(author2);
+		} else if (author.equals("HOST")) {
+			System.out.println("HOST ~ ice");
+			String author2 = "ice";
+			member.setMember_author(author2);
+		} else if (author.equals("ADMIN")) {
+			System.out.println("ADMIN 변경안할꺼임");
+			String author2 = "ADMIN";
+			member.setMember_author(author2);
+		} else if (author.equals("ice")) {
+			System.out.println("ice ~ USER");
+			String author2 = "USER";
+			member.setMember_author(author2);
+		}
+		System.out.println(member.getMember_email());
+		System.out.println(member.getMember_author());
+		System.out.println("업데이트 실행");
+		memberDao.memberUpdate(member);
+		System.out.println("업데이트 됨");
+		
+		
+		// 동결 후 다시 리스트 페이지로
+		System.out.println("리스트 불러오기 시작");
+		model.addAttribute("members", memberDao.memberSelectList());
+		System.out.println("리스트 불러오기 되면 화면 전환");
+		return "member/memberSelectList";
+	}
 }

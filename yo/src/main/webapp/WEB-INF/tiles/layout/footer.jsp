@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <footer class="footer">
 	<div class="container">
 		<div class="row">
@@ -187,7 +188,9 @@
 							<li class="footer_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="footer_nav_item"><a href="food.do">food</a></li>
 							<li class="footer_nav_item"><a href="boardSelectList.do">board</a></li>
+							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="footer_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+							</c:if>
 						</ul>
 					</div>
 				</div>

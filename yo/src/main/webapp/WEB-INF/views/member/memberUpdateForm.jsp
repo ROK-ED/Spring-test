@@ -40,6 +40,11 @@
 								<input style="display: inline-block;" id="member_author" type="radio" name="member_author" value="USER" ><p style="display: inline-block; color: white; margin-bottom: 0">&nbsp;USER&nbsp;&nbsp;</p>
 								<input style="display: inline-block;" id="member_author" type="radio" name="member_author" value="HOST" checked><p style="display: inline-block; color: white; margin-bottom: 0">&nbsp;HOST</p>
 							</c:if>
+							<c:if test="${member.member_author  == 'ADMIN' }">
+								<input style="display: inline-block;" id="member_author" type="radio" name="member_author" value="USER" ><p style="display: inline-block; color: white; margin-bottom: 0">&nbsp;USER&nbsp;&nbsp;</p>
+								<input style="display: inline-block;" id="member_author" type="radio" name="member_author" value="HOST" ><p style="display: inline-block; color: white; margin-bottom: 0">&nbsp;HOST</p>
+								<input style="display: inline-block;" id="member_author" type="radio" name="member_author" value="ADMIN" checked><p style="display: inline-block; color: white; margin-bottom: 0">&nbsp;ADMIN</p>
+							</c:if>
 							</div>
 							<br>
 							<h3 id="member_email" name="member_email"

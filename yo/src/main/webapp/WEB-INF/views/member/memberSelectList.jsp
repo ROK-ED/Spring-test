@@ -47,7 +47,13 @@
 						<th>${member.member_author }</th>
 						<th>예약확인(미구현)</th>
 						<th>채팅(미구현)</th>
-						<th>동결(미구현)</th>
+						<th>
+							<button type="button" id="ice" onclick="ajaxIce()"
+								class="form_submit_button button trans_200 "
+								style="margin-bottom: 20px; background-color: orange;">
+								동결(미구현)
+							</button>
+						</th>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -55,3 +61,31 @@
 	</div>
 </div>
 <br>
+<script type="text/javascript">
+function ajaxIce() {
+	var member_email = this.event.path[2].children[0].textContent;
+	console.log(member_email);
+	var member_author = this.event.path[2].children[6].textContent;
+	console.log(member_author);
+ 		
+	$.ajax({
+			url : "ajaxIce.do",
+			type : "post",
+			data : {
+				"member_email" : member_email
+				/* "member_author" : member_author */
+			},
+			dataType : "text",
+			success : function(str) {
+				alert("동결/해제 되었습니다.");
+				location.reload();
+			},
+			error : function() {
+				alert("동결 과정에서 오류가 발생했습니다.");
+				location.reload();
+				
+			}
+		});
+ 	
+}
+</script>

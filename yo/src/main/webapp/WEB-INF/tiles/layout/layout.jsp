@@ -19,6 +19,8 @@
 <link rel="stylesheet" type="text/css" href="resources/styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_responsive.css">
+<link rel="stylesheet" type="text/css" href="resources/styles/offers_styles.css">
+<link rel="stylesheet" type="text/css" href="resources/styles/offers_responsive.css">
 
 </head>
 
@@ -47,6 +49,17 @@
 <script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="resources/js/contact_custom.js"></script>
+
+<script src="resources/plugins/Isotope/isotope.pkgd.min.js"></script>
+<script src="resources/plugins/easing/easing.js"></script>
+<script src="resources/js/offers_custom.js"></script>
+<script src="resources/plugins/greensock/TweenMax.min.js"></script>
+<script src="resources/plugins/greensock/TimelineMax.min.js"></script>
+<script src="resources/plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="resources/plugins/greensock/animation.gsap.min.js"></script>
+<script src="resources/plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="resources/plugins/progressbar/progressbar.min.js"></script>
+<script src="resources/plugins/jquery-circle-progress-1.2.2/circle-progress.js"></script>
 
 </body>
 
