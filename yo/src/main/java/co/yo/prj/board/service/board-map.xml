@@ -15,32 +15,34 @@
 
 	<insert id="boardInsert"
 		parameterType="co.yo.prj.board.service.BoardVO">
-		<selectKey keyProperty="board_id" resultType="int" order="BEFORE">
+		<selectKey keyProperty="board_id" resultType="int"
+			order="BEFORE">
 			SELECT NVL(MAX(BOARD_ID) + 1, 1) AS ID FROM YO_BOARD
 		</selectKey>
-		INSERT INTO YO_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT, MEMBER_EMAIL)
-		VALUES (#{board_id}, #{board_title}, #{board_content}, #{member_email})
+		INSERT INTO YO_BOARD (BOARD_ID, BOARD_TITLE, BOARD_CONTENT,
+		MEMBER_EMAIL)
+		VALUES (#{board_id}, #{board_title}, #{board_content},
+		#{member_email})
 	</insert>
 
-	<update id="boardUpdate" parameterType="co.yo.prj.board.service.BoardVO" >
+	<update id="boardUpdate"
+		parameterType="co.yo.prj.board.service.BoardVO">
 		UPDATE YO_BOARD
-		<if test="board_title != null">
-			SET BOARD_TITLE = #{board_title}
-		</if>
-		<if test="board_content != null">
-			SET BOARD_CONTENT = #{board_content}
-		</if>
-		<if test="board_date_re != null">
-			SET BOARD_DATE_RE = #{board_date_re}
-		</if>
+		SET BOARD_TITLE = #{board_title},
+		BOARD_CONTENT = #{board_content},
+		BOARD_DATE_RE = SYSDATE
+		WHERE BOARD_ID = #{board_id}
 	</update>
 
-	<delete id="boardDelete" parameterType="co.yo.prj.board.service.BoardVO" >
+	<delete id="boardDelete"
+		parameterType="co.yo.prj.board.service.BoardVO">
 		DELETE YO_BOARD
-		WHERE BOARD_ID = #{board_id}
+		WHERE
+		BOARD_ID = #{board_id}
 	</delete>
 
-	<select id="boardSearch" parameterType="co.yo.prj.board.service.BoardVO">
+	<select id="boardSearch"
+		parameterType="co.yo.prj.board.service.BoardVO">
 		SELECT * FROM YO_BOARD
 		WHERE
 		<if test="key == ''">WHERE 1 = 1</if>

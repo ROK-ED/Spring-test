@@ -10,31 +10,42 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div class="container">
-					<div class="row align-items-start">
-						<div class="col">Title</div>
-						<div class="col">Content</div>
-						<div class="col">Writer</div>
-					</div>
-					<div class="row align-items-start">
-						<div class="col">${board.board_title }</div>
-						<div class="col">${board.board_content }</div>
-						<div class="col">${board.member_email }</div>
-					</div>
-					<div class="form-row float-right">
-						<button type="button" class="btn btn-primary"
-					onClick="location.href='board.do?cmd=update&board_id=${board.board_id }'">Modify</button>
-					</div>
-					<div class="form-row float-left">
-						<button type="button" class="btn btn-primary"
-					onClick="location.href='board.do?cmd=delete&board_id=${board.board_id }'">Delete</button>
-					</div>
-					<button type="button" class="btn btn-info btn-block"
-						onClick="location.href='boardSelectList.do'">Board List</button>
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Title</th>
+							<th scope="col">Content</th>
+							<th scope="col">Writer</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row">1</th>
+							<td>${board.board_title }</td>
+							<td>${board.board_content }</td>
+							<td>${board.member_email }</td>
+						</tr>
+					</tbody>
+				</table>
+				<%-- <c:if test="${sessionScope.?.? == ?.board_email}">
+					본인만 수정 삭제가 가능하도록
+				</c:if> --%>
+				<div class="form-row float-right">
+					<button type="button" class="btn btn-primary"
+						onClick="location.href='boardInsertForm.do?board_id=${board.board_id}'">Modify</button>
 				</div>
+				<div class="form-row float-left">
+					<button type="button" class="btn btn-primary"
+						onClick="location.href='board.do?cmd=delete&board_id=${board.board_id }'">Delete</button>
+				</div>
+				<button type="button" class="btn btn-info btn-block"
+					onClick="location.href='boardSelectList.do'">Board List</button>
 			</div>
 		</div>
 	</div>
 </div>
 <br>
 <br>
+
+
