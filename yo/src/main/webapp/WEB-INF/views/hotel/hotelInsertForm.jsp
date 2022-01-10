@@ -5,18 +5,7 @@
 <head>
 <title>Contact</title>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Travelix Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/bootstrap4/bootstrap.min.css">
-<link
-	href="resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/contact_styles.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/contact_responsive.css">
+
 </head>
 
 <body>
@@ -47,35 +36,30 @@
 
 					<div class="contact_title text-center">숙소 등록</div>
 
-					<form action="#" id="hotelForm" name="hotelForm"
-						class="contact_form text-left">
+					<form action="hotelInsert.do" id="hotelForm" name="hotelForm"
+						class="contact_form text-left" method="post" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-lg-5">
 								<input type="text" id="hotel_title" name="hotel_title"
 									class="contact_form_subject input_field" placeholder="숙소명"
-									required="required" data-error="email is required.">
-								 <input
+									required="required" data-error="email is required."> <input
 									type="text" id="hotel_locx" name="hotel_locx"
 									class="contact_form_name input_field" placeholder="위도"
-									required="required" data-error="LocX is required." readonly> 
-								<input
-									type="text" id="hotel_locy" name="hotel_locy"
+									required="required" data-error="LocX is required." readonly>
+								<input type="text" id="hotel_locy" name="hotel_locy"
 									class="contact_form_email input_field" placeholder="경도"
 									required="required" data-error="LocY is required." readonly>
-								 <input
-									type="text" id="hotel_address" name="hotel_address"
+								<input type="text" id="hotel_address" name="hotel_address"
 									class="contact_form_subject input_field" placeholder="주소"
 									required="required" data-error="address is required." readonly>
 
 								<input type="text" id="hotel_tel" name="hotel_tel"
 									class="contact_form_subject input_field" placeholder="전화번호"
-									required="required" data-error="tel is required.">
-								 <input
+									required="required" data-error="tel is required."> <input
 									type="number" id="hotel_loom" name="hotel_loom"
 									class="contact_form_name input_field" placeholder="객실수"
-									required="required" data-error="room is required.">
-								 <input
-									type="number" id="hotel_locy" name="hotel_locy"
+									required="required" data-error="room is required."> <input
+									type="number" id="hotel_price" name="hotel_price"
 									class="contact_form_email input_field" placeholder="가격"
 									required="required" data-error="LocY is required.">
 
@@ -83,6 +67,42 @@
 									class="text_field contact_form_message" name="message" rows="4"
 									placeholder="내용" required="required"
 									data-error="Please, write us a content." style="resize: none;"></textarea>
+								<input type="hidden" id="hotel_enroll_email"
+									name="hotel_enroll_email" value="${sessionScope.member_email }">
+								<br>
+								
+								<div class="row"><!-- 섬네일사진 -->
+									<input type="file" name="thumbnail" id="thumbnail" style="display:none" onchange="document.getElementById('thm_txt').value=this.value">
+									<div class="col-lg-3">
+										<button type="button" id="form_submit_button" onclick="onclick=document.all.thumbnail.click()"
+											class="form_submit_button button trans_200" style="margin-top: 0px;">
+											file
+										</button>
+									</div>
+									<div class="col-lg-9">
+										<br>
+										<br>
+										<input type="text" class="contact_form_subject input_field" id="thm_txt" name="thm_txt"
+											placeholder="섬네일이름" readonly="readonly">
+									</div>
+								</div>
+								
+								<div class="row"><!-- 이미지사진 -->
+									<input type="file" name="picture" id="picture" style="display:none" onchange="document.getElementById('pic_txt').value=this.value">
+									<div class="col-lg-3">
+										<button type="button" id="form_submit_button" onclick="onclick=document.all.picture.click()"
+											class="form_submit_button button trans_200" style="margin-top: 0px;">
+											file
+										</button>
+									</div>
+									<div class="col-lg-9">
+										<br>
+										<br>
+										<input type="text" class="contact_form_subject input_field" id="pic_txt" name="pic_txt"
+											placeholder="숙소사진이름" readonly="readonly">
+									</div>
+								</div>
+								
 							</div>
 							<div class="col-lg-7">
 
@@ -122,12 +142,6 @@
 	<!-- Copyright -->
 
 
-
-	<script src="resources/js/jquery-3.2.1.min.js"></script>
-	<script src="resources/styles/bootstrap4/popper.js"></script>
-	<script src="resources/styles/bootstrap4/bootstrap.min.js"></script>
-	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
-	<script src="resources/js/contact_custom.js"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d&libraries=services"></script>
 	<script>
@@ -161,10 +175,9 @@
 				}
 			})
 		});
-
 		function searchDetailAddrFromCoords(coords, callback) {
-			// 좌표로 법정동 상세 주소 정보를 요청합니다
-			geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+		    // 좌표로 법정동 상세 주소 정보를 요청합니다
+		    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 		}
 	</script>
 </body>

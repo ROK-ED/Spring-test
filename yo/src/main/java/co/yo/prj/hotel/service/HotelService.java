@@ -7,6 +7,7 @@ public interface HotelService {
 	HotelVO HotelSelect(HotelVO hotel);
 	int HotelInsert(HotelVO hotel);
 	int HotelUpdate(HotelVO hotel);
-	int HotelDelete(HotelVO hotel);
+	int HotelDelete(int hotel_id);
 	
+	int HotelIdUpdate(int hotel_id);
 }

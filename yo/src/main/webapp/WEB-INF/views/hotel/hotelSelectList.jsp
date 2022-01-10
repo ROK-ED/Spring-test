@@ -1,19 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <head>
 <title>숙박</title>
 <meta charset="utf-8">
 
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Travelix Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/bootstrap4/bootstrap.min.css">
-<link
-	href="resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
+
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/offers_styles.css">
 <link rel="stylesheet" type="text/css"
@@ -99,38 +92,46 @@
 							<!-- Offers Item(사용할것) -->
 							<!-- 여기서부터 -->
 							<c:forEach items="${hotels }" var="hotel">
-							<div class="offers_item rating_4">
-								<div class="row">
-									<div class="col-lg-0 temp_col"></div>
-									<div class="col-lg-5 col-1680-4">
-										<div class="offers_image_container">
-											<!-- Image by https://unsplash.com/@kensuarez -->
-											<div class="offers_image_background">
-												<a href="hotelSelect.do?hotel_id=${hotel.hotel_id }"><img alt="숙소 섬네일" src="resources/images/offer_1.jpg"
-													style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-												</a>
-											</div>
+								<div class="offers_item rating_4">
+									<div class="row">
+										<div class="col-lg-0 temp_col"></div>
+										<div class="col-lg-5 col-1680-4">
+											<div class="offers_image_container">
+												<!-- Image by https://unsplash.com/@kensuarez -->
+												<div class="offers_image_background">
+													<a href="hotelSelect.do?hotel_id=${hotel.hotel_id }"> <c:if
+															test="${hotel.hotel_thumbnail ne null }">
+															<img alt="숙소 섬네일" src="resources/img/${hotel.hotel_tfile }"
+																style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+														</c:if> <c:if test="${hotel.hotel_thumbnail eq null }">
+															<img alt="숙소 섬네일" src="resources/images/noimage.jpg"
+																style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+														</c:if>
 
-										</div>
-									</div>
-									<div class="col-lg-7">
-										<div class="offers_content"></div>
-										<div class="offers_price">${hotel.hotel_title }</div>
-										<div class="offer_reviews">
-											<div class="offer_reviews_content">
-												<div class="offer_reviews_title">${hotel.hotel_price} 원</div>
+													</a>
+												</div>
 
 											</div>
 										</div>
-										<p class="offers_text">${hotel.hotel_content }</p>
+										<div class="col-lg-7">
+											<div class="offers_content"></div>
+											<div class="offers_price">${hotel.hotel_title }</div>
+											<div class="offer_reviews">
+												<div class="offer_reviews_content">
+													<div class="offer_reviews_title">${hotel.hotel_price}
+														원</div>
 
-										<div class="button book_button">
-											<a href="hotelResForm.do?hotel_id=${hotel.hotel_id }">예약<span></span><span></span><span></span></a>
+												</div>
+											</div>
+											<p class="offers_text">${hotel.hotel_content }</p>
 
+											<div class="button book_button">
+												<a href="hotelResForm.do?hotel_id=${hotel.hotel_id }">예약<span></span><span></span><span></span></a>
+
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 							</c:forEach>
 							<!-- 여기까지 for문돌릴것 -->
 							<!-- Offers Item -->
@@ -141,16 +142,20 @@
 						</div>
 					</div>
 					<div class="col-lg-5">
-						<div id="mapi" style="width: 500px; height: 400px;"></div>
+						<br> <br>
+						<div id="mapi" style="width: 100%; height: 600px;"></div>
 					</div>
 				</div>
-				<div class="col-lg-12 text-lg-right">
-					<div class="room_button">
-						<div class="button book_button trans_200">
-							<a href="hotelInsertForm.do">등록<span></span><span></span><span></span></a>
+				<c:if
+					test="${sessionScope.member_author eq 'HOST' || sessionScope.member_author eq 'ADMIN' }">
+					<div class="col-lg-12 text-lg-right">
+						<div class="room_button">
+							<div class="button book_button trans_200">
+								<a href="hotelInsertForm.do">등록<span></span><span></span><span></span></a>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</div>
 		</div>
 
@@ -159,9 +164,6 @@
 
 	</div>
 
-	<script src="resources/js/jquery-3.2.1.min.js"></script>
-	<script src="resources/styles/bootstrap4/popper.js"></script>
-	<script src="resources/styles/bootstrap4/bootstrap.min.js"></script>
 
 	<script src="resources/plugins/Isotope/isotope.pkgd.min.js"></script>
 	<script src="resources/plugins/easing/easing.js"></script>
@@ -181,7 +183,7 @@
 	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 	<script src="resources/js/elements_custom.js"></script>
 	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
+			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
 	<script>
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -189,7 +191,7 @@
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
-		
+
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 	</script>
 </body>

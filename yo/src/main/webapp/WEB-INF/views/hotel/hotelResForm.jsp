@@ -4,15 +4,6 @@
 
 <head>
 <title>Contact</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Travelix Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/bootstrap4/bootstrap.min.css">
-<link
-	href="resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css"
@@ -113,12 +104,6 @@
 
 	<!-- Copyright -->
 
-
-
-	<script src="resources/js/jquery-3.2.1.min.js"></script>
-	<script src="resources/styles/bootstrap4/popper.js"></script>
-	<script src="resources/styles/bootstrap4/bootstrap.min.js"></script>
-	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
 	<script src="resources/js/contact_custom.js"></script>
 <script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
