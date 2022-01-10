@@ -45,7 +45,7 @@
 					</tbody>
 				</table>
 				<button type="button" class="btn btn-info btn-block"
-					onClick="location.href='boardInsertForm.do'">Register</button>
+					onClick="location.href='boardInsertForm.do?'">Register</button>
 				<%-- 
 				<c:if test="${member_email ne null }">
 					<button type="button" class="btn btn-info btn-block" onClick="location.href='boardInsertForm.do'" >Register</button>

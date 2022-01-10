@@ -81,6 +81,7 @@
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>
+							<li class="main_nav_item"><a href="echo.do">Chat</a></li>
 						</ul>
 					</div>
 					<div class="content_search ml-lg-0 ml-auto">
