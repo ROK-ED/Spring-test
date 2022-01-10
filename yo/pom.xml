@@ -180,6 +180,14 @@
 		    <version>1.4</version>
 		</dependency>
 		
+		<!-- 크롤링 https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.12.2</version>
+        </dependency>
+
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

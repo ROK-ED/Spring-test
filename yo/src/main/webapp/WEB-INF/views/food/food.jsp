@@ -138,10 +138,16 @@
 			<div class="home_title">food........</div>
 		</div>
 	</div>
-
+	
+	<form action="plz.do">
+		<input type="text" class="food_name" id="food_name">
+		
+	</form>
 
 	<div>
 		<ul>
+			<li><a href="ajaxFoodList.do">아작스.......</a></li>
+			<li><a href="crawling.do">뉴스 크롤링.......</a></li>
 			<li><a href="foodInsert.do">foodInsert...</a></li>
 			<li><a href="foodList.do">foodList...</a></li>
 		</ul>
@@ -150,6 +156,12 @@
 	<div class="col-lg-5">
 		<div id="mapi" style="width: 500px; height: 400px;"></div>
 	</div>
+
+	<form action="/foodSelect.do">
+		<input type="text">
+	</form>
+
+
 
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d&libraries=services"></script>
@@ -215,3 +227,4 @@
 	</script>
 
 </body>
+</html>
