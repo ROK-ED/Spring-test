@@ -79,6 +79,7 @@
 							<li class="main_nav_item"><a href="food.do">food</a></li>
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
 							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+							<li class="main_nav_item"><a href="echo.do">Chat</a></li>
 						</ul>
 					</div>
 					<div class="content_search ml-lg-0 ml-auto">
