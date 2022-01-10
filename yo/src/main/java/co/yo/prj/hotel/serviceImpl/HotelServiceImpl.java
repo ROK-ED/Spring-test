@@ -38,10 +38,18 @@ public class HotelServiceImpl implements HotelService {
 		return map.HotelUpdate(hotel);
 	}
 
+
+
 	@Override
-	public int HotelDelete(HotelVO hotel) {
+	public int HotelIdUpdate(int hotel_id) {
 		// TODO Auto-generated method stub
-		return map.HotelDelete(hotel);
+		return map.HotelIdUpdate(hotel_id);
+	}
+
+	@Override
+	public int HotelDelete(int hotel_id) {
+		// TODO Auto-generated method stub
+		return map.HotelDelete(hotel_id);
 	}
 
 }

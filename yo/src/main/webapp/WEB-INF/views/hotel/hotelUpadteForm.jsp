@@ -4,19 +4,6 @@
 
 <head>
 <title>Contact</title>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="description" content="Travelix Project">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/bootstrap4/bootstrap.min.css">
-<link
-	href="resources/plugins/font-awesome-4.7.0/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/contact_styles.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/styles/contact_responsive.css">
 </head>
 
 <body>
@@ -47,8 +34,8 @@
 
 					<div class="contact_title text-center">숙소 업데이트</div>
 
-					<form action="#" id="hotelForm" name="hotelForm"
-						class="contact_form text-left">
+					<form action="hotelUpdate.do" id="hotelForm" name="hotelForm"
+						class="contact_form text-left" method="post">
 						<div class="row">
 							<div class="col-lg-5">
 								<input type="text" id="hotel_title" name="hotel_title"
@@ -75,7 +62,7 @@
 									class="contact_form_name input_field" placeholder="객실수"
 									required="required" data-error="room is required."  value="${hotel.hotel_loom }">
 								 <input
-									type="number" id="hotel_locy" name="hotel_locy"
+									type="number" id="hotel_price" name="hotel_price"
 									class="contact_form_email input_field" placeholder="가격"
 									required="required" data-error="LocY is required."  value="${hotel.hotel_price }">
 
@@ -83,6 +70,7 @@
 									class="text_field contact_form_message" name="message" rows="4"
 									placeholder="내용" required="required"
 									data-error="Please, write us a content." style="resize: none;"> ${hotel.hotel_content }</textarea>
+								<input type="hidden" id="hotel_id" name="hotel_id" value="${hotel.hotel_id }">
 							</div>
 							<div class="col-lg-7">
 
@@ -123,11 +111,6 @@
 
 
 
-	<script src="resources/js/jquery-3.2.1.min.js"></script>
-	<script src="resources/styles/bootstrap4/popper.js"></script>
-	<script src="resources/styles/bootstrap4/bootstrap.min.js"></script>
-	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
-	<script src="resources/js/contact_custom.js"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d&libraries=services"></script>
 	<script>
