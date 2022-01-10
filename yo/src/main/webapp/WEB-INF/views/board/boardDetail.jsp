@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
 		data-image-src="resources/images/board_background.jpg"></div>
@@ -28,17 +29,16 @@
 						</tr>
 					</tbody>
 				</table>
-				<%-- <c:if test="${sessionScope.?.? == ?.board_email}">
-					본인만 수정 삭제가 가능하도록
-				</c:if> --%>
-				<div class="form-row float-right">
-					<button type="button" class="btn btn-primary"
-						onClick="location.href='boardInsertForm.do?board_id=${board.board_id}'">Modify</button>
-				</div>
-				<div class="form-row float-left">
-					<button type="button" class="btn btn-primary"
-						onClick="location.href='board.do?cmd=delete&board_id=${board.board_id }'">Delete</button>
-				</div>
+				<c:if test="${sessionScope.member_email == board.member_email}">
+					<div class="form-row float-right">
+						<button type="button" class="btn btn-primary"
+							onClick="location.href='boardInsertForm.do?board_id=${board.board_id}'">Modify</button>
+					</div>
+					<div class="form-row float-left">
+						<button type="button" class="btn btn-primary"
+							onClick="location.href='board.do?cmd=delete&board_id=${board.board_id }'">Delete</button>
+					</div>
+				</c:if>
 				<button type="button" class="btn btn-info btn-block"
 					onClick="location.href='boardSelectList.do'">Board List</button>
 			</div>

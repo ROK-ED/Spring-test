@@ -31,14 +31,14 @@
 		SET BOARD_TITLE = #{board_title},
 		BOARD_CONTENT = #{board_content},
 		BOARD_DATE_RE = SYSDATE
-		WHERE BOARD_ID = #{board_id}
+		WHERE BOARD_ID = #{board_id} AND member_email = #{member_email}
 	</update>
 
 	<delete id="boardDelete"
 		parameterType="co.yo.prj.board.service.BoardVO">
 		DELETE YO_BOARD
 		WHERE
-		BOARD_ID = #{board_id}
+		BOARD_ID = #{board_id} AND member_email = #{member_email}
 	</delete>
 
 	<select id="boardSearch"

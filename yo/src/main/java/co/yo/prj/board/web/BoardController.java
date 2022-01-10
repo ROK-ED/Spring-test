@@ -35,17 +35,23 @@ public class BoardController {
 	@RequestMapping("/boardInsertForm.do")
 	public String boardInsertForm(HttpServletRequest request, HttpSession session, Model model) {
 		// board_id가 있으면 수정 없으면 등록
-		BoardVO board = new BoardVO();
-		String str_bId = request.getParameter("board_id");
+		String member_email = (String) session.getAttribute("member_email");
+		if (member_email != null) {
+			BoardVO board = new BoardVO();
+			String str_bId = request.getParameter("board_id");
 
-		if (str_bId != null) {
-			// 수정
-			int board_id = Integer.parseInt(str_bId);
-			board.setBoard_id(board_id);
-			model.addAttribute("data", boardDao.boardSelect(board));
-			return "board/boardInsertForm";
+			if (str_bId != null) {
+				// 수정
+				int board_id = Integer.parseInt(str_bId);
+				board.setBoard_id(board_id);
+				model.addAttribute("data", boardDao.boardSelect(board));
+				return "board/boardInsertForm";
+			} else {
+				return "board/boardInsertForm";
+			}
+
 		} else {
-			return "board/boardInsertForm";
+			return "member/memberLoginForm";
 		}
 
 	}
@@ -54,50 +60,63 @@ public class BoardController {
 	@RequestMapping("/board.do")
 	public void boardInsert(HttpServletRequest request, ServletResponse response, HttpSession session)
 			throws Exception {
-		BoardVO board = new BoardVO();
+		String member_email = (String) session.getAttribute("member_email");
+		if (member_email != null) {
+			BoardVO board = new BoardVO();
 
-		String cmd = request.getParameter("cmd");
+			String cmd = request.getParameter("cmd");
 
-		int board_id;
-		String title;
-		String content;
-		String email;
+			int board_id;
+			String title;
+			String content;
+			String email;
 
-		System.out.println("cmd: " + cmd);
-		
+			System.out.println("cmd: " + cmd);
 
-		if (("insert").equals(cmd)) {
-			title = request.getParameter("title");
-			content = request.getParameter("content");
-			email = (String) session.getAttribute("member_email");
+			if (("insert").equals(cmd)) {
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				email = (String) session.getAttribute("member_email");
 
-			board.setBoard_title(title);
-			board.setBoard_content(content);
-			board.setMember_email(email);
+				board.setBoard_title(title);
+				board.setBoard_content(content);
+				board.setMember_email(email);
 
-			boardDao.boardInsert(board);
-			request.getRequestDispatcher("boardSelectList.do").forward(request, response);
-		} else if (("update").equals(cmd)) {
-			board_id = Integer.parseInt(request.getParameter("board_id"));
-			System.out.println("Update board_id: " + board_id);
-			title = request.getParameter("title");
-			content = request.getParameter("content");
+				boardDao.boardInsert(board);
+				request.getRequestDispatcher("boardSelectList.do").forward(request, response);
+			} else if (("update").equals(cmd)) {
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				title = request.getParameter("title");
+				content = request.getParameter("content");
+				email = (String) session.getAttribute("member_email");
 
-			board.setBoard_id(board_id);
-			board.setBoard_title(title);
-			board.setBoard_content(content);
+				System.out.println("Update board_id: " + board_id);
+				System.out.println("Delete email: " + email);
 
-			boardDao.boardUpdate(board);
-			request.getRequestDispatcher("boardSelectList.do").forward(request, response);
-		} else if (("delete").equals(cmd)) {
-			board_id = Integer.parseInt(request.getParameter("board_id"));
-			System.out.println("Delete board_id: " + board_id);
-			
-			board.setBoard_id(board_id);
+				board.setBoard_id(board_id);
+				board.setBoard_title(title);
+				board.setBoard_content(content);
+				board.setMember_email(email);
 
-			boardDao.boardDelete(board);
-			request.getRequestDispatcher("boardSelectList.do").forward(request, response);
+				boardDao.boardUpdate(board);
+				request.getRequestDispatcher("boardSelectList.do").forward(request, response);
+			} else if (("delete").equals(cmd)) {
+				board_id = Integer.parseInt(request.getParameter("board_id"));
+				email = (String) session.getAttribute("member_email");
+				System.out.println("Delete board_id: " + board_id);
+				System.out.println("Delete email: " + email);
+
+				board.setBoard_id(board_id);
+				board.setMember_email(email);
+
+				boardDao.boardDelete(board);
+				request.getRequestDispatcher("boardSelectList.do").forward(request, response);
+			}
+		} else {
+			request.getRequestDispatcher("memberLogin.do").forward(request, response);
 		}
+		
+		
 	}
 
 	// 게시글 디테일
