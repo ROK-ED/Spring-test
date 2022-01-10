@@ -6,6 +6,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
+import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonParser;
 
 import co.yo.prj.food.service.FoodService;
 import co.yo.prj.food.service.FoodVO;
@@ -67,19 +73,20 @@ public class FoodController {
 
 		return "food/foodSelect";
 	}
-	
+
 	@RequestMapping("/ajaxFoodList.do")
 	public String ajaxFoodList() {
-		
+
 		return "food/ajaxFoodList";
-		
+
 	}
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxFood() {
-	
+	public String ajaxFood(Model model) {
+
 		StringBuffer result = new StringBuffer();
+		String data = "";
 		try {
 			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
 			URL url = new URL(apiURL);
@@ -94,15 +101,25 @@ public class FoodController {
 				result.append(returnLine);
 				// System.out.println("리턴라인"+returnLine);
 			}
+
+			data = result.toString();
+			data = data.replace("\", }", "\"}");
+//			data = data.replace("\"능이버섯\"", "능이버섯");
+//			data = data.replace("\"한우마을 석정가든\"", "한우마을 석정가든");
+			
+
+			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
+			data = data.replace(str, " ");
+			
+//			 data = data.replace("/^(\"MNU\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$/g", " ");
+
 			urlconnection.disconnect();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// System.out.println("=================================");
-		// System.out.println("최종 뿌리기 "+result.toString());
-
-		return result.toString();
+		
+		return data;
 
 	}
 
