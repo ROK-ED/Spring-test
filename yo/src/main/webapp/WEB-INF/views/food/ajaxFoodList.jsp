@@ -170,20 +170,14 @@
 
 		// 지도를 생성합니다    
 		var mapi = new kakao.maps.Map(mapContainer, mapOption);
-		var resultX = [];
-		var resultY = [];
-		function mapKakao(data, i) {
-			console.log("주소 찍히는지 확인히가 ===== " + data.data[0].BZ_NM);
-			console.log("사지으 좍인하기   ==" + data.data[0].length);
 
-			//for (var i = 0; i < data.data.length; i++) {
+		function mapKakao(data, i) {
 
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
-			var foodName = data.BZ_NM;
+			var foodName = data.data[i].BZ_NM;
 			var foodAddr = data.data[i].GNG_CS;
 			var foodId = data.data[i].OPENDATA_ID;
-			console.log("dckjdkldlkflkklsdfkls"+foodName);
 
 			// 주소로 좌표를 검색합니다
 			geocoder.addressSearch(data.data[i].GNG_CS,
@@ -194,12 +188,7 @@
 
 							var coords = new kakao.maps.LatLng(result[0].y,
 									result[0].x);
-							console.log(result[0].x);
-							resultX[i] = result[0].x;
-							resultY[i] = result[0].y;
-							
-							
-							console.log(resultX[i])
+
 							// 결과값으로 받은 위치를 마커로 표시합니다
 							var marker = new kakao.maps.Marker({
 								map : mapi,
@@ -223,11 +212,10 @@
 										// 마커 위에 인포윈도우를 표시합니다
 										infowindow.open(mapi, marker);
 									});
+
 						}//if
 
 					});//geocoder
-
-			//}//for
 
 		}
 	</script>

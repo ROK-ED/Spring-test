@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
 import org.json.JSONObject;
-import org.json.simple.JSONArray;
+import org.json.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -102,21 +102,33 @@ public class FoodController {
 				// System.out.println("리턴라인"+returnLine);
 			}
 
+			// 데이터 정리하기
 			data = result.toString();
 			data = data.replace("\", }", "\"}");
 //			data = data.replace("\"능이버섯\"", "능이버섯");
 //			data = data.replace("\"한우마을 석정가든\"", "한우마을 석정가든");
-			
 
 			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
 			data = data.replace(str, " ");
-		
+
+			// String to json --> model
+			JSONObject jObject = new JSONObject(data);
+
+			JSONArray jArray = jObject.getJSONArray("data");
+			model.addAttribute("jsonModel", jArray);
+
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject obj = jArray.getJSONObject(i);
+				String title = obj.getString("BZ_NM");
+				 System.out.println("title(" + i + "): " + title);
+
+			}
 			urlconnection.disconnect();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return data;
 
 	}
