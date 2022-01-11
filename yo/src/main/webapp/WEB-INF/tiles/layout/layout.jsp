@@ -50,7 +50,9 @@
 <script src="resources/plugins/easing/easing.js"></script>
 <script src="resources/js/custom.js"></script>
 <script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
+<!-- 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+ -->
 <script src="resources/js/contact_custom.js"></script>
 
 <script src="resources/plugins/Isotope/isotope.pkgd.min.js"></script>
