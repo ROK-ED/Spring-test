@@ -146,6 +146,7 @@
 
 	<div>
 		<ul>
+			<li><a href="foodSelect.do">상세페이지.......</a></li>
 			<li><a href="ajaxFoodList.do">아작스.......</a></li>
 			<li><a href="crawling.do">뉴스 크롤링.......</a></li>
 			<li><a href="foodInsert.do">foodInsert...</a></li>

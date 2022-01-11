@@ -223,82 +223,11 @@
 
 					<div class="col-lg-7">
 						<div class="offers_grid">
-						
-						
-						
-						
-							<c:forEach items="${jsonModel }" var="food">
-														
-								<div class="offers_item rating_4">
-									<div class="row">
-										<div class="col-lg-1 temp_col"></div>
-										<div class="col-lg-3 col-1680-4">
-											<div class="offers_image_container">
-												<!-- Image by https://unsplash.com/@kensuarez -->
-												<div class="offers_image_background"
-													style="background-image: url(images/offer_1.jpg)"></div>
-
-											</div>
-										</div>
-										<div class="col-lg-8">
-											<div class="offers_content">
-												<div class="offers_price formFoodName" id="formFoodName">${food.data.BZ_NM  }<span>per
-														night</span>
-												</div>
-												<div class="rating_r rating_r_4 offers_rating"
-													data-rating="4">
-													<i></i> <i></i> <i></i> <i></i> <i></i>
-												</div>
-												<p class="offers_text">${food.food_menu}</p>
-												<div class="offers_icons">
-													<ul class="offers_icons_list">
-														<li class="offers_icons_item"><img
-															src="images/post.png" alt=""></li>
-														<li class="offers_icons_item"><img
-															src="images/compass.png" alt=""></li>
-														<li class="offers_icons_item"><img
-															src="images/bicycle.png" alt=""></li>
-														<li class="offers_icons_item"><img
-															src="images/sailboat.png" alt=""></li>
-													</ul>
-												</div>
 
 
-												<form action="">
-													<input type="text" class="formFoodName" id="formFoodName"
-														value="${food.food_name }"> <input type="text"
-														class="formFoodAddress" id="formFoodAddress"
-														value="${food.food_address }"> <input type="text"
-														class="formFoodX" id="formFoodX" value="${food.food_x }">
-													<input type="text" class="formFoodY" id="formFoodY"
-														value="${food.food_y }"> <input type="text"
-														class="plz" class="plz" value="${food}"> <input
-														type="submit" class="button book_button" value="예약"><span></span><span></span><span></span>
-													<button class="button book_button">
-														book<span></span><span></span><span></span>
-													</button>
-												</form>
+							<!-- script에서 입력되는 곳 -->
 
 
-												<div class="offer_reviews">
-													<div class="offer_reviews_content">
-														<div class="offer_reviews_title">very good</div>
-														<div class="offer_reviews_subtitle">100 reviews</div>
-													</div>
-													<div class="offer_reviews_rating text-center">8.1</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-
-							</c:forEach>
-							
-							
-							
-							
-							
 						</div>
 
 					</div>
@@ -323,12 +252,13 @@
 				url : "ajaxFood.do",
 				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
 
-					console.log(result);
 					var data = JSON.parse(result);
-					console.log(data);
-					console.log(data.data[1].GNG_CS);
+					//console.log(data);
+					//console.log(data.data[1].GNG_CS);
+					var offers_grid = document.querySelector('.offers_grid');
 					for (var i = 0; i < data.data.length; i++) {
 						mapKakao(data, i);
+						offers_grid.appendChild(createBody(data, i));
 					}
 
 				},
@@ -394,19 +324,170 @@
 										// 마커 위에 인포윈도우를 표시합니다
 										infowindow.open(mapi, marker);
 									});
-							
-							
-							//화면에 리스트 생성하기
-							
-							
-							
-							
-							
 
 						}//if
 
 					});//geocoder
 
+		}
+
+		//화면에 리스트 생성하기
+		function createBody(data, i) {
+
+			var offers_item = document.createElement('div');
+			offers_item.setAttribute("class", "offers_item rating_4");
+
+			var row = document.createElement('div');
+			row.setAttribute("class", "row");
+
+			// div col_lg_1
+			var col_lg_0 = document.createElement('div');
+			col_lg_0.setAttribute("class", "col-lg-0 temp_col");
+
+			// div col_lg_5
+			var col_lg_5 = document.createElement('div');
+			col_lg_5.setAttribute("class", "col-lg-5 col-1680-4");
+
+			var offers_image_container = document.createElement('div');
+			offers_image_container.setAttribute("class",
+					"offers_image_container");
+
+			var offers_image_background = document.createElement('div');
+			offers_image_background.setAttribute("class",
+					"offers_image_background");
+
+			var a = document.createElement('a');
+			a.setAttribute("href", "foodSelectOne.do?food_id="
+					+ data.data[i].OPENDATA_ID);
+
+			var img1 = document.createElement('img');
+			img1
+					.setAttribute("style",
+							"position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+
+			//var imgSrc = findImgLink(data.data[i].BZ_NM,
+					//data.data[i].OPENDATA_ID);
+			//console.log("이거는 찍히려나????" + imgSrc);
+
+			img1.setAttribute("src",
+					"https://www.daegufood.go.kr/data/food/IMG_93331.jpg");//imgLink());//이미지 주소 함수
+			a.appendChild(img1);
+
+			offers_image_background.appendChild(a);
+
+			offers_image_container.appendChild(offers_image_background);
+
+			col_lg_5.appendChild(offers_image_container);
+
+			//div col_lg_7
+			var col_lg_7 = document.createElement('div');
+			col_lg_7.setAttribute("class", "col-lg-7");
+
+			var offers_content = document.createElement('div');
+			offers_content.setAttribute("class", "offers_content");
+
+			var offers_price = document.createElement('div');
+			offers_price.setAttribute("class", "offers_price formFoodName");
+			offers_price.setAttribute("id", "formFoodName");
+			offers_price.textContent = data.data[i].BZ_NM; //음식점 이름
+
+			/*var offers_rating = document.createElement('div');
+			offers_rating.setAttribute("class",
+			    "rating_r rating_r_4 offers_rating");
+			offers_rating.setAttribute("data-ration", "4");
+			for (var i = 0; i < 5; i++) {
+			    var i = document.createElement('i');
+			    offers_rating.appendChild(i);
+			}*/
+
+			var offers_text = document.createElement('p');
+			offers_text.setAttribute("class", "offers_text");
+
+			if (data.data[i] != null) {
+				offers_text.textContent = data.data[i].MNU; //음식 설명
+			}
+
+			var book_button = document.createElement('div');
+			book_button.setAttribute("class", "button book_button");
+
+			var aBtn = document.createElement('a');
+			aBtn.setAttribute("href", "FoodResForm.do?food_id="
+					+ data.data[i].OPENDATA_ID);
+			aBtn.textContent = "예약"
+
+			for (var i = 0; i < 3; i++) {
+				var span = document.createElement('span');
+				aBtn.appendChild(span);
+
+			}
+			book_button.appendChild(aBtn);
+
+			var offer_reviews = document.createElement('div');
+			offer_reviews.setAttribute("class", "offer_reviews");
+
+			var offer_reviews_content = document.createElement('div');
+			offer_reviews_content
+					.setAttribute("class", "offer_reviews_content");
+
+			var offer_reviews_title = document.createElement('div');
+			offer_reviews_title.setAttribute("class", "offer_reviews_title");
+			offer_reviews_title.textContent = "very good";
+			offer_reviews_content.appendChild(offer_reviews_title);
+
+			var offer_reviews_subtitle = document.createElement('div');
+			offer_reviews_subtitle.setAttribute("class",
+					"offer_reviews_subtitle");
+			offer_reviews_content.textContent = "100 reviews";
+			offer_reviews_content.appendChild(offer_reviews_subtitle);
+
+			var offer_reviews_rating = document.createElement('div');
+			offer_reviews_rating.setAttribute("class",
+					"offer_reviews_rating text-center");
+			offer_reviews_rating.textContent = "8.1";
+
+			offer_reviews.appendChild(offer_reviews_content);
+			offer_reviews.appendChild(offer_reviews_rating);
+
+			offers_content.appendChild(offers_price);
+
+			// offers_content.appendChild(offers_rating);
+
+			offers_content.appendChild(offers_text);
+
+			offers_content.appendChild(offer_reviews);
+			col_lg_7.appendChild(offers_content);
+
+			row.append(col_lg_0, col_lg_5, col_lg_7);
+
+			// row.appendChild(col_lg_4);
+			// row.appendChild(col_lg_4);
+			offers_item.appendChild(row);
+			return offers_item;
+
+		}
+
+		function findImgLink(food_name, food_id) {
+			console.log("음식점 이름!!! === " + food_name);
+
+			$.ajax({
+				type : "POST",
+				url : "oneImgCrawl.do",
+				data : {
+					"food_name" : food_name,
+					"food_id" : food_id
+				},
+				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
+					console.log("결과......" + result);
+					return result;
+
+				},
+
+				error : function(e) {
+					console.log(e);
+					//alert('실패했습니다.');
+				}
+
+			});
 		}
 	</script>
 </body>

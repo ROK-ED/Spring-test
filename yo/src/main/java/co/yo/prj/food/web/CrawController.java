@@ -21,54 +21,65 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class CrawController {
 
+	@RequestMapping("/oneImgCrawl.do")
+	@ResponseBody
+	public String oneImgCrawl(@RequestParam("food_name") String food_name, @RequestParam("food_id") String food_id)
+			throws IOException {
 
-	
-	@RequestMapping(value = "crawling.do", method = RequestMethod.GET)
+		ArrayList<String> al1 = new ArrayList<>();
+		//System.out.println("음식점 이름 =======" + food_name);
+		//System.out.println("음식점 번호 ======= " + food_id);
+
+		String address = "https://www.daegufood.go.kr/kor/food/food.asp?sw=" + food_name;
+		Document rawData = Jsoup.connect(address).timeout(5000).get();
+
+		//System.out.println(address);
+
+		Elements blogOption = rawData.select(".food_list02");
+
+		String realIMG = "";
+
+		for (Element option : blogOption) {
+
+			realIMG = option.select("img").attr("src");
+			realIMG = "https://www.daegufood.go.kr" + realIMG;
+
+			al1.add(realIMG);
+			//System.out.println("이미지 경로" + realIMG);
+		}
+
+		return realIMG;
+	}
+
+	@RequestMapping("/crawling.do")
 	public String startCrawl(Model model, @Param("food_name") String food_name) throws IOException {
 
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd", Locale.KOREA);
-		Date currentTime = new Date();
-
-		String dTime = formatter.format(currentTime);
-		String e_date = dTime;
-
-		currentTime.setDate(currentTime.getDate() - 1);
-		String s_date = formatter.format(currentTime);
-
-		String query = "성북구";
-		String s_from = s_date.replace(".", "");
-		String e_to = e_date.replace(".", "");
-		int page = 1;
-		
 		ArrayList<String> al1 = new ArrayList<>();
-		ArrayList<String> al2 = new ArrayList<>();
 
-		while (page < 20) {
-			String address = "https://www.daegufood.go.kr/kor/food/food.asp?sw="+food_name;
-			Document rawData = Jsoup.connect(address).timeout(5000).get();
-		
-			System.out.println(address);
-			
-			Elements blogOption = rawData.select(".img");
-			String realURL = "";
-			String realTITLE = "";
-			String realIMG = "";
+		String address = "https://www.daegufood.go.kr/kor/food/food.asp?idx=" + "621" + "&gotoPage=1";
+		Document rawData = Jsoup.connect(address).timeout(5000).get();
 
-			for (Element option : blogOption) {
-			
-				realIMG= option.select("img").attr("src");
-				
-		
-				al1.add(realIMG);
-			}
-			page += 10;
-		} 
-		model.addAttribute("imgs",al1);
+		Elements blogOption = rawData.select(".imgsize");
+
+		String realIMG = "";
+
+		for (Element option : blogOption) {
+
+			realIMG = option.attr("src");
+			realIMG = "https://www.daegufood.go.kr" + realIMG;
+
+			al1.add(realIMG);
+		}
+
+		model.addAttribute("imgs", al1);
+
 		return "craw/craw";
 	}
-	
+
 }

@@ -49,22 +49,22 @@ div {
 
 
 <body>
-
-	<div class="home">
-		<div class="home_background parallax-window" data-parallax="scroll"
-			data-image-src="resources/images/contact_background.jpg"></div>
-		<div class="home_content">
-			<div class="home_title">food........</div>
-		</div>
-	</div>f
-
-	<c:forEach var="img" items="${imgs }">
-		<div>
-			<img alt="" src="">
+	<div>
+		<div class="home">
+			<div class="home_background parallax-window" data-parallax="scroll"
+				data-image-src="resources/images/contact_background.jpg"></div>
+			<div class="home_content">
+				<div class="home_title">food........</div>
+			</div>
 		</div>
 
-	</c:forEach>
+		<c:forEach var="img" items="${imgs }">
+			<div>
+				<img alt="" src="${img }">
+			</div>
+		</c:forEach>
 
+	</div>
 </body>
 
 </html>
