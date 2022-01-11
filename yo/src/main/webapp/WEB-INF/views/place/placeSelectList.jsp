@@ -82,16 +82,16 @@
 
 
 
-
 					</div>
+					<br>
 				</div>
-<!-- 
+ 
 				<div class="col-lg-5">
-					<div id="mapi" style="width: 500px; height: 400px;"></div>
+					<div id="mapi" style="width:600px;height:700px;"></div>
 				</div>
--->
+
 			</div>
-<!-- 
+ 
 			<div class="col-lg-12 text-lg-right">
 				<div class="room_button">
 					<div class="button book_button trans_200">
@@ -99,7 +99,7 @@
 					</div>
 				</div>
 			</div>
--->
+
 		</div>
 	</div>
 
@@ -107,6 +107,22 @@
 	<!-- Copyright -->
 
 </div>
+<!-- kakaomap 사용 및 appkey -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d80e5a0baade8c2e7bcb777ff68c73a4"></script>
+<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+<script>
+
+	var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+		level : 3
+	//지도의 레벨(확대, 축소 정도)
+	};
+
+	var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+</script>
+	
 <!-- 
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
 	<script>
