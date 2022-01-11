@@ -116,14 +116,15 @@ public class FoodController {
 			JSONObject jObject = new JSONObject(data);
 
 			JSONArray jArray = jObject.getJSONArray("data");
+			
 			model.addAttribute("jsonModel", jArray);
 
-			for (int i = 0; i < jArray.length(); i++) {
-				JSONObject obj = jArray.getJSONObject(i);
-				String title = obj.getString("BZ_NM");
-				 System.out.println("title(" + i + "): " + title);
-
-			}
+//			for (int i = 0; i < jArray.length(); i++) {
+//				JSONObject obj = jArray.getJSONObject(i);
+//				String title = obj.getString("BZ_NM");
+//				 System.out.println("title(" + i + "): " + title);
+//
+//			}
 			urlconnection.disconnect();
 
 		} catch (Exception e) {
