@@ -51,19 +51,38 @@
 									<div id="hotel_address" name="hotel_address">
 										<h3>${hotel.hotel_address }</h3>
 										<br>
-										<br>
 									</div>
 									<!-- 달력 -->
 									<div id="hotel_address" name="hotel_address">
-										<h3>달	력</h3>
-								
-										<h3>들어갈 부분</h3>
-										<br><br>
+										<div id="res_text">예약일:</div>
+										<body onload="autoReload();">
+											<table align="center" id="calendar">
+												<tr>
+													<td><a id="before" href="javascript:beforem()"></a></td>
+													<td colspan="4" align="center">
+														<div id="yearmonth"></div>
+													</td>
+													<td><a id="next" href="javascript:nextm()"></a></td>
+													<td><a href="javascript:thisMonth()">오늘</a></td>
+												</tr>
+												<tr>
+													<td width="14%">월</td>
+													<td width="14%">화</td>
+													<td width="14%">수</td>
+													<td width="14%">목</td>
+													<td width="14%">금</td>
+													<td width="14%"><font color="#009de0">토</font></td>
+													<td width="14%"><font color="#ed5353">일</font></td>
+												</tr>
+											</table>
+										</body>
+
+										<br> <br>
 									</div>
-									
-									
+
+
 									<div id="hotel_price" name="hotel_price">
-										<h3>${hotel.hotel_price } 원</h3>
+										<h3>${hotel.hotel_price }원</h3>
 										<br>
 									</div>
 								</div>
@@ -105,7 +124,7 @@
 	<!-- Copyright -->
 
 	<script src="resources/js/contact_custom.js"></script>
-<script type="text/javascript"
+	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
 	<script>
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
@@ -138,6 +157,170 @@
 		// 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
 		infowindow.open(mapi, marker); 
 	</script>
+
+	<script language="javascript">
+	var today = new Date(); //오늘 날짜        
+	var date = new Date();
+	
+	//이전달
+	function beforem() //이전 달을 today에 값을 저장
+	{ 
+		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
+		document.getElementById('res_text').innerText="예약일:";
+		autoReload(); //만들기
+	}
+	
+	//다음달
+	function nextm()  //다음 달을 today에 저장
+	{
+		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+		document.getElementById('res_text').innerText="예약일:";
+		autoReload();
+		
+	}
+	
+	//오늘선택
+	function thisMonth(){
+		today = new Date();
+		document.getElementById('res_text').innerText="예약일:";
+		autoReload();
+	}
+
+	function autoReload()
+	{
+		
+		var nMonth = new Date(today.getFullYear(), today.getMonth(), 1); //현재달의 첫째 날
+		var lastDate = new Date(today.getFullYear(), today.getMonth() + 1, 0); //현재 달의 마지막 날
+		var tbcal = document.getElementById("calendar"); // 테이블 달력을 만들 테이블
+		var yearmonth = document.getElementById("yearmonth"); //  년도와 월 출력할곳
+		yearmonth.innerHTML = today.getFullYear() + "년 "+ (today.getMonth() + 1) + "월"; //년도와 월 출력
+
+		
+		
+		if(today.getMonth()+1==12) //  눌렀을 때 월이 넘어가는 곳
+		{
+			before.innerHTML=(today.getMonth())+"월"+"<";
+			next.innerHTML="1월"+">";
+			
+		}
+		else if(today.getMonth()+1==1) //  1월 일 때
+		{
+			before.innerHTML="12월"+"<";
+			next.innerHTML=(today.getMonth()+2)+"월" +">";
+		}
+		else //   12월 일 때
+		{
+			before.innerHTML=(today.getMonth())+"월"+"<";
+			next.innerHTML=(today.getMonth()+2)+"월"+">";
+		}
+
+
+		// 남은 테이블 줄 삭제
+		while (tbcal.rows.length > 2) 
+		{
+			tbcal.deleteRow(tbcal.rows.length - 1);
+		}
+		var row = null;
+		row = tbcal.insertRow();
+		var cnt = 0;
+		var dayCheck = (nMonth.getDay()==0) ? 7 : nMonth.getDay(); //일요일을 마지막으로 넣기 위해서.
+
+		 // 1일 시작칸 찾기
+		for (i = 0; i < (dayCheck-1); i++) 
+		{
+			cnt = cnt + 1;	//요일값
+			cell = row.insertCell();
+			
+			if (i>4) { //주말
+				cell.style.backgroundColor = "#f7f7f7";
+			}
+		}
+		
+		
+
+		
+
+		// 달력 출력
+		for (i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
+		{ 
+			cell = row.insertCell();
+			
+			var str="";
+			
+			str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //나중에 원하는 날에 일정을 넣기위해 id값을 날자로 설정
+		        	
+			
+			cell.innerHTML = str;
+			
+			
+			cnt = cnt + 1;
+			if (cnt % 7 == 6) {//토요일
+				var str="";
+				str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //나중에 원하는 날에 일정을 넣기위해 id값을 날자로 설정
+
+				str += "</div>";
+				cell.innerHTML = str;
+				cell.style.color = "#009de0";
+			                  
+			}
+			if (cnt % 7 == 0) { //일요일
+				var str="";
+				str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //나중에 원하는 날에 일정을 넣기위해 id값을 날자로 설정
+	      	
+				
+				str += "</div>";
+				cell.innerHTML = str;
+				row = calendar.insertRow();// 줄 추가
+				cell.style.color = "#ed5353";
+				
+			}
+			
+			//마지막 날짜가 지나면 일요일까지 칸 그리기
+			if(lastDate.getDate() == i && ((cnt % 7) != 0)){
+				var add = 7 - (cnt % 7);
+				for(var k = 1; k <= add; k++){
+					cell = row.insertCell();
+					cnt = cnt + 1;
+				}
+			}
+			
+			//오늘날짜배경색
+			if( today.getFullYear() == date.getFullYear() && today.getMonth() == date.getMonth() && i==date.getDate() )
+			{
+				cell.style.backgroundColor = "#e2f3da"; //오늘날짜배경색
+			}
+			
+			//마지막 날짜가 지나면 일요일까지 칸 그리기
+			if(lastDate.getDate() == i && ((cnt % 7) != 0)){
+				var add = 7 - (cnt % 7);
+				for(var k = 1; k <= add; k++){
+					cell = row.insertCell();
+					cnt = cnt + 1;
+				}
+			}
+			  
+		}
+		
+
+}
+
+	function resSelFnc(i)
+	{
+		autoReload();
+		var x=document.getElementById(i);
+		var txt=document.getElementById('res_text');
+		
+		var month=document.getElementById('yearmonth').innerText;
+		txt.innerText='예약일:'+month+' '+i+'일';
+		
+		x.style.backgroundColor= 'black';
+	}
+	function resFull()
+	{
+		
+		
+	}
+</script>
 </body>
 
 </html>
