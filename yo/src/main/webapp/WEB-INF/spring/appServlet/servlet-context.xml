@@ -43,14 +43,4 @@
 	
 	<context:component-scan base-package="co.yo.prj" />
 	
-	<!-- websocket handlers -->
-	<websocket:handlers allowed-origins="http://localhost:80">
-		<websocket:mapping handler="echochoHandler" path="/echo" />
-		<websocket:handshake-interceptors>
-			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
-		</websocket:handshake-interceptors>
-		<websocket:sockjs/>
-	</websocket:handlers>
-	<beans:bean id="echochoHandler" class="co.yo.prj.socket.server.EchoHandler"/>
-	
 </beans:beans>

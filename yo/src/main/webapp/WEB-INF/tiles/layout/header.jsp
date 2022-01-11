@@ -77,11 +77,11 @@
 							<li class="main_nav_item"><a href="placeSelectList.do">place</a></li>
 							<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="main_nav_item"><a href="food.do">food</a></li>
+							<li class="main_nav_item"><a href="reservation.do">reservation</a></li>
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>
-							<li class="main_nav_item"><a href="echo.do">Chat</a></li>
 						</ul>
 					</div>
 					<div class="content_search ml-lg-0 ml-auto">
@@ -140,6 +140,7 @@
 			<li class="menu_item"><a href="placeSelectList.do">place</a></li>
 			<li class="menu_item"><a href="hotelSelectList.do">offers</a></li>
 			<li class="menu_item"><a href="food.do">food</a></li>
+			<li class="menu_item"><a href="reservation.do">reservation</a></li>
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
 			<c:if test="${sessionScope.member_author == 'ADMIN' }">
 			<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>

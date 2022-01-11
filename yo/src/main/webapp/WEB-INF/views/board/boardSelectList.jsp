@@ -1,14 +1,24 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<link rel="stylesheet" type="text/css"
+<!-- <link rel="stylesheet" type="text/css"
 	href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.css" />
 
 <script type="text/javascript"
-	src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
+	src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script> -->
+
+<link rel="stylesheet" type="text/css" href="resources/DataTables/datatables.min.css"/>
+ 
+<script type="text/javascript" src="resources/DataTables/datatables.min.js"></script>
+
 
 <script>
 	jQuery(function($) {
-		$("#myTable").DataTable();
+		$("#myTable").DataTable({
+			order: [ [ 0, "desc" ] ]
+		});
+		
 	});
 </script>
 
@@ -46,10 +56,6 @@
 				</table>
 				<button type="button" class="btn btn-info btn-block"
 					onClick="location.href='boardInsertForm.do?'">Register</button>
-				<%-- 
-				<c:if test="${member_email ne null }">
-					<button type="button" class="btn btn-info btn-block" onClick="location.href='boardInsertForm.do'" >Register</button>
-				</c:if> --%>
 			</div>
 		</div>
 	</div>
