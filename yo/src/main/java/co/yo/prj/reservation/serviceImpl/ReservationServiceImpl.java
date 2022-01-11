@@ -16,9 +16,15 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationMapper map;
 	
 	@Override
-	public List<ReservationVO> ReservationList() {
+	public List<ReservationVO> reservationList() {
 		// TODO Auto-generated method stub
-		return map.ReservationList();
+		return map.reservationList();
+	}
+
+	@Override
+	public int reservationInsert(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.reservationInsert(vo);
 	}
 
 }

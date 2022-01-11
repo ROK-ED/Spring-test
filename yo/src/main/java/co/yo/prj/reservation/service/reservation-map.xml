@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="co.yo.prj.reservation.service.ReservationMapper">
+<mapper
+	namespace="co.yo.prj.reservation.service.ReservationMapper">
 
-	<select id="ReservationList" resultType="co.yo.prj.reservation.service.ReservationVO">
+	<select id="reservationList"
+		resultType="co.yo.prj.reservation.service.ReservationVO">
 		SELECT * FROM
 		YO_RESERVATION
 	</select>
+
+	<update id="reservationInsert"
+		parameterType="co.yo.prj.reservation.service.ReservationVO">
+		UPDATE YO_RESERVATION
+		SET RESERVATION_STATE = #{reservation_state }
+		WHERE RESERVATION_ID = #{reservation_id }
+	</update>
+
 
 </mapper>

@@ -1,6 +1,7 @@
 package co.yo.prj.reservation.web;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import co.yo.prj.reservation.service.ReservationService;
+import co.yo.prj.reservation.service.ReservationVO;
 
 @Controller
 public class ReservationController {
@@ -17,15 +19,31 @@ public class ReservationController {
 
 	@RequestMapping("reservation.do")
 	public String reservation(Model model) {
-		model.addAttribute("reservationList", reservationDao.ReservationList());
+		model.addAttribute("reservationList", reservationDao.reservationList());
 		return "reservation/reservation";
 	}
 
 	@RequestMapping("chaingeReservation.do")
-	public String chaingeReservation(HttpServletRequest request, HttpSession session, Model model) {
-		request.getParameter("reservation_state");
-		
+	public void chaingeReservation(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			Model model) throws Exception {
+		String cmd = request.getParameter("cmd");
+		String strRid = request.getParameter("reservation_id");
+		System.out.println("reservation_id : " + strRid);
 
-		return "";
+		ReservationVO vo = new ReservationVO();
+		vo.setReservation_id(Integer.parseInt(strRid));
+
+		if (("stand").equals(cmd)) {
+			vo.setReservation_state("예약대기");
+			reservationDao.reservationInsert(vo);
+		} else if (("cancel").equals(cmd)) {
+			vo.setReservation_state("예약취소");
+			reservationDao.reservationInsert(vo);
+		} else if (("success").equals(cmd)) {
+			vo.setReservation_state("예약성공");
+			reservationDao.reservationInsert(vo);
+		}
+		request.getRequestDispatcher("reservation.do").forward(request, response);
+
 	}
 }
