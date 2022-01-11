@@ -19,9 +19,12 @@
 <link rel="stylesheet" type="text/css" href="resources/styles/responsive.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/contact_responsive.css">
+
+<!-- 검색창 왼쪽으로 가는것 필요한 페이지에 직접 넣기 -->
+<!-- 
 <link rel="stylesheet" type="text/css" href="resources/styles/offers_styles.css">
 <link rel="stylesheet" type="text/css" href="resources/styles/offers_responsive.css">
-
+ -->
 </head>
 
 <body>
