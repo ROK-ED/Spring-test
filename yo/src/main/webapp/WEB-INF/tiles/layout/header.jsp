@@ -45,9 +45,6 @@
 								<div class="user_box_login user_box_link">
 									<a href="memberLogout.do">LOGOUT</a>
 								</div>
-								<div class="user_box_login user_box_link">
-									<a href="#">예정(미구현)</a>
-								</div>
 								<div class="user_box_register user_box_link">
 									<a href="memberselectForm.do">마이페이지</a>
 								</div>
