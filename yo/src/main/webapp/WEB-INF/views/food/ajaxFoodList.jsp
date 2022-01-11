@@ -259,6 +259,8 @@
 					for (var i = 0; i < data.data.length; i++) {
 						mapKakao(data, i);
 						offers_grid.appendChild(createBody(data, i));
+						findImgLink(data.data[i].OPENDATA_ID,data.data[i].BZ_NM);
+
 					}
 
 				},
@@ -366,7 +368,7 @@
 							"position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
 
 			//var imgSrc = findImgLink(data.data[i].BZ_NM,
-					//data.data[i].OPENDATA_ID);
+			//data.data[i].OPENDATA_ID);
 			//console.log("이거는 찍히려나????" + imgSrc);
 
 			img1.setAttribute("src",
@@ -466,19 +468,21 @@
 
 		}
 
-		function findImgLink(food_name, food_id) {
+		function findImgLink(food_id, food_name) {
 			console.log("음식점 이름!!! === " + food_name);
 
 			$.ajax({
 				type : "POST",
 				url : "oneImgCrawl.do",
 				data : {
-					"food_name" : food_name,
-					"food_id" : food_id
+					"food_id" : food_id,
+					"food_name" : food_name
+
 				},
 				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
-					console.log("결과......" + result);
-					return result;
+					//console.log("결과......" + result);
+					console.log("제발...")
+					//return result;
 
 				},
 

@@ -135,7 +135,7 @@ public class FoodController {
 	}
 
 	
-
+	//음식점 전체조회 (api에서 가져오기)
 	@RequestMapping(value = "/ajaxFoodList.do", produces = "application/text;charset=utf8")
 	public String ajaxFoodList(Model model) {
 
@@ -172,7 +172,7 @@ public class FoodController {
 
 	}
 
-	// 음식점 상세조회
+	// 음식점 상세조회(api에서 가져오기)
 	@RequestMapping("/foodSelectOne.do")
 	public String foodSelectOne(@RequestParam("food_id") String food_id, Model model) {
 

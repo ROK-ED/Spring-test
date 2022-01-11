@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.food.service.FoodImgMapper">
+
+	<select id="foodImgSelectOne" 
+	parameterType="co.yo.prj.food.service.FoodImgVO" 
+	resultType="co.yo.prj.food.service.FoodImgVO">
+		SELECT * FROM YO_FOOD_IMG
+		WHERE FOOD_ID = #{food_id}
+	</select>
+	
+	
+	<insert id="foodImgInsert" 
+	parameterType="co.yo.prj.food.service.FoodImgVO">
+		INSERT INTO YO_FOOD_IMG 
+		VALUES(#{food_id}, #{food_img})
+	</insert>
+
+</mapper>
