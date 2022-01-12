@@ -41,6 +41,9 @@ public class MemberController {
 			session.setAttribute("member_email", member.getMember_email()); // 세션에 아이디값 담는다.
 			session.setAttribute("member_author", member.getMember_author());
 			session.setAttribute("member_nick", member.getMember_nick());
+			session.setAttribute("member_x", member.getMember_x());
+			session.setAttribute("member_y", member.getMember_y());
+			
 			mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 회원가입에 감사드립니다.", "home.do"));
 			mav.setViewName("Message");
 
@@ -83,6 +86,9 @@ public class MemberController {
 					session.setAttribute("member_email", member.getMember_email()); // 세션에 아이디값 담는다.
 					session.setAttribute("member_author", member.getMember_author());
 					session.setAttribute("member_nick", member.getMember_nick());
+					session.setAttribute("member_x", member.getMember_x());
+					session.setAttribute("member_y", member.getMember_y());
+					
 
 					mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 환영합니다.", "home.do"));
 					mav.setViewName("Message");
