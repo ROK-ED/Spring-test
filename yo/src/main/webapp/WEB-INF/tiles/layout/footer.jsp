@@ -11,7 +11,7 @@
 					<div class="footer_content footer_about">
 						<div class="logo_container footer_logo">
 							<div class="logo">
-								<a href="#"><img src="resources/images/logo.png" alt="">travelix</a>
+								<a href="home.do"><img src="resources/images/logo.png" alt="">yogihang</a>
 							</div>
 						</div>
 						<p class="footer_about_text">Lorem ipsum dolor sit amet,
@@ -188,6 +188,7 @@
 							<li class="footer_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="footer_nav_item"><a href="food.do">food</a></li>
 							<li class="footer_nav_item"><a href="boardSelectList.do">board</a></li>
+							<li class="footer_nav_item"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="footer_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>

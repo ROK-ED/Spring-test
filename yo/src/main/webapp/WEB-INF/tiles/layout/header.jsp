@@ -65,17 +65,17 @@
 					class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
 					<div class="logo_container">
 						<div class="logo">
-							<a href="#"><img src="resources/images/logo.png" alt="">travelix</a>
+							<a href="home.do"><img src="resources/images/logo.png" alt="">yogihang</a>
 						</div>
 					</div>
 					<div class="main_nav_container ml-auto">
 						<ul class="main_nav_list">
-							<li class="main_nav_item"><a href="home.do">home</a></li>
 							<li class="main_nav_item"><a href="placeSelectList.do">place</a></li>
 							<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
 							<li class="main_nav_item"><a href="food.do">food</a></li>
 							<li class="main_nav_item"><a href="reservation.do">reservation</a></li>
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
+							<li class="main_nav_item"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>
@@ -130,15 +130,16 @@
 			<div class="menu_close"></div>
 		</div>
 		<div class="logo menu_logo">
-			<a href="#"><img src="resources/images/logo.png" alt=""></a>
+			<a href="home.do"><img src="resources/images/logo.png" alt=""></a>
 		</div>
 		<ul>
-			<li class="menu_item"><a href="home.do">home</a></li>
+			<li class="menu_item"><a href="home.do">yogihang</a></li>
 			<li class="menu_item"><a href="placeSelectList.do">place</a></li>
 			<li class="menu_item"><a href="hotelSelectList.do">offers</a></li>
 			<li class="menu_item"><a href="food.do">food</a></li>
 			<li class="menu_item"><a href="reservation.do">reservation</a></li>
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
+			<li class="menu_item"><a href="chat.do">chat</a></li>
 			<c:if test="${sessionScope.member_author == 'ADMIN' }">
 			<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 			</c:if>

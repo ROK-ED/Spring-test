@@ -52,7 +52,7 @@
 											<td>${reservation.food_name }</td>
 										</c:when>
 										<c:otherwise>
-											<td>값이 없습니다.</td>
+											<td>empty</td>
 										</c:otherwise>
 									</c:choose>
 									<td>${reservation.reservation_member_email }</td>
@@ -63,16 +63,30 @@
 									<td>
 										<div class="btn-group" role="group">
 											<button id="btnGroupDrop1" type="button"
-												class="btn btn-secondary dropdown-toggle"
+												<c:if test="${reservation.reservation_state eq '예약대기'}">
+													class="btn btn-warning dropdown-toggle"
+												</c:if>
+												<c:if test="${reservation.reservation_state eq '예약성공'}">
+													class="btn btn-success dropdown-toggle"
+												</c:if>
+												<c:if test="${reservation.reservation_state eq '예약취소'}">
+													class="btn btn-danger dropdown-toggle"
+												</c:if>
+												<c:if test="${sessionScope.member_author == 'USER'}">
+													disabled="disabled"
+												</c:if>
 												data-toggle="dropdown" aria-haspopup="true"
 												aria-expanded="false">${reservation.reservation_state }</button>
 											<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
 												<a class="dropdown-item"
-													href="chaingeReservation.do?cmd=stand&reservation_id=${reservation.reservation_id}">예약대기</a>
-												<a class="dropdown-item"
-													href="chaingeReservation.do?cmd=cancel&reservation_id=${reservation.reservation_id}">예약취소</a>
-												<a class="dropdown-item"
-													href="chaingeReservation.do?cmd=success&reservation_id=${reservation.reservation_id}">예약완료</a>
+													href="chaingeReservation.do?cmd=stand&reservation_id=${reservation.reservation_id}"><button
+														type="button" class="btn btn-warning">예약대기</button></a> <a
+													class="dropdown-item"
+													href="chaingeReservation.do?cmd=success&reservation_id=${reservation.reservation_id}"><button
+														type="button" class="btn btn-success">예약성공</button></a> <a
+													class="dropdown-item"
+													href="chaingeReservation.do?cmd=cancel&reservation_id=${reservation.reservation_id}"><button
+														type="button" class="btn btn-danger">예약취소</button></a>
 											</div>
 										</div>
 									</td>
@@ -85,16 +99,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	var author = ${sessionScope.member_author}
-	console.log(author);
-	<%-- $(document).ready(function () {
-		<%MemberVO vo = (MemberVO) session.getAtrri %>
-		if(!${sessionScop.MEMBER_AUTHOR})
-		$('#btnGroupDrop1').attr('class', 'btndisabled');
-	}); --%>
-
-
-	// author 확인해서 호스트와 어드민만 버튼 활성화시킴
-	
-</script>

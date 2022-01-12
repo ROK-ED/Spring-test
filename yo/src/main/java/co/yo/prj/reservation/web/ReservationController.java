@@ -18,9 +18,15 @@ public class ReservationController {
 	private ReservationService reservationDao;
 
 	@RequestMapping("reservation.do")
-	public String reservation(Model model) {
-		model.addAttribute("reservationList", reservationDao.reservationList());
-		return "reservation/reservation";
+	public String reservation(HttpSession session, Model model) {
+		String member_email = (String) session.getAttribute("member_email");
+		if (member_email != null) {
+			model.addAttribute("reservationList", reservationDao.reservationList());
+			return "reservation/reservation";
+		} else {
+			return "member/memberLoginForm";
+		}
+
 	}
 
 	@RequestMapping("chaingeReservation.do")
