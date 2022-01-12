@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 
 <head>
@@ -104,7 +105,7 @@
 						<input type="hidden" id="reservation_date" name="reservation_date">
 					</form>
 				</div>
-
+		
 
 			</div>
 
@@ -167,6 +168,7 @@
 	{ 
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
 		document.getElementById('reservation_date').value=""
+		document.getElementById('res_text').innerText='예약일:'
 		autoReload(); //만들기
 	}
 	
@@ -175,6 +177,7 @@
 	{
 		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 		document.getElementById('reservation_date').value=""
+		document.getElementById('res_text').innerText='예약일:';
 		autoReload();
 		
 	}
@@ -183,6 +186,7 @@
 	function thisMonth(){
 		today = new Date();
 		document.getElementById('reservation_date').value=""
+		document.getElementById('res_text').innerText='예약일:'
 		autoReload();
 	}
 
@@ -240,15 +244,37 @@
 		//여기서 현재년도랑 월 찾아놓기
 		var thiyear=today.getFullYear();
 		var thimonth=today.getMonth()+1;
-		var block="${block}";
 		
-		// 달력 출력
+		if(thimonth<10)
+			thimonth="0"+thimonth;
+	
+		// 달력 출력 
 		for (i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
 		{ 
 			cell = row.insertCell();
-			
+			var thiday=i;
+			if(thiday<10)
+				thiday="0"+thiday;
 			var str="";
-			
+			<c:forEach items="${block }" var="hotel">
+				var slice='${hotel}'.split('-');
+				var split=slice[2].split(' ');
+				
+				var blyear=slice[0];
+				var blmonth=slice[1];
+				var blday=split[0];
+				if(thiyear==blyear && thimonth==blmonth && thiday==blday )
+					{
+					str += "<div id='"+blday+"'>"+blday+"</div>"; 
+		        				
+					cell.innerHTML = str;
+
+					cnt = cnt + 1;
+					cell.style.backgroundColor = "#f05650";
+					cell.style.color = "black";
+					continue;
+					}
+			</c:forEach>
 			
 			str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //클릭펑션 추가
 		        	
@@ -315,8 +341,11 @@
 		
 		var month=document.getElementById('yearmonth').innerText;
 		txt.innerText='예약일:'+month+' '+i+'일';
-
+		
+		
+		
 		//저장할 데이터 잘라내기
+		
 		var yea=today.getFullYear()+"";
 		var ye=yea.substring(2,4);
 		var mon=today.getMonth()+1;

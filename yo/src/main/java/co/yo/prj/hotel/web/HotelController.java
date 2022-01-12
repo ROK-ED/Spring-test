@@ -59,8 +59,9 @@ public class HotelController {
 		HotelVO vo=new HotelVO();
 		vo.setHotel_id(Integer.parseInt(id));
 		model.addAttribute("hotel",hotelDao.HotelSelect(vo));
-		
+	
 		model.addAttribute("block",hotelDao.HotelBlock(id));
+		
 		return  "hotel/hotelResForm";
 	}
 	
