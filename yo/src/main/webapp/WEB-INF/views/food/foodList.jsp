@@ -140,7 +140,6 @@
 				<div class="home_title">foodList</div>
 			</div>
 		</div>
-
 		<!-- Search -->
 
 		<div class="offers" onload="makeMarker()">

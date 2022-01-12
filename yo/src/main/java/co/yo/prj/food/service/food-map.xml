@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.yo.prj.food.service.FoodMapper">
-	
+	<!-- 
 	<select id="foodSelectList" resultType="co.yo.prj.food.service.FoodVO">
 		SELECT * FROM YO_FOOD
 	</select>
@@ -33,11 +33,7 @@
 	</insert>
 	
 
-	<select id="foodSelect"
-	parameterType="co.yo.prj.food.service.FoodVO">
-		SELECT * FROM YO_FOOD
-		WHERE FOOD_NAME = #{food_name}
-	</select>
+	
 	
 	<delete id="foodDelete"
 	parameterType="co.yo.prj.food.service.FoodVO">
@@ -66,5 +62,5 @@
 		<if test="food_picture3 != null">set food_picture3 = #{food_picture3}</if>
 		<if test="food_pfile3 != null">set food_pfile3 = #{food_pfile3}</if>
 		WHERE FOOD_NAME = #{food_name}
-	</update>
+	</update> -->
 </mapper>

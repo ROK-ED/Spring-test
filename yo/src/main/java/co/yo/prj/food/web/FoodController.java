@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -69,8 +71,6 @@ public class FoodController {
 	@RequestMapping("/foodSelect.do")
 	public String foodSelect(FoodVO food, Model model) {
 
-		model.addAttribute("foodSelect", foodDao.foodSelect(food));
-
 		return "food/foodSelect";
 	}
 
@@ -83,7 +83,7 @@ public class FoodController {
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxFood(Model model) {
+	public String ajaxFood(HttpSession session) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
@@ -111,13 +111,12 @@ public class FoodController {
 			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
 			data = data.replace(str, " ");
 
-			
 			// String to json --> model
 			JSONObject jObject = new JSONObject(data);
 
 			JSONArray jArray = jObject.getJSONArray("data");
-			
-			model.addAttribute("jsonModel", jArray);
+
+			session.setAttribute("jsonModel", jArray);
 
 //			for (int i = 0; i < jArray.length(); i++) {
 //				JSONObject obj = jArray.getJSONObject(i);
@@ -125,14 +124,119 @@ public class FoodController {
 //				 System.out.println("title(" + i + "): " + title);
 //
 //			}
-			urlconnection.disconnect();
 
+			urlconnection.disconnect();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return data;
 
+	}
+
+	
+	//음식점 전체조회 (api에서 가져오기)
+	@RequestMapping(value = "/ajaxFoodList.do", produces = "application/text;charset=utf8")
+	public String ajaxFoodList(Model model) {
+
+		StringBuffer result = new StringBuffer();
+		String data = "";
+		try {
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			URL url = new URL(apiURL);
+			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+			urlconnection.setRequestMethod("GET");
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+
+			String returnLine;
+
+			while ((returnLine = br.readLine()) != null) {
+				result.append(returnLine);
+				// System.out.println("리턴라인"+returnLine);
+			}
+
+			// 데이터 정리하기
+			data = result.toString();
+			data = data.replace("\", }", "\"}");
+
+			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
+			data = data.replace(str, " ");
+
+			urlconnection.disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return data;
+
+	}
+
+	// 음식점 상세조회(api에서 가져오기)
+	@RequestMapping("/foodSelectOne.do")
+	public String foodSelectOne(@RequestParam("food_id") String food_id, Model model) {
+
+		StringBuffer result = new StringBuffer();
+		String data = "";
+		try {
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			URL url = new URL(apiURL);
+			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+			urlconnection.setRequestMethod("GET");
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+
+			String returnLine;
+
+			while ((returnLine = br.readLine()) != null) {
+				result.append(returnLine);
+				// System.out.println("리턴라인"+returnLine);
+			}
+
+			// 데이터 정리하기
+			data = result.toString();
+			data = data.replace("\", }", "\"}");
+
+			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
+			data = data.replace(str, " ");
+
+			// String to json --> model
+
+
+
+
+			JSONObject jObject = new JSONObject();
+			JSONArray jArray = new JSONArray();
+			
+			
+			
+			jObject = new JSONObject(data);
+
+			jArray = jObject.getJSONArray("data");
+
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject obj = jArray.getJSONObject(i);
+				String title = obj.getString("BZ_NM");
+				
+				if (obj.getString("OPENDATA_ID").equals(food_id)) {
+
+					String asdf = obj.getString("BZ_NM");
+					String returnTitle = title;
+					System.out.println("===============================title(" + i + "): " + title);
+					System.out.println("returnTitle===============================title(" + i + "): " + returnTitle);
+					model.addAttribute("jsonModel", obj);
+					break;
+					
+				}
+
+			}
+
+			urlconnection.disconnect();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "food/foodSelectOne";
 	}
 
 }
