@@ -41,7 +41,20 @@
 											<td>PLACE</td>
 										</c:when>
 									</c:choose>
-									<td>${reservation.reservation_place }</td>
+									<c:choose>
+										<c:when test="${not empty reservation.hotel_title}">
+											<td>${reservation.hotel_title }</td>
+										</c:when>
+										<c:when test="${not empty reservation.place_name}">
+											<td>${reservation.place_name }</td>
+										</c:when>
+										<c:when test="${not empty reservation.food_name}">
+											<td>${reservation.food_name }</td>
+										</c:when>
+										<c:otherwise>
+											<td>값이 없습니다.</td>
+										</c:otherwise>
+									</c:choose>
 									<td>${reservation.reservation_member_email }</td>
 									<td>${reservation.reservation_time }</td>
 									<td><fmt:formatDate
@@ -52,10 +65,14 @@
 											<button id="btnGroupDrop1" type="button"
 												class="btn btn-secondary dropdown-toggle"
 												data-toggle="dropdown" aria-haspopup="true"
-												aria-expanded="false">Dropdown</button>
+												aria-expanded="false">${reservation.reservation_state }</button>
 											<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-												<a class="dropdown-item" href="#">${reservation.reservation_state }</a> <a
-													class="dropdown-item" href="#">Dropdown link</a>
+												<a class="dropdown-item"
+													href="chaingeReservation.do?cmd=stand&reservation_id=${reservation.reservation_id}">예약대기</a>
+												<a class="dropdown-item"
+													href="chaingeReservation.do?cmd=cancel&reservation_id=${reservation.reservation_id}">예약취소</a>
+												<a class="dropdown-item"
+													href="chaingeReservation.do?cmd=success&reservation_id=${reservation.reservation_id}">예약완료</a>
 											</div>
 										</div>
 									</td>
@@ -68,3 +85,16 @@
 		</div>
 	</div>
 </div>
+<script>
+	var author = ${sessionScope.member_author}
+	console.log(author);
+	<%-- $(document).ready(function () {
+		<%MemberVO vo = (MemberVO) session.getAtrri %>
+		if(!${sessionScop.MEMBER_AUTHOR})
+		$('#btnGroupDrop1').attr('class', 'btndisabled');
+	}); --%>
+
+
+	// author 확인해서 호스트와 어드민만 버튼 활성화시킴
+	
+</script>

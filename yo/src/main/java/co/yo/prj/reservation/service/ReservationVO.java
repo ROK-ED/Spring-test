@@ -16,5 +16,7 @@ public class ReservationVO {
 	private String reservation_option;
 	private int reservation_place_id;
 	private String reservation_state;
-	private String reservation_place;
+	private String hotel_title;
+	private String place_name;
+	private String food_name;
 }
