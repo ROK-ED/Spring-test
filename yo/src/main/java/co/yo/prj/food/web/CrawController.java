@@ -25,7 +25,7 @@ public class CrawController {
 	@Autowired
 	private FoodImgService foodImgDao;
 
-	@RequestMapping("/foodImgSelectOne.do")
+	@RequestMapping(value = "/foodImgSelectOne.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String foodImgSelectOne(@RequestParam("food_id") String food_id) {
 		System.out.println("이거 확인해야 함 음식점번호 ========" + food_id);
@@ -35,9 +35,11 @@ public class CrawController {
 
 			if (foodResult != null) {
 				foodImg = foodResult.getFood_img();
-				System.out.println("사진 링크 =============" + foodImg);
+				// System.out.println("사진 링크 =============" + foodImg);
+				//foodImg = new String(foodImg.getBytes("8859_1"), "utf-8");
 
-				//foodImg = URLEncoder.encode(foodImg, "euc-kr");
+				System.out.println("사진 링크 =============" + foodImg);
+				// foodImg = URLEncoder.encode(foodImg, "euc-kr");
 
 				return foodImg;
 			}
