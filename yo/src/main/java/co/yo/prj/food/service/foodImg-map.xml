@@ -3,7 +3,7 @@
 <mapper namespace="co.yo.prj.food.service.FoodImgMapper">
 
 	<select id="foodImgSelectOne" 
-	parameterType="co.yo.prj.food.service.FoodImgVO" 
+	parameterType="String" 
 	resultType="co.yo.prj.food.service.FoodImgVO">
 		SELECT * FROM YO_FOOD_IMG
 		WHERE FOOD_ID = #{food_id}
