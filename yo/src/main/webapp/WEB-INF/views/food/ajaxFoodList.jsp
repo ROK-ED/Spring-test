@@ -1,6 +1,6 @@
 <%@page import="org.json.simple.JSONArray"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -130,7 +130,7 @@
 
 		<!-- Search -->
 
-		<div class="offers" onload="makeMarker()">
+		<div class="offers">
 			<div class="search">
 
 
@@ -223,18 +223,34 @@
 
 					<div class="col-lg-7">
 						<div class="offers_grid">
+							<div>
+							111111 c출력해줘................제발........
+								<table id="mTable" class="table table-bordered">
+									<thead>
+										<tr>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody class="table_body">
+									
+									</tbody>
+								</table>
 
+
+							</div>
 
 							<!-- script에서 입력되는 곳 -->
 
 
 						</div>
-
+						<br> <br> <br> <br> <br> <br> <br>
 					</div>
 
 					<div class="col-lg-5">
-						<div id="mapi" style="width: 500px; height: 400px;"></div>
+						<br> <br>
+						<div id="mapi" style="width: 100%; height: 600px;"></div>
 					</div>
+
 				</div>
 			</div>
 		</div>
@@ -251,15 +267,21 @@
 				type : "POST",
 				url : "ajaxFood.do",
 				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
-
+					console.log("222222222222222222");
 					var data = JSON.parse(result);
 					//console.log(data);
 					//console.log(data.data[1].GNG_CS);
-					var offers_grid = document.querySelector('.offers_grid');
+					var table_body = document.querySelector('.table_body');
+					
 					for (var i = 0; i < data.data.length; i++) {
 						mapKakao(data, i);
-						offers_grid.appendChild(createBody(data, i));
-						findImgLink(data.data[i].OPENDATA_ID,data.data[i].BZ_NM);
+						//var findImg = findImgLink(data.data[i].OPENDATA_ID);
+						table_body.appendChild(createBody(data, i));///데이터 출력하기
+						findImgLink(data.data[i].OPENDATA_ID);
+						
+						/* 
+						findImgLink(data.data[i].OPENDATA_ID,
+								data.data[i].BZ_NM); */
 
 					}
 
@@ -272,6 +294,75 @@
 
 			});
 		}
+		
+		
+
+		function findImgLink(food_id) {
+			
+			var tmp = ".imgA" + food_id;
+			var imgA = document.querySelector(tmp);
+			  
+			
+			
+			console.log("음식점 번호!!! === " + food_id);
+
+			$.ajax({
+				type : "POST",
+				url : "foodImgSelectOne.do",
+				data : {
+					"food_id" : food_id
+
+				},
+				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
+		
+					
+					
+					   //var foodImg = findImgLink(data.data[i].OPENDATA_ID );
+					   	//result = decodeURIComponent(result)+"";
+				        console.log("================이미지.. 나와야함..."+result);
+				        
+				        if (result != "") {
+				        	
+				        	var temp = result+"";
+				        	console.log("5555555555555555이미지.. 나와야함..."+temp);
+				            var img = document.createElement('img');
+				            img.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+				            
+				            img.setAttribute("src", temp);   ///////////////////////////////////////////수정
+				            imgA.appendChild(img);
+				            
+				        } else  if(result ==""){
+				        	console.log("이미지 안나옴... 엑박처리");
+				            var img = document.createElement('img');
+				            img.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+				            img.setAttribute("src", "resources/images/noimage.jpg");
+				            imgA.appendChild(img);
+
+				        } else {
+				        	console.log("이미지 안나옴... 엑박처리");
+				            var img = document.createElement('img');
+				            img.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+				            img.setAttribute("src", "resources/images/noimage.jpg");
+				            imgA.appendChild(img);
+				        }
+					 
+					
+					return result;
+				
+
+				},
+
+				error : function(e) {
+					console.log(e);
+					//alert('실패했습니다.');
+				}
+
+			});
+		}
+
+		
+		
+		
 
 		//카카오 맵 api로 주소 찍기
 		//주소 출력하기
@@ -332,148 +423,127 @@
 					});//geocoder
 
 		}
-
+		
 		//화면에 리스트 생성하기
 		function createBody(data, i) {
+			  
+	        console.log("333333333333333");
+	        
+	        
+	        var tr = document.createElement('tr');
+			
+	        
+	        var td = document.createElement('td');
+	        var offers_item = document.createElement('div');
+	        offers_item.setAttribute("class", "offers_item rating_4");
 
-			var offers_item = document.createElement('div');
-			offers_item.setAttribute("class", "offers_item rating_4");
+	      
+	        var row = document.createElement('div');
+	        row.setAttribute("class", "row");
 
-			var row = document.createElement('div');
-			row.setAttribute("class", "row");
+	        var col_lg_0 = document.createElement('div');
+	        col_lg_0.setAttribute('class', "col-lg-0 temp_col")
 
-			// div col_lg_1
-			var col_lg_0 = document.createElement('div');
-			col_lg_0.setAttribute("class", "col-lg-0 temp_col");
+	        var col_lg_5 = document.createElement('div');
+	        col_lg_5.setAttribute("class", "col-lg-5 col-1680-4");
 
-			// div col_lg_5
-			var col_lg_5 = document.createElement('div');
-			col_lg_5.setAttribute("class", "col-lg-5 col-1680-4");
+	        var offers_image_container = document.createElement('div');
+	        offers_image_container.setAttribute("class", "offers_image_container");
 
-			var offers_image_container = document.createElement('div');
-			offers_image_container.setAttribute("class",
-					"offers_image_container");
+	        var offers_image_background = document.createElement('div');
+	        offers_image_background.setAttribute("class", "offers_image_background");
 
-			var offers_image_background = document.createElement('div');
-			offers_image_background.setAttribute("class",
-					"offers_image_background");
+	        var imgA = document.createElement('a');
+	        var tmp = "imgA" + data.data[i].OPENDATA_ID;/////////////////////////=======================
+	        imgA.setAttribute("class", tmp);
+			imgA.setAttribute("href", "foodSelect.do?food_name=" + data.data[i].BZ_NM ) //////////////////////////////////////수정2
+	        
+	        
+	        /*  var foodImg = findImgLink(data.data[i].OPENDATA_ID );
+	        console.log("================이미지.. 나와야함..."+foodImg);
+	        
+	        if (foodImg != null) {
+	        	console.log("5555555555555555이미지.. 나와야함...");
+	            var img = document.createElement('img');
+	            img.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+	            img.setAttribute("src",foodImg);///////////////////////////////////////////수정
+	            imgA.appendChild(img);
+	            
+	        } else {
+	            var img = document.createElement('img');
+	            img.setAttribute("style", "position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+	            img.setAttribute("src", "resources/images/noimage.jpg");
+	            imgA.appendChild(img);
 
-			var a = document.createElement('a');
-			a.setAttribute("href", "foodSelectOne.do?food_id="
-					+ data.data[i].OPENDATA_ID);
+	        }  */
 
-			var img1 = document.createElement('img');
-			img1
-					.setAttribute("style",
-							"position: absolute; top: 0; left: 0; width: 100%; height: 100%;");
+	        offers_image_background.appendChild(imgA);
+	        offers_image_container.appendChild(offers_image_background);
+	        col_lg_5.appendChild(offers_image_container);
 
-			//var imgSrc = findImgLink(data.data[i].BZ_NM,
-			//data.data[i].OPENDATA_ID);
-			//console.log("이거는 찍히려나????" + imgSrc);
 
-			img1.setAttribute("src",
-					"https://www.daegufood.go.kr/data/food/IMG_93331.jpg");//imgLink());//이미지 주소 함수
-			a.appendChild(img1);
 
-			offers_image_background.appendChild(a);
 
-			offers_image_container.appendChild(offers_image_background);
+	        var col_lg_7 = document.createElement('div');
+	        col_lg_7.setAttribute("class","col-lg-7");
 
-			col_lg_5.appendChild(offers_image_container);
+	        var offers_content = document.createElement('div');
+	        offers_content.setAttribute("class","offers_content");
 
-			//div col_lg_7
-			var col_lg_7 = document.createElement('div');
-			col_lg_7.setAttribute("class", "col-lg-7");
+	        var offers_price = document.createElement('div');
+	        offers_price.setAttribute("class","offers_price");
+	        offers_price.textContent = data.data[i].BZ_NM; //////////////////////////////
 
-			var offers_content = document.createElement('div');
-			offers_content.setAttribute("class", "offers_content");
+	        var offer_reviews = document.createElement('div');
+	        offer_reviews.setAttribute("class","offer_reviews");
 
-			var offers_price = document.createElement('div');
-			offers_price.setAttribute("class", "offers_price formFoodName");
-			offers_price.setAttribute("id", "formFoodName");
-			offers_price.textContent = data.data[i].BZ_NM; //음식점 이름
+	        
+	        var offers_text = document.createElement('p');
+	        offers_text.setAttribute("class","offers_text");
+	        if(data.data[i].SMPL_DESC != null){
+	            offers_text.textContent = data.data[i].SMPL_DESC  ;//////////////////////////////여기에 음식점 설명 or 메뉴 
+	        }
 
-			/*var offers_rating = document.createElement('div');
-			offers_rating.setAttribute("class",
-			    "rating_r rating_r_4 offers_rating");
-			offers_rating.setAttribute("data-ration", "4");
-			for (var i = 0; i < 5; i++) {
-			    var i = document.createElement('i');
-			    offers_rating.appendChild(i);
-			}*/
+	        var book_button = document.createElement('div');
+	        book_button.setAttribute("class","button book_button");
+	        
+	        var bookA = document.createElement('a');
+	        bookA.setAttribute('href', "hotelResForm.do?hotel_id=${hotel.hotel_id }");/////일단은 그냥 해둠... 
+	        bookA.textContent = "예약";
+	        for(var i=0;i<3;i++){
+	            var span = document.createElement('span');
+	            bookA.appendChild(span);
+	        }
+	        book_button.appendChild(bookA);
 
-			var offers_text = document.createElement('p');
-			offers_text.setAttribute("class", "offers_text");
 
-			if (data.data[i] != null) {
-				offers_text.textContent = data.data[i].MNU; //음식 설명
-			}
+	        col_lg_7.appendChild(offers_content);
+	        col_lg_7.appendChild(offers_price);
+	        col_lg_7.appendChild(offer_reviews);
+	        col_lg_7.appendChild(offers_text);
+	        col_lg_7.appendChild(book_button);
+	        
+	        row.appendChild(col_lg_5);
+	        row.appendChild(col_lg_7);
+	        td.appendChild(row);
+	        
+			tr.appendChild(td);
 
-			var book_button = document.createElement('div');
-			book_button.setAttribute("class", "button book_button");
 
-			var aBtn = document.createElement('a');
-			aBtn.setAttribute("href", "FoodResForm.do?food_id="
-					+ data.data[i].OPENDATA_ID);
-			aBtn.textContent = "예약"
+	        return tr;
 
-			for (var i = 0; i < 3; i++) {
-				var span = document.createElement('span');
-				aBtn.appendChild(span);
 
-			}
-			book_button.appendChild(aBtn);
 
-			var offer_reviews = document.createElement('div');
-			offer_reviews.setAttribute("class", "offer_reviews");
 
-			var offer_reviews_content = document.createElement('div');
-			offer_reviews_content
-					.setAttribute("class", "offer_reviews_content");
-
-			var offer_reviews_title = document.createElement('div');
-			offer_reviews_title.setAttribute("class", "offer_reviews_title");
-			offer_reviews_title.textContent = "very good";
-			offer_reviews_content.appendChild(offer_reviews_title);
-
-			var offer_reviews_subtitle = document.createElement('div');
-			offer_reviews_subtitle.setAttribute("class",
-					"offer_reviews_subtitle");
-			offer_reviews_content.textContent = "100 reviews";
-			offer_reviews_content.appendChild(offer_reviews_subtitle);
-
-			var offer_reviews_rating = document.createElement('div');
-			offer_reviews_rating.setAttribute("class",
-					"offer_reviews_rating text-center");
-			offer_reviews_rating.textContent = "8.1";
-
-			offer_reviews.appendChild(offer_reviews_content);
-			offer_reviews.appendChild(offer_reviews_rating);
-
-			offers_content.appendChild(offers_price);
-
-			// offers_content.appendChild(offers_rating);
-
-			offers_content.appendChild(offers_text);
-
-			offers_content.appendChild(offer_reviews);
-			col_lg_7.appendChild(offers_content);
-
-			row.append(col_lg_0, col_lg_5, col_lg_7);
-
-			// row.appendChild(col_lg_4);
-			// row.appendChild(col_lg_4);
-			offers_item.appendChild(row);
-			return offers_item;
 
 		}
-
-		function findImgLink(food_id, food_name) {
+		
+		/* function findImgLink(food_id, food_name) {
 			console.log("음식점 이름!!! === " + food_name);
 
 			$.ajax({
 				type : "POST",
-				url : "oneImgCrawl.do",
+				url : "foodImgSelectOne.do",
 				data : {
 					"food_id" : food_id,
 					"food_name" : food_name
@@ -492,7 +562,7 @@
 				}
 
 			});
-		}
+		} */
 	</script>
 </body>
 </html>
