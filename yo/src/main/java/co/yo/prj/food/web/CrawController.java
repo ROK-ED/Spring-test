@@ -56,23 +56,23 @@ public class CrawController {
 		String realIMG = "";
 		//String path = "C:\\Users\\temp\\food"; // 저장할 경로
 
-		for (Element option : blogOption) {
-			FoodImgVO foodImg = new FoodImgVO();
-
-			realIMG = option.select("img").attr("src");
-			realIMG = "https://www.daegufood.go.kr" + realIMG;
-
-			foodImg.setFood_id(food_id);
-			foodImg.setFood_img(realIMG);
-			System.out.println("이미지 링크 ========== "+realIMG);
-			
-			int result = foodImgDao.foodImgInsert(foodImg);
-			System.out.println(result + "건 입력되었습니다");
-
-			al1.add(realIMG);
-
-			System.out.println("이미지 경로" + realIMG);
-		}
+//		for (Element option : blogOption) {
+//			FoodImgVO foodImg = new FoodImgVO();
+//
+//			realIMG = option.select("img").attr("src");
+//			realIMG = "https://www.daegufood.go.kr" + realIMG;
+//
+//			foodImg.setFood_id(food_id);
+//			foodImg.setFood_img(realIMG);
+//			System.out.println("이미지 링크 ========== "+realIMG);
+//			
+//			int result = foodImgDao.foodImgInsert(foodImg);
+//			System.out.println(result + "건 입력되었습니다");
+//
+//			al1.add(realIMG);
+//
+//			System.out.println("이미지 경로" + realIMG);
+//		}
 
 		return null;
 	}
