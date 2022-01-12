@@ -224,7 +224,6 @@
 					<div class="col-lg-7">
 						<div class="offers_grid">
 							<div>
-							111111 c출력해줘................제발........
 								<table id="mTable" class="table table-bordered">
 									<thead>
 										<tr>
@@ -235,13 +234,9 @@
 									
 									</tbody>
 								</table>
-
-
 							</div>
 
 							<!-- script에서 입력되는 곳 -->
-
-
 						</div>
 						<br> <br> <br> <br> <br> <br> <br>
 					</div>
@@ -318,7 +313,7 @@
 					
 					
 					   //var foodImg = findImgLink(data.data[i].OPENDATA_ID );
-					   	//result = decodeURIComponent(result)+"";
+					   //	result = decodeURIComponent(result)+"";
 				        console.log("================이미지.. 나와야함..."+result);
 				        
 				        if (result != "") {
@@ -380,9 +375,10 @@
 
 			// 주소-좌표 변환 객체를 생성합니다
 			var geocoder = new kakao.maps.services.Geocoder();
-			var foodName = data.data[i].BZ_NM;
-			var foodAddr = data.data[i].GNG_CS;
-			var foodId = data.data[i].OPENDATA_ID;
+			var foodName = data.data[i].BZ_NM+"";
+			var foodAddr = data.data[i].GNG_CS+"";
+			var foodId = data.data[i].OPENDATA_ID+"";
+			//console.log("번호 확인하기 ==============="+foodId);
 
 			// 주소로 좌표를 검색합니다
 			geocoder.addressSearch(data.data[i].GNG_CS,
@@ -402,7 +398,10 @@
 
 							// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
 							var iwContent = '<div style="padding:5px;">'
-									+ foodName + '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+									+ foodName + '<br>'
+									+'<a href="foodSelectOne.do?food_id='+foodId+'">상세보기</a>'
+									
+									+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 							iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
 							// 인포윈도우를 생성합니다
@@ -427,7 +426,7 @@
 		//화면에 리스트 생성하기
 		function createBody(data, i) {
 			  
-	        console.log("333333333333333");
+	       // console.log("333333333333333");
 	        
 	        
 	        var tr = document.createElement('tr');
