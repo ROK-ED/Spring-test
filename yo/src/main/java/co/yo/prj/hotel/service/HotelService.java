@@ -10,4 +10,7 @@ public interface HotelService {
 	int HotelDelete(int hotel_id);
 	
 	int HotelIdUpdate(int hotel_id);
+	
+	List<String> HotelResSearch(String resName,String resDate);
+	List<String> HotelBlock(String id);
 }
