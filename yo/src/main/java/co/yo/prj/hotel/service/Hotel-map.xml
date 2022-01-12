@@ -59,6 +59,41 @@
 		]]>
 	</update>
 
-
-
+	<select id="HotelResSearch" parameterType="String"
+		resultType="String">
+		SELECT YO_HOTEL.HOTEL_ID
+		FROM YO_HOTEL
+		LEFT OUTER JOIN
+		(
+		SELECT RESERVATION_HOTEL_ID,RESERVATION_DATE,COUNT(RESERVATION_DATE)
+		AS COUNTL
+		FROM YO_RESERVATION
+		WHERE RESERVATION_OPTION='H' AND
+		RESERVATION_DATE= #{resDate}
+		GROUP BY
+		RESERVATION_HOTEL_ID,RESERVATION_DATE
+		)
+		ON
+		YO_HOTEL.HOTEL_ID=RESERVATION_HOTEL_ID
+		WHERE YO_HOTEL.HOTEL_TITLE LIKE
+		'%'||#{resName}||'%' AND (COUNTL IS NULL OR COUNTL <![CDATA[<]]>HOTEL_LOOM
+		)
+		GROUP BY YO_HOTEL.HOTEL_ID
+	</select>
+	<select id="HotelBlock" parameterType="String"
+		resultType="String">
+		select RESERVATION_DATE
+		from yo_hotel
+		inner join
+		(
+		select RESERVATION_hotel_ID,RESERVATION_DATE,count(RESERVATION_DATE) as
+		countl
+		from YO_RESERVATION
+		where RESERVATION_OPTION='H'
+		group by RESERVATION_hotel_ID,RESERVATION_DATE
+		)
+		on yo_hotel.hotel_id=RESERVATION_HOTEL_ID
+		where hotel_id=#{id} and countl<![CDATA[<=]]>hotel_loom
+		GROUP by RESERVATION_DATE
+	</select>
 </mapper>

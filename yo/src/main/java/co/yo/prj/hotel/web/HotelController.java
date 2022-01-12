@@ -2,6 +2,9 @@ package co.yo.prj.hotel.web;
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.yo.prj.Message;
@@ -57,6 +59,8 @@ public class HotelController {
 		HotelVO vo=new HotelVO();
 		vo.setHotel_id(Integer.parseInt(id));
 		model.addAttribute("hotel",hotelDao.HotelSelect(vo));
+		
+		model.addAttribute("block",hotelDao.HotelBlock(id));
 		return  "hotel/hotelResForm";
 	}
 	
@@ -142,5 +146,22 @@ public class HotelController {
 		return mav;
 
 	}
+	@RequestMapping("hotelResSearch.do")//조건 검색
+	public String hotelResSearch(@RequestParam("resName") String resName,@RequestParam("resDate") String resDate,Model model)
+	{
+		
+		List<HotelVO> hotels = new ArrayList<HotelVO>();
+		List<String>id=hotelDao.HotelResSearch(resName, resDate);
+
+		for(String str : id)
+		{
+			HotelVO vo=new HotelVO();
+			vo.setHotel_id(Integer.parseInt(str));
+			hotels.add(hotelDao.HotelSelect(vo));
+		}
+		model.addAttribute("hotels",hotels);
+		return "hotel/hotelSelectList";
+	}
+		
 	
 }

@@ -22,6 +22,6 @@ public class HotelVO {
 	private String hotel_picture;
 	private int hotel_hit;
 	
-
+		
 	 
 }

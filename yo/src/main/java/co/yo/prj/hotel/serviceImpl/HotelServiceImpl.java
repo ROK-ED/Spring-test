@@ -52,4 +52,16 @@ public class HotelServiceImpl implements HotelService {
 		return map.HotelDelete(hotel_id);
 	}
 
+	@Override
+	public List<String> HotelResSearch(String resName, String resDate) {
+		// TODO Auto-generated method stub
+		return map.HotelResSearch(resName, resDate);
+	}
+
+	@Override
+	public List<String> HotelBlock(String id) {
+		// TODO Auto-generated method stub
+		return map.HotelBlock(id);
+	}
+
 }

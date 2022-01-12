@@ -96,12 +96,12 @@
 								<div class="contact_title text-right">
 									<button type="submit" id="form_submit_button"
 										class="form_submit_button button trans_200">
-										예약<span></span><span></span><span></span>
+										예약하기<span></span><span></span><span></span>
 									</button>
 								</div>
 							</div>
 						</div>
-
+						<input type="hidden" id="reservation_date" name="reservation_date">
 					</form>
 				</div>
 
@@ -166,7 +166,7 @@
 	function beforem() //이전 달을 today에 값을 저장
 	{ 
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-		document.getElementById('res_text').innerText="예약일:";
+		document.getElementById('reservation_date').value=""
 		autoReload(); //만들기
 	}
 	
@@ -174,7 +174,7 @@
 	function nextm()  //다음 달을 today에 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-		document.getElementById('res_text').innerText="예약일:";
+		document.getElementById('reservation_date').value=""
 		autoReload();
 		
 	}
@@ -182,7 +182,7 @@
 	//오늘선택
 	function thisMonth(){
 		today = new Date();
-		document.getElementById('res_text').innerText="예약일:";
+		document.getElementById('reservation_date').value=""
 		autoReload();
 	}
 
@@ -237,9 +237,11 @@
 		}
 		
 		
-
+		//여기서 현재년도랑 월 찾아놓기
+		var thiyear=today.getFullYear();
+		var thimonth=today.getMonth()+1;
+		var block="${block}";
 		
-
 		// 달력 출력
 		for (i = 1; i <= lastDate.getDate(); i++) // 1일부터 마지막 일까지
 		{ 
@@ -247,7 +249,8 @@
 			
 			var str="";
 			
-			str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //나중에 원하는 날에 일정을 넣기위해 id값을 날자로 설정
+			
+			str += "<div id='"+i+"' onclick='resSelFnc("+i+")'>"+i+"</div>"; //클릭펑션 추가
 		        	
 			
 			cell.innerHTML = str;
@@ -312,6 +315,20 @@
 		
 		var month=document.getElementById('yearmonth').innerText;
 		txt.innerText='예약일:'+month+' '+i+'일';
+
+		//저장할 데이터 잘라내기
+		var yea=today.getFullYear()+"";
+		var ye=yea.substring(2,4);
+		var mon=today.getMonth()+1;
+		var da=i;
+		if(i<10)
+			da='0'+i;
+		if(mon<10)
+			mon='0'+mon;
+		var resdat=document.getElementById('reservation_date');
+		resdat.value=ye+mon+da;
+
+		//
 		
 		x.style.backgroundColor= 'black';
 	}
