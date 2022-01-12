@@ -456,7 +456,7 @@
 	        var imgA = document.createElement('a');
 	        var tmp = "imgA" + data.data[i].OPENDATA_ID;/////////////////////////=======================
 	        imgA.setAttribute("class", tmp);
-			imgA.setAttribute("href", "foodSelect.do?food_name=" + data.data[i].BZ_NM ) //////////////////////////////////////수정2
+			imgA.setAttribute("href", "foodSelectOne.do?food_id=" + data.data[i].OPENDATA_ID ) //////////////////////////////////////수정2
 	        
 	        
 	        /*  var foodImg = findImgLink(data.data[i].OPENDATA_ID );

@@ -32,19 +32,13 @@ public class CrawController {
 		try {
 			FoodImgVO foodResult = foodImgDao.foodImgSelectOne(food_id);
 			String foodImg;
-			
-		
-			
-			
-			
+
 			if (foodResult != null) {
 				foodImg = foodResult.getFood_img();
 				System.out.println("사진 링크 =============" + foodImg);
-				
-				
-				foodImg = URLEncoder.encode(foodImg,"euc-kr");
 
-				
+				//foodImg = URLEncoder.encode(foodImg, "euc-kr");
+
 				return foodImg;
 			}
 
