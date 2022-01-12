@@ -41,11 +41,11 @@ public class MemberController {
 			session.setAttribute("member_email", member.getMember_email()); // 세션에 아이디값 담는다.
 			session.setAttribute("member_author", member.getMember_author());
 			session.setAttribute("member_nick", member.getMember_nick());
-			mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 회원가입에 감사드립니다.", "home.do"));
+			mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 회원가입에 감사드립니다.", "/"));
 			mav.setViewName("Message");
 
 		} catch (Exception e) {// 이거쓸일 없음
-			mav.addObject("data", new Message("회원가입에 실패하였습니다.", "home.do"));
+			mav.addObject("data", new Message("회원가입에 실패하였습니다.", "/"));
 			mav.setViewName("Message");
 		}
 		return mav;
@@ -76,7 +76,7 @@ public class MemberController {
 			if (member != null) {
 				if (member.getMember_author().equals("ice")) {
 
-					mav.addObject("data", new Message("동결된 계정, 해제를 원할시 관리자에게 연락바랍니다.", "home.do"));
+					mav.addObject("data", new Message("동결된 계정, 해제를 원할시 관리자에게 연락바랍니다.", "/"));
 					mav.setViewName("Message");
 
 				} else {
@@ -84,16 +84,16 @@ public class MemberController {
 					session.setAttribute("member_author", member.getMember_author());
 					session.setAttribute("member_nick", member.getMember_nick());
 
-					mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 환영합니다.", "home.do"));
+					mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 환영합니다.", "/"));
 					mav.setViewName("Message");
 				}
 			} else {
 
-				mav.addObject("data", new Message("아이디 혹은 패스워드를 확인바랍니다.", "home.do"));
+				mav.addObject("data", new Message("아이디 혹은 패스워드를 확인바랍니다.", "/"));
 				mav.setViewName("Message");
 			}
 		} catch (Exception e) {// 이거쓸일 없을껄?
-			mav.addObject("data", new Message("로그인에 실패하였습니다.", "home.do"));
+			mav.addObject("data", new Message("로그인에 실패하였습니다.", "/"));
 			mav.setViewName("Message");
 		}
 
@@ -104,7 +104,7 @@ public class MemberController {
 	@RequestMapping("/memberLogout.do")
 	ModelAndView memberLogout(ModelAndView mav, HttpSession session) {
 		session.invalidate(); // 세션을 서버에서 삭제한다.
-		mav.addObject("data", new Message("정상적으로 로그아웃 되었습니다.", "home.do"));
+		mav.addObject("data", new Message("정상적으로 로그아웃 되었습니다.", "/"));
 		mav.setViewName("Message");
 		return mav;
 	}
@@ -124,7 +124,7 @@ public class MemberController {
 	ModelAndView memberDelete(ModelAndView mav, String member_email, MemberVO member, HttpSession session) {
 		member.setMember_email(member_email);
 		memberDao.memberDelete(member);
-		mav.addObject("data", new Message("계정이 삭제되었습니다.", "home.do"));
+		mav.addObject("data", new Message("계정이 삭제되었습니다.", "/"));
 		mav.setViewName("Message");
 		session.invalidate(); // 세션을 서버에서 삭제한다.
 		return mav;

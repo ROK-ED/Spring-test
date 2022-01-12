@@ -41,6 +41,18 @@
 		<beans:property name="order" value="2"/>
 	</beans:bean>
 	
+	<websocket:handlers>
+		<websocket:mapping handler="chattingHandler" path="/chatting"/>
+		<!-- 추가 -->
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+		<!-- 끝 -->
+		<websocket:sockjs websocket-enabled="true" />
+	</websocket:handlers>
+	
+	<beans:bean class="co.yo.prj.socket.handler.ChattingHandler" id="chattingHandler" />
+	
 	<context:component-scan base-package="co.yo.prj" />
 	
 </beans:beans>

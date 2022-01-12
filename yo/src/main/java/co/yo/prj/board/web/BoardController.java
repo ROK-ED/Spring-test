@@ -131,10 +131,5 @@ public class BoardController {
 
 		return "board/boardDetail";
 	}
-	
-	@RequestMapping("echo.do")
-	public String echo() {
-		return "echo/echo";
-	}
 
 }

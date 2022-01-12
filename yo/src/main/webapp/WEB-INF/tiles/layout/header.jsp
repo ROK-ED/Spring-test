@@ -76,6 +76,7 @@
 							<li class="main_nav_item"><a href="food.do">food</a></li>
 							<li class="main_nav_item"><a href="reservation.do">reservation</a></li>
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
+							<li class="main_nav_item"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
 							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>
@@ -139,6 +140,7 @@
 			<li class="menu_item"><a href="food.do">food</a></li>
 			<li class="menu_item"><a href="reservation.do">reservation</a></li>
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
+			<li class="menu_item"><a href="chat.do">chat</a></li>
 			<c:if test="${sessionScope.member_author == 'ADMIN' }">
 			<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 			</c:if>
