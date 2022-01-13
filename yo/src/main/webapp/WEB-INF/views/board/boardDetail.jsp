@@ -11,6 +11,9 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
+				<button type="button" class="btn btn-primary btn-block"
+					onClick="location.href='boardSelectList.do'">Board List</button>
+					<br>
 				<table class="table">
 					<thead class="thead-light">
 						<tr>
@@ -31,16 +34,14 @@
 				</table>
 				<c:if test="${sessionScope.member_email == board.member_email}">
 					<div class="form-row float-right">
-						<button type="button" class="btn btn-primary"
+						<button type="button" class="btn btn-info"
 							onClick="location.href='boardInsertForm.do?board_id=${board.board_id}'">Modify</button>
 					</div>
 					<div class="form-row float-left">
-						<button type="button" class="btn btn-primary"
+						<button type="button" class="btn btn-danger"
 							onClick="location.href='board.do?cmd=delete&board_id=${board.board_id }'">Delete</button>
 					</div>
 				</c:if>
-				<button type="button" class="btn btn-info btn-block"
-					onClick="location.href='boardSelectList.do'">Board List</button>
 			</div>
 		</div>
 	</div>

@@ -16,7 +16,11 @@ public class ChattingController {
 	
 	@RequestMapping(value = "/chat.do", method = RequestMethod.GET)
 	public String chat(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) {
-		
-		return "chat/chat";
+		String member_email = (String) session.getAttribute("member_email");
+		if (member_email != null) {
+			return "chat/chat";
+		} else {
+			return "member/memberLoginForm";
+		}
 	}
 }
