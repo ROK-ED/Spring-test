@@ -71,7 +71,7 @@ public class MemberController {
 	}
 
 	@PostMapping("/memberLogin.do") // post 일때 get방식으로 보내면 403오류뜬다 반대의 경우도 동일
-	ModelAndView memberLogin(MemberVO member, ModelAndView mav, HttpSession session) {
+	public String memberLogin(MemberVO member, Model model, HttpSession session) {
 
 		try {
 			member = memberDao.memberselect(member);
@@ -79,8 +79,9 @@ public class MemberController {
 			if (member != null) {
 				if (member.getMember_author().equals("ice")) {
 
-					mav.addObject("data", new Message("동결된 계정, 해제를 원할시 관리자에게 연락바랍니다.", "home.do"));
-					mav.setViewName("Message");
+					model.addAttribute("data", new Message("동결된 계정, 해제를 원할시 관리자에게 연락바랍니다.", "memberLoginForm.do"));
+					
+					return "Message";
 
 				} else {
 					session.setAttribute("member_email", member.getMember_email()); // 세션에 아이디값 담는다.
@@ -89,22 +90,54 @@ public class MemberController {
 					session.setAttribute("member_x", member.getMember_x());
 					session.setAttribute("member_y", member.getMember_y());
 					
-
-					mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 환영합니다.", "home.do"));
-					mav.setViewName("Message");
+					return "home/home";
+					
 				}
 			} else {
 
-				mav.addObject("data", new Message("아이디 혹은 패스워드를 확인바랍니다.", "home.do"));
-				mav.setViewName("Message");
+				model.addAttribute("data", new Message("아이디 혹은 패스워드를 확인바랍니다.", "memberLoginForm.do"));
+				return "Message";
 			}
 		} catch (Exception e) {// 이거쓸일 없을껄?
-			mav.addObject("data", new Message("로그인에 실패하였습니다.", "home.do"));
-			mav.setViewName("Message");
+			model.addAttribute("data", new Message("로그인에 실패하였습니다.", "memberLoginForm.do"));
+			return "Message";
 		}
 
-		return mav;
 	}
+//	ModelAndView memberLogin(MemberVO member, ModelAndView mav, HttpSession session) {
+//
+//		try {
+//			member = memberDao.memberselect(member);
+//
+//			if (member != null) {
+//				if (member.getMember_author().equals("ice")) {
+//
+//					mav.addObject("data", new Message("동결된 계정, 해제를 원할시 관리자에게 연락바랍니다.", "home.do"));
+//					mav.setViewName("Message");
+//
+//				} else {
+//					session.setAttribute("member_email", member.getMember_email()); // 세션에 아이디값 담는다.
+//					session.setAttribute("member_author", member.getMember_author());
+//					session.setAttribute("member_nick", member.getMember_nick());
+//					session.setAttribute("member_x", member.getMember_x());
+//					session.setAttribute("member_y", member.getMember_y());
+//					
+//
+//					mav.addObject("data", new Message("'" + member.getMember_nick() + "'" + "님 환영합니다.", "home.do"));
+//					mav.setViewName("Message");
+//				}
+//			} else {
+//
+//				mav.addObject("data", new Message("아이디 혹은 패스워드를 확인바랍니다.", "home.do"));
+//				mav.setViewName("Message");
+//			}
+//		} catch (Exception e) {// 이거쓸일 없을껄?
+//			mav.addObject("data", new Message("로그인에 실패하였습니다.", "home.do"));
+//			mav.setViewName("Message");
+//		}
+//
+//		return mav;
+//	}
 
 	// 로그아웃
 	@RequestMapping("/memberLogout.do")
