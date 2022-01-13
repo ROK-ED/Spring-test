@@ -81,14 +81,14 @@
 										<div class="search_item">
 											<br> <br>
 											<div>이름</div>
-											<input type="text" class="destination search_input" id="resName" name="resName"
-												required="required">
+											<input type="text" class="destination search_input"
+												id="resName" name="resName" required="required">
 										</div>
 										<div class="search_item">
 											<br> <br>
 											<div>check in</div>
-											<input type="text" class="check_in search_input" id="resDate" name="resDate"
-												placeholder="YYMMDD">
+											<input type="text" class="check_in search_input" id="resDate"
+												name="resDate" placeholder="YYMMDD">
 										</div>
 
 										<button type="submit" class="button search_button">
@@ -119,7 +119,7 @@
 							<!-- 여기서부터 -->
 
 							<table id="mTable" class="table table-bordered">
-								<thead>
+								<thead style='display: none;'>
 									<tr>
 										<th></th>
 									</tr>
@@ -159,14 +159,14 @@
 																	<div class="offer_reviews_title">${hotel.hotel_price}
 																		원</div>
 																	<div id="emailf${hotel.hotel_id }">
-																	<script>var x="${hotel.hotel_enroll_email }"
+																		<script>var x="${hotel.hotel_enroll_email }"
 																	var y=x.split('@')[0];
 																	document.getElementById('emailf${hotel.hotel_id }').innerText=y;
 																	</script>
 																	</div>
 																</div>
 															</div>
-															
+
 															<p class="offers_text">${hotel.hotel_content }</p>
 
 															<div class="button book_button">
@@ -188,13 +188,7 @@
 
 
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br> <br> <br> <br>
 					</div>
 					<div class="col-lg-5">
 						<br> <br>
@@ -244,11 +238,26 @@
 	<script>
 	
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
+		var x='<%=(double) session.getAttribute("member_x")%>';
+		var y='<%=(double) session.getAttribute("member_y")%>';
+		if(x=='null')
+		{
 		var options = { //지도를 생성할 때 필요한 기본 옵션
+			
 			center : new kakao.maps.LatLng(35.86904345726449, 128.59330830315685), //지도의 중심좌표.(기본 예담)
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
+		}
+		else
+		{
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+					
+					center : new kakao.maps.LatLng(x, y), //지도의 중심좌표.(기본 예담)
+					level : 3
+				//지도의 레벨(확대, 축소 정도)
+				};
+		}
 
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 		

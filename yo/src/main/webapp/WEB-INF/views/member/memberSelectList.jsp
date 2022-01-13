@@ -1,10 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<meta charset="utf-8">
 
 
 
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.css" />
+
+<script type="text/javascript"
+	src="https://cdn.datatables.net/v/bs4/jq-3.6.0/dt-1.11.3/datatables.min.js"></script>
+
+<script>
+	jQuery(function($) {
+		$("#mTable").DataTable({
+
+		    // 정렬 기능 숨기기
+		    ordering: false,
+
+		    // 정보 표시 숨기기
+		    info: false,
+	
+		    displayLength: 5,
+		    
+		    lengthMenu: [ 5, 10, 15, 20 ],
+		
+		    
+		});
+	});
+	
+
+</script>
+<style>
+th{
+	text-align: center;
+	font-weight: normal;
+}
+td{
+	text-align: center;
+	font-weight: bold;
+}
+</style>
 <!-- Home -->
+<link rel="stylesheet" type="text/css" href="resources/DataTables/datatables.min.css"/>
+ 
+<script type="text/javascript" src="resources/DataTables/datatables.min.js"></script>
 
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
@@ -20,38 +60,41 @@
 	<div class="container">
 
 		<!-- Contact Form -->
-		<table border="1">
+		<table id="mTable" class="table table-bordered">
 			<thead>
 				<tr>
-					<td>이메일(아이디)</td>
-					<td>이름</td>
-					<td>별명</td>
-					<td>가입일</td>
-					<td>연락처</td>
-					<td>주소</td>
-					<td>권한</td>
-					<td>예약내역</td>
-					<td>채팅</td>
-					<td>계정동결/해제</td>
+					<th width="140px">이메일(아이디)</th>
+					<th width="75px">이름</th>
+					<th width="70px">별명</th>
+					<th>가입일</th>
+					<th>연락처</th>
+					<th>주소</th>
+					<th>권한</th>
+					<th width="90px">예약내역</th>
+					<th width="90px">계정동결/해제</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${members }" var="member">
 					<tr>
-						<th>${member.member_email }</th>
-						<th>${member.member_name }</th>
-						<th>${member.member_nick }</th>
-						<th>${member.member_date }</th>
-						<th>${member.member_tel }</th>
-						<th>${member.member_addr }</th>
-						<th>${member.member_author }</th>
-						<th>예약확인(미구현)</th>
-						<th>채팅(미구현)</th>
+						<td>${member.member_email }</td>
+						<td>${member.member_name }</td>
+						<td>${member.member_nick }</td>
+						<td>${member.member_date }</td>
+						<td>${member.member_tel }</td>
+						<td>${member.member_addr }</td>
+						<td>${member.member_author }</td>
+						<td><button type="button" id="ice" onclick="ajaxIce()"
+								class="form_submit_button button trans_200 "
+								style="margin-bottom: 20px; background-color: orange; margin-top: 2px">
+								예약확인
+							</button></td>
+					
 						<th>
 							<button type="button" id="ice" onclick="ajaxIce()"
 								class="form_submit_button button trans_200 "
-								style="margin-bottom: 20px; background-color: orange;">
-								동결(미구현)
+								style="margin-bottom: 20px; background-color: orange; margin-top: 2px">
+								동결
 							</button>
 						</th>
 					</tr>
