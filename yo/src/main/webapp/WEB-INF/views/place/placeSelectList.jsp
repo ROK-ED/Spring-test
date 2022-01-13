@@ -426,7 +426,7 @@
 	// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 	function displayPlaceInfo(place) {
 		var content = '<div class="placeinfo" onclick="onClickData()" style="padding-bottom: 0;">'
-				+ '   <a class="title" id="' + place.place_url + '" target="_blank" title="' + place.place_name + '" style="color: white;" >'
+				+ '   <a class="title" id="' + place.place_url + '" href="' + place.place_url + '"target="_blank" title="' + place.place_name + '" style="color: white;" >'
 				+ place.place_name + '</a>';
 
 		if (place.road_address_name) {
@@ -501,11 +501,11 @@
 			dataType : "text",
 			success : function(str) {
 				console.log("검색되냐?");
-				location.reload();
+				//location.reload();
 			},
 			error : function() {
 				alert("동결 과정에서 오류가 발생했습니다.");
-				location.reload();
+				//location.reload();
 				
 			}
 		});

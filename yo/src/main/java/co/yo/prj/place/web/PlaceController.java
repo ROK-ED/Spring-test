@@ -27,17 +27,31 @@ public class PlaceController {
 	public String ajaxPlace(String path, Model model ) throws IOException {
 		System.out.println(path);
 		
-		ArrayList<String> al1 = new ArrayList<>();
+//		ArrayList<String> al1 = new ArrayList<>();
 		
 		Document rawData = Jsoup.connect(path).timeout(5000).get();
-		Elements blogOption = rawData.select("body");
-		String realURL = "";
-		String realTITLE = "";
-		System.out.println("==================================================================================");
-		System.out.println(rawData);
-		System.out.println("==================================================================================");
-		System.out.println("==================================================================================");
-		System.out.println(blogOption);
+//		System.out.println("==================================================================================");
+//		System.out.println(rawData);
+		//Elements blogOption = rawData.select("body");
+		Elements title = rawData.select("head > meta:nth-child(4)");
+		System.out.println("title : " + title);
+		String title_text = title.attr("content");
+		System.out.println("title_text : "+title_text);
+		
+		Elements description = rawData.select("head > meta:nth-child(6)");
+		System.out.println();
+		System.out.println("description : " + description);
+		String description_text = description.attr("content");
+		System.out.println("description_text : " + description_text);
+		System.out.println();
+		Elements photo = rawData.select("html");
+		System.out.println("photo : " + photo);
+		
+//		String realURL = "";
+//		String realTITLE = "";
+		//System.out.println(blogOption);
+		
+		System.out.println("");
 //		for (Element option : blogOption) {
 //			System.out.println("여기오냐");
 //			realURL = option.select("a").attr("href");
