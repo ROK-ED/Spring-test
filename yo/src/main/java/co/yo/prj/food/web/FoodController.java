@@ -35,16 +35,16 @@ public class FoodController {
 		return "food/food";
 	}
 
-	@RequestMapping("/foodInsert.do")
-	public String foodInsert(FoodVO food, Model model) {
-
-		// int result=foodDao.foodInsert(food);
-		// (result>1) {
-		// model.addAttribute("message", "정상적으로 입력되었습니다");
-		// }
-
-		return "food/foodInsert";
-	}
+//	@RequestMapping("/foodInsert.do")
+//	public String foodInsert(FoodVO food, Model model) {
+//
+//		// int result=foodDao.foodInsert(food);
+//		// (result>1) {
+//		// model.addAttribute("message", "정상적으로 입력되었습니다");
+//		// }
+//
+//		return "food/foodInsert";
+//	}
 
 	@RequestMapping("/foodList.do")
 	public String foodSelectList(Model model) {
@@ -61,12 +61,12 @@ public class FoodController {
 
 	}
 
-	@PostMapping("makeMarker.do")
-	@ResponseBody
-	public List<FoodVO> makeMarker() {
-		return foodDao.foodSelectList();
-
-	}
+//	@PostMapping("makeMarker.do")
+//	@ResponseBody
+//	public List<FoodVO> makeMarker() {
+//		return foodDao.foodSelectList();
+//
+//	}
 
 	@RequestMapping("/foodSelect.do")
 	public String foodSelect(FoodVO food, Model model) {
@@ -134,8 +134,7 @@ public class FoodController {
 
 	}
 
-	
-	//음식점 전체조회 (api에서 가져오기)
+	// 음식점 전체조회 (api에서 가져오기)
 	@RequestMapping(value = "/ajaxFoodList.do", produces = "application/text;charset=utf8")
 	public String ajaxFoodList(Model model) {
 
@@ -202,14 +201,9 @@ public class FoodController {
 
 			// String to json --> model
 
-
-
-
 			JSONObject jObject = new JSONObject();
 			JSONArray jArray = new JSONArray();
-			
-			
-			
+
 			jObject = new JSONObject(data);
 
 			jArray = jObject.getJSONArray("data");
@@ -217,16 +211,15 @@ public class FoodController {
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject obj = jArray.getJSONObject(i);
 				String title = obj.getString("BZ_NM");
-				
+
 				if (obj.getString("OPENDATA_ID").equals(food_id)) {
 
-					String asdf = obj.getString("BZ_NM");
 					String returnTitle = title;
 					System.out.println("===============================title(" + i + "): " + title);
 					System.out.println("returnTitle===============================title(" + i + "): " + returnTitle);
 					model.addAttribute("jsonModel", obj);
 					break;
-					
+
 				}
 
 			}
@@ -238,22 +231,15 @@ public class FoodController {
 
 		return "food/foodSelectOne";
 	}
-	
-	
-	
-	
-	
-	//리뷰 저장하기
-	@RequestMapping("/foodReview.do")
-	public String foodReview() {
-		
-		
-		
-		return null;
-		
-	}
-	
-	
-	
+
+//	//리뷰 저장하기
+//	@RequestMapping("/foodReview.do")
+//	public String foodReview() {
+//		
+//		
+//		
+//		return null;
+//		
+//	}
 
 }
