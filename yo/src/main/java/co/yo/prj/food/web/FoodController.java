@@ -238,5 +238,22 @@ public class FoodController {
 
 		return "food/foodSelectOne";
 	}
+	
+	
+	
+	
+	
+	//리뷰 저장하기
+	@RequestMapping("/foodReview.do")
+	public String foodReview() {
+		
+		
+		
+		return null;
+		
+	}
+	
+	
+	
 
 }
