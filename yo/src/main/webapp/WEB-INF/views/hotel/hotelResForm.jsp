@@ -186,7 +186,7 @@
 		document.getElementById('res_text').innerText='예약일:'
 		autoReload(); //만들기
 	}
-	
+	ㅣ
 	//다음달
 	function nextm()  //다음 달을 today에 저장
 	{

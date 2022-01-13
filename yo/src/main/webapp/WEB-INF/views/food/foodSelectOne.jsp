@@ -236,13 +236,19 @@ h1 {
 
 									<form name="reviewform" class="reviewform" method="get"
 										action="foodReviewInsert.do">
-										<input type="text" class="change_rate" name="rate" id="rate"
-											value="0" /> <input type="text" name="review_member_email"
+										<input type="text" class="rate" name="rate" id="rate"
+											/> 
+											
+											<input type="text" name="review_member_email"
 											id="review_member_email"
-											value="${sessionScope.member_email }"> <input
+											value="${sessionScope.member_email }"> 
+											
+											<input
 											type="text" name="review_food_id" class="review_food_id"
 											id="review_food_id"
 											value='${jsonModel.getString("OPENDATA_ID")}'>
+											
+											
 										<p class="title_star">별점과 리뷰를 남겨주세요.</p>
 
 										<div class="review_rating_click">
@@ -265,7 +271,7 @@ h1 {
 										<div class="review_contents">
 											<div class="warning_msg">5자 이상으로 작성해 주세요.</div>
 											<textarea rows="10" class="review_textarea"
-												id="review_textarea"></textarea>
+												id="review_textarea" name="review_textarea"></textarea>
 										</div>
 										<div class="cmd">
 											<input type="submit" name="save" id="save" value="등록">
@@ -359,8 +365,7 @@ h1 {
 
 		//////////////////////////////////////별찍기
 
-		document
-				.addEventListener(
+		document.addEventListener(
 						'DOMContentLoaded',
 						function() {
 							//별점선택 이벤트 리스너
@@ -441,13 +446,17 @@ h1 {
 		Rating.prototype.rate = 0;
 		Rating.prototype.setRate = function(newrate) {
 			//별점 마킹 - 클릭한 별 이하 모든 별 체크 처리
-			this.rate = newrate;
+			//this.rate.value = newrate;
+			console.log("this 확인 ============"+this.rate.value);
 			document.querySelector('.ratefill').style.width = parseInt(newrate * 60)
 					+ 'px';
 			let items = document.querySelectorAll('.rate_radio');
 			//document.querySelector('#rate').value = newrate;
 			console.log("newrate 값 ============="+ newrate);
-			document.getElementById('rate').value = newrate;
+			document.getElementById('rate').setAttribute("value",newrate);
+			
+			//Rating.prototype.rate=newrate;
+			//console.log("Rating.prototype.rate======== "+Rating.prototype.rate)
 			//rate.value =newrate;
 
 			
