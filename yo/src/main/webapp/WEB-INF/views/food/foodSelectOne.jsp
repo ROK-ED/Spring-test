@@ -138,7 +138,7 @@
 					<div class="col-lg-12">
 						<div class="single_listing">
 
-							<!-- Hotel Info -->
+							<!-- food Info -->
 
 							<div class="food_info">
 								<!-- Title -->
@@ -345,7 +345,8 @@
 				data : {
 					"food_review_id" :  $("#food_id").val()
 				},
-				success : {
+				success : function(result) {
+					console.log(result);
 					//console.log("됨!!!1");
 				}
 				
@@ -358,13 +359,11 @@
 
 		//////////////////////////////////////댓글 입력
 
-		document
-				.addEventListener(
+		document.addEventListener(
 						'DOMContentLoaded',
 						function() {
 							//별점선택 이벤트 리스너
-							document
-									.querySelector('.rating')
+							document.querySelector('.rating')
 									.addEventListener(
 											'click',
 											function(e) {

@@ -217,10 +217,10 @@
 			<!-- Offers -->
 
 			<div class="container">
-				<div class="row">
+				<div class="row" >
 
 
-					<div class="col-lg-7">
+					<div class="col-lg-7" style="overflow:auto;">
 						<div class="offers_grid">
 							<div>
 								<table id="mTable" class="table table-bordered">
@@ -229,7 +229,7 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody class="table_body">
+									<tbody class="table_body" >
 									
 									</tbody>
 								</table>
@@ -481,6 +481,7 @@
 
 	        var col_lg_7 = document.createElement('div');
 	        col_lg_7.setAttribute("class","col-lg-7");
+	       
 
 	        var offers_content = document.createElement('div');
 	        offers_content.setAttribute("class","offers_content");

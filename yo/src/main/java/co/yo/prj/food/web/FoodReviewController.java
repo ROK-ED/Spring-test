@@ -51,6 +51,7 @@ public class FoodReviewController {
 	public String showRate(String review_food_id) {
 
 		FoodReviewVO foodReview = foodReviewDao.showRate(review_food_id);
+		System.out.println("***************************************************");
 		System.out.println("입력자수 ==============="+foodReview.getReview_hit());
 		System.out.println("별점 ==============="+foodReview.getReview_rate());
 		return null;

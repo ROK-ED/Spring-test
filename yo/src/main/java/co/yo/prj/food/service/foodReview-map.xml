@@ -9,7 +9,6 @@
 			SELECT NVL( MAX (REVIEW_ID) + 1, 1) AS REVIEW_ID 
 			FROM YO_REVIEW			
 		</selectKey>
-		
 		INSERT INTO YO_REVIEW(REVIEW_ID, REVIEW_MEMBER_EMAIL, REVIEW_FOOD_ID, REVIEW_OPTION, 
 			REVIEW_SUBJECT, REVIEW_RATE, REVIEW_HIT )
 		VALUES(  #{review_id}, #{review_member_email}, #{review_food_id}, 
@@ -27,8 +26,7 @@
 	<select id="showRate"
 	resultType="co.yo.prj.food.service.FoodReviewVO" 
 	parameterType="String">
-		
-		SELECT ROUND(AVG(REVIEW_RATE), 2) AS review_rate, COUNT(*) AS review_hit
+		SELECT ROUND(AVG(REVIEW_RATE), 2) AS REVIEW_RATE, COUNT(*) AS REVIEW_HIT
 		FROM YO_REVIEW
 		WHERE REVIEW_FOOD_ID = ${review_food_id};
 	</select>
