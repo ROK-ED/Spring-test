@@ -303,8 +303,7 @@
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
-		level : 1
-	// 지도의 확대 레벨
+		level : 1 // 지도의 확대 레벨
 	};
 
 	// 지도를 생성합니다    
@@ -426,8 +425,8 @@
 
 	// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 	function displayPlaceInfo(place) {
-		var content = '<div class="placeinfo">'
-				+ '   <a class="title" href="' + place.place_url + '" target="_blank" title="' + place.place_name + '">'
+		var content = '<div class="placeinfo" onclick="onClickData()" style="padding-bottom: 0;">'
+				+ '   <a class="title" id="' + place.place_url + '" target="_blank" title="' + place.place_name + '" style="color: white;" >'
 				+ place.place_name + '</a>';
 
 		if (place.road_address_name) {
@@ -486,5 +485,31 @@
 		if (el) {
 			el.className = 'on';
 		}
+	}
+	// 클릭시 데이터 가져오기 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	function onClickData() {
+		console.log("실행되냐");
+		var path = this.event.path[1].children[0].id;
+		console.log("path :" +path);
+		
+		$.ajax({
+			url : "ajaxPlace.do",
+			type : "post",
+			data : {
+				"path" : path
+			},
+			dataType : "text",
+			success : function(str) {
+				console.log("검색되냐?");
+				location.reload();
+			},
+			error : function() {
+				alert("동결 과정에서 오류가 발생했습니다.");
+				location.reload();
+				
+			}
+		});
+ 	
+		
 	}
 </script>
