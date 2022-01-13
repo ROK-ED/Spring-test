@@ -148,7 +148,6 @@ public class HotelController {
 		if (session.getAttribute("member_author").equals("ADMIN") || hotelDao.HotelSelect(vo).getHotel_enroll_email().equals(session.getAttribute("member_email"))) {
 			try {	
 				if (!hotelDao.HotelRestrue(Integer.toString(id)).isEmpty()) {
-					System.out.println("여기 지나가나?");
 					mav.addObject("data", new Message("예약중인 회원이 있습니다.", "hotelSelectList.do"));
 					mav.setViewName("Message");
 				}
