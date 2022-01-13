@@ -38,7 +38,7 @@
 				<div class="contact_form_container">
 
 					<div class="contact_title text-center">숙소 예약</div>
-
+ 
 					<form action="hotelResInsert.do" id="hotelForm" name="hotelForm"
 						class="contact_form text-left">
 						<div class="row">

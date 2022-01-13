@@ -40,7 +40,9 @@ public class HotelController {
 	public String hotelSelct(@RequestParam("hotel_id") String id, Model model) {
 		HotelVO vo = new HotelVO();
 		vo.setHotel_id(Integer.parseInt(id));
+		
 		model.addAttribute("hotel", hotelDao.HotelSelect(vo));
+		model.addAttribute("resnull",hotelDao.HotelRestrue(id).isEmpty());
 		return "hotel/hotelSelect";
 	}
 

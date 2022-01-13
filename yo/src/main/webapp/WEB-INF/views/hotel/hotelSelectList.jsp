@@ -35,7 +35,6 @@
 		});
 	});
 	
-	
 
 </script>
 </head>
@@ -159,9 +158,15 @@
 																<div class="offer_reviews_content">
 																	<div class="offer_reviews_title">${hotel.hotel_price}
 																		원</div>
-
+																	<div id="emailf${hotel.hotel_id }">
+																	<script>var x="${hotel.hotel_enroll_email }"
+																	var y=x.split('@')[0];
+																	document.getElementById('emailf${hotel.hotel_id }').innerText=y;
+																	</script>
+																	</div>
 																</div>
 															</div>
+															
 															<p class="offers_text">${hotel.hotel_content }</p>
 
 															<div class="button book_button">
