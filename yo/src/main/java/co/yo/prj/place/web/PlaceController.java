@@ -1,5 +1,8 @@
 package co.yo.prj.place.web;
 
+import javax.swing.text.Document;
+
+import org.jsoup.Jsoup;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +20,7 @@ public class PlaceController {
 	@PostMapping("/ajaxPlace.do") // 아이디 중복 체크
 	@ResponseBody
 	public String ajaxPlace(String path, Model model ) {
+		//Document rawData = Jsoup.connect(path).timeout(5000).get();
 		String b = null;
 		return b;
 	}
