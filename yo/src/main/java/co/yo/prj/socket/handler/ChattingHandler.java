@@ -55,6 +55,6 @@ public class ChattingHandler extends TextWebSocketHandler {
 		for (WebSocketSession s : sessionList) {
 			s.sendMessage(new TextMessage(member_nick + "님이 퇴장 했습니다."));
 		}
-		log.info(session.getPrincipal().getName() + "님이 퇴장");
+		//log.info(session.getPrincipal().getName() + "님이 퇴장");
 	}
 }
