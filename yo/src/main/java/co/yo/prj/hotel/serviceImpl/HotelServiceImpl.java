@@ -64,4 +64,10 @@ public class HotelServiceImpl implements HotelService {
 		return map.HotelBlock(id);
 	}
 
+	@Override
+	public List<String> HotelRestrue(String id) {
+		// TODO Auto-generated method stub
+		return map.HotelRestrue(id);
+	}
+
 }

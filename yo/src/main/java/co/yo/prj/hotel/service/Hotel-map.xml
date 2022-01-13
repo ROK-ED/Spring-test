@@ -37,12 +37,13 @@
 		HOTEL_TEL = #{hotel_tel} ,
 		HOTEL_ADDRESS = #{hotel_address},
 		HOTEL_CONTENT = #{hotel_content},
+		<if test="hotel_tfile !=null">HOTEL_TFILE = #{hotel_tfile}, </if>
+		<if test="hotel_thumbnail !=null">HOTEL_THUMBNAIL = #{hotel_thumbnail}, </if>
+		<if test="hotel_pfile !=null">HOTEL_PFILE = #{hotel_pfile}, </if>
+		<if test="hotel_picture !=null">HOTEL_PICTURE = #{hotel_picture}, </if>
+		<if test="hotel_hit !=null">HOTEL_HIT = #{hotel_hit}, </if>
 		HOTEL_PRICE = #{hotel_price}
-		<!-- <if test="hotel_hotel_tfile !=null">HOTEL_TFILE = #{hotel_tfile} </if> 
-			<if test="hotel_thumbnail !=null">HOTEL_THUMBNAIL = #{hotel_thumbnail} </if> 
-			<if test="hotel_pfile !=null">HOTEL_PFILE = #{hotel_pfile} </if> <if test="hotel_picture 
-			!=null">HOTEL_PICTURE = #{hotel_picture} </if> <if test="hotel_hit !=null">HOTEL_HIT 
-			= #{hotel_hit} </if> -->
+
 		WHERE HOTEL_ID = #{hotel_id}
 	</update>
 
@@ -65,11 +66,13 @@
 		FROM YO_HOTEL
 		LEFT OUTER JOIN
 		(
-		SELECT RESERVATION_HOTEL_ID,RESERVATION_DATE,COUNT(RESERVATION_DATE)
+		SELECT
+		RESERVATION_HOTEL_ID,RESERVATION_DATE,COUNT(RESERVATION_DATE)
 		AS COUNTL
 		FROM YO_RESERVATION
 		WHERE RESERVATION_OPTION='H' AND
-		RESERVATION_DATE= #{resDate}
+		RESERVATION_DATE=
+		#{resDate}
 		GROUP BY
 		RESERVATION_HOTEL_ID,RESERVATION_DATE
 		)
@@ -82,18 +85,40 @@
 	</select>
 	<select id="HotelBlock" parameterType="String"
 		resultType="String">
-		select RESERVATION_DATE
-		from yo_hotel
-		inner join
+		SELECT RESERVATION_DATE
+		FROM YO_HOTEL
+		INNER JOIN
 		(
-		select RESERVATION_hotel_ID,RESERVATION_DATE,count(RESERVATION_DATE) as
+		SELECT
+		RESERVATION_hotel_ID,RESERVATION_DATE,count(RESERVATION_DATE) as
 		countl
-		from YO_RESERVATION
-		where RESERVATION_OPTION='H'
-		group by RESERVATION_hotel_ID,RESERVATION_DATE
+		FROM YO_RESERVATION
+		WHERE RESERVATION_OPTION='H'
+		group by
+		RESERVATION_hotel_ID,RESERVATION_DATE
 		)
-		on yo_hotel.hotel_id=RESERVATION_HOTEL_ID
-		where hotel_id=#{id} and countl<![CDATA[<=]]>hotel_loom
+		on
+		YO_HOTEL.HOTEL_ID=RESERVATION_HOTEL_ID
+		WHERE hotel_id=#{id} and countl<![CDATA[>=]]>hotel_loom
+		GROUP by RESERVATION_DATE
+	</select>
+	<select id="HotelRestrue" parameterType="String"
+		resultType="String">
+SELECT RESERVATION_DATE
+		FROM YO_HOTEL
+		INNER JOIN
+		(
+		SELECT
+		RESERVATION_hotel_ID,RESERVATION_DATE,count(RESERVATION_DATE) as
+		countl
+		FROM YO_RESERVATION
+		WHERE RESERVATION_OPTION='H'
+		group by
+		RESERVATION_hotel_ID,RESERVATION_DATE
+		)
+		on
+		YO_HOTEL.HOTEL_ID=RESERVATION_HOTEL_ID
+		WHERE hotel_id=#{id}
 		GROUP by RESERVATION_DATE
 	</select>
 </mapper>

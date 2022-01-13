@@ -9,10 +9,10 @@
 	href="resources/styles/contact_styles.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/contact_responsive.css">
+	<meta charset="utf-8">
 </head>
 
 <body>
-
 	<div class="super_container">
 
 		<!-- Header -->
@@ -39,7 +39,7 @@
 
 					<div class="contact_title text-center">숙소 예약</div>
 
-					<form action="#" id="hotelForm" name="hotelForm"
+					<form action="hotelResInsert.do" id="hotelForm" name="hotelForm"
 						class="contact_form text-left">
 						<div class="row">
 							<div class="col-lg-5">
@@ -95,14 +95,18 @@
 								</div>
 
 								<div class="contact_title text-right">
-									<button type="submit" id="form_submit_button"
+									<button type="button" onclick="subm()" id="form_submit_button"
 										class="form_submit_button button trans_200">
 										예약하기<span></span><span></span><span></span>
 									</button>
 								</div>
 							</div>
 						</div>
-						<input type="hidden" id="reservation_date" name="reservation_date">
+						<input type="hidden" id="reservation_date1" name="reservation_date1">
+						<input type="hidden" id="reservation_hotel_id" name="reservation_hotel_id" value="${hotel.hotel_id }">
+						<input type="hidden" id="hotel_title" name="hotel_title" value="${hotel.hotel_title }">
+						<input type="hidden" id="reservation_member_email" name="reservation_member_email" value="${sessionScope.member_email }">
+						
 					</form>
 				</div>
 		
@@ -159,7 +163,18 @@
 		infowindow.open(mapi, marker); 
 	</script>
 
-	<script language="javascript">
+	<script type="text/javascript">//예약일체크
+	function subm()
+	{
+		if(document.getElementById('reservation_date1').value==null || document.getElementById('reservation_date1').value=="")
+			window.alert("예약일을 선택해주세요");
+		else
+			document.getElementById('hotelForm').submit();
+	}
+	
+	</script>
+
+	<script language="javascript">//달력
 	var today = new Date(); //오늘 날짜        
 	var date = new Date();
 	
@@ -167,7 +182,7 @@
 	function beforem() //이전 달을 today에 값을 저장
 	{ 
 		today = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
-		document.getElementById('reservation_date').value=""
+		document.getElementById('reservation_date1').value=""
 		document.getElementById('res_text').innerText='예약일:'
 		autoReload(); //만들기
 	}
@@ -176,7 +191,7 @@
 	function nextm()  //다음 달을 today에 저장
 	{
 		today = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
-		document.getElementById('reservation_date').value=""
+		document.getElementById('reservation_date1').value=""
 		document.getElementById('res_text').innerText='예약일:';
 		autoReload();
 		
@@ -185,7 +200,7 @@
 	//오늘선택
 	function thisMonth(){
 		today = new Date();
-		document.getElementById('reservation_date').value=""
+		document.getElementById('reservation_date1').value=""
 		document.getElementById('res_text').innerText='예약일:'
 		autoReload();
 	}
@@ -354,7 +369,7 @@
 			da='0'+i;
 		if(mon<10)
 			mon='0'+mon;
-		var resdat=document.getElementById('reservation_date');
+		var resdat=document.getElementById('reservation_date1');
 		resdat.value=ye+mon+da;
 
 		//

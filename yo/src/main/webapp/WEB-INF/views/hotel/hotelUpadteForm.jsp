@@ -35,23 +35,23 @@
 					<div class="contact_title text-center">숙소 업데이트</div>
 
 					<form action="hotelUpdate.do" id="hotelForm" name="hotelForm"
-						class="contact_form text-left" method="post">
+						class="contact_form text-left" method="post" enctype="multipart/form-data">
 						<div class="row">
 							<div class="col-lg-5">
 								<input type="text" id="hotel_title" name="hotel_title"
-									class="contact_form_subject input_field" placeholder="숙소명"
+									class="contact_form_subject input_field" placeholder="*숙소명"
 									required="required" data-error="email is required." value="${hotel.hotel_title }">
 								 <input
 									type="text" id="hotel_locx" name="hotel_locx"
-									class="contact_form_name input_field" placeholder="위도"
+									class="contact_form_name input_field" placeholder="*위도"
 									required="required" data-error="LocX is required." readonly  value="${hotel.hotel_locx }"> 
 								<input
 									type="text" id="hotel_locy" name="hotel_locy"
-									class="contact_form_email input_field" placeholder="경도"
+									class="contact_form_email input_field" placeholder="*경도"
 									required="required" data-error="LocY is required." readonly  value="${hotel.hotel_locy }"> 
 								 <input
 									type="text" id="hotel_address" name="hotel_address"
-									class="contact_form_subject input_field" placeholder="주소"
+									class="contact_form_subject input_field" placeholder="*주소"
 									required="required" data-error="address is required." readonly  value="${hotel.hotel_address }">
 
 								<input type="text" id="hotel_tel" name="hotel_tel"
@@ -59,11 +59,11 @@
 									required="required" data-error="tel is required."  value="${hotel.hotel_tel }">
 								 <input
 									type="number" id="hotel_loom" name="hotel_loom"
-									class="contact_form_name input_field" placeholder="객실수"
+									class="contact_form_name input_field" placeholder="*객실수"
 									required="required" data-error="room is required."  value="${hotel.hotel_loom }">
 								 <input
 									type="number" id="hotel_price" name="hotel_price"
-									class="contact_form_email input_field" placeholder="가격"
+									class="contact_form_email input_field" placeholder="*가격"
 									required="required" data-error="LocY is required."  value="${hotel.hotel_price }">
 
 								<textarea id="hotel_content" name="hotel_content"
@@ -71,7 +71,39 @@
 									placeholder="내용" required="required"
 									data-error="Please, write us a content." style="resize: none;"> ${hotel.hotel_content }</textarea>
 								<input type="hidden" id="hotel_id" name="hotel_id" value="${hotel.hotel_id }">
+								<div class="row"><!-- 섬네일사진 -->
+									<input type="file" name="thumbnail" id="thumbnail" style="display:none" onchange="document.getElementById('thm_txt').value=this.value">
+									<div class="col-lg-3">
+										<button type="button" id="form_submit_button" onclick="onclick=document.all.thumbnail.click()"
+											class="form_submit_button button trans_200" style="margin-top: 0px;">
+											file
+										</button>
+									</div>
+									<div class="col-lg-9">
+										<br>
+										<br>
+										<input type="text" class="contact_form_subject input_field" id="thm_txt" name="thm_txt"
+											placeholder="섬네일이름" readonly="readonly">
+									</div>
+								</div>
+								
+								<div class="row"><!-- 이미지사진 -->
+									<input type="file" name="picture" id="picture" style="display:none" onchange="document.getElementById('pic_txt').value=this.value">
+									<div class="col-lg-3">
+										<button type="button" id="form_submit_button" onclick="onclick=document.all.picture.click()"
+											class="form_submit_button button trans_200" style="margin-top: 0px;">
+											file
+										</button>
+									</div>
+									<div class="col-lg-9">
+										<br>
+										<br>
+										<input type="text" class="contact_form_subject input_field" id="pic_txt" name="pic_txt"
+											placeholder="숙소사진이름" readonly="readonly">
+									</div>
+								</div>
 							</div>
+							
 							<div class="col-lg-7">
 
 								<div class="contact_title text-center">
@@ -81,7 +113,7 @@
 									</div>
 								</div>
 								<div class="contact_title text-right">
-									<button type="submit" id="form_submit_button"
+									<button type="button" onclick="checkform()" id="form_submit_button"
 										class="form_submit_button button trans_200">
 										수정<span></span><span></span><span></span>
 									</button>
@@ -149,6 +181,24 @@
 			// 좌표로 법정동 상세 주소 정보를 요청합니다
 			geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 		}
+	</script>
+	<script type="text/javascript">//폼체크
+	function checkform(){
+		if($('#hotel_title').val()=="" || $('#hotel_locx').val()=="" ||$('#hotel_price').val()=="" ||$('#hotel_loom').val()=="")
+			window.alert("필수 정보를 입력해 주세요.");
+		else if($('#hotel_price').val()<0 )
+			{
+			window.alert("가격은 음수가 될수 없습니다.");
+			$('#hotel_price').val('');
+			}
+		else if($('#hotel_loom').val()<=0)
+			{
+			window.alert("객실수는 0이나 음수가 될수 없습니다.");
+			$('#hotel_loom').val('');
+			}
+		else
+			$('#hotelForm').submit();
+	}
 	</script>
 </body>
 

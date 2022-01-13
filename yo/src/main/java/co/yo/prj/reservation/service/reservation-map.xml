@@ -12,9 +12,21 @@
 	<update id="reservationInsert"
 		parameterType="co.yo.prj.reservation.service.ReservationVO">
 		UPDATE YO_RESERVATION
-		SET RESERVATION_STATE = #{reservation_state }
+		SET RESERVATION_STATE =
+		#{reservation_state }
 		WHERE RESERVATION_ID = #{reservation_id }
 	</update>
 
-
+	<insert id="HoteReslInsert"
+		parameterType="co.yo.prj.reservation.service.ReservationVO"> <!-- 호텔 예약 -->
+		<selectKey keyProperty="reservation_id" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(RESERVATION_ID) +1 , 1) AS RESERVATION_ID FROM YO_RESERVATION
+		</selectKey>
+		INSERT INTO
+		YO_RESERVATION(RESERVATION_ID,RESERVATION_HOTEL_ID,RESERVATION_MEMBER_EMAIL,RESERVATION_DATE,RESERVATION_OPTION,HOTEL_TITLE)
+		VALUES
+		(#{reservation_id},#{reservation_hotel_id},#{reservation_member_email},#{reservation_date},'H',#{hotel_title})
+	</insert>
+	
 </mapper>

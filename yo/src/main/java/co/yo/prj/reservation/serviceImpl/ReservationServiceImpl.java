@@ -27,4 +27,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return map.reservationInsert(vo);
 	}
 
+	@Override
+	public int HoteReslInsert(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.HoteReslInsert(vo);
+	}
+
 }
