@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.yo.prj.food.service.FoodReviewMapper">
+
+
+	<insert id="foodReviewInsert"
+		parameterType="co.yo.prj.food.service.FoodReviewVO">
+		INSERT INTO YO_REVIEW
+		VALUES(  #{review_id}, #{review_member_email}, #{review_food_id}, 
+			#{review_option}, #{review_subject}, #{review_place_id}, #{review_rate},
+			#{review_hit}  )
+	</insert>
+
+	<select id="foodReviewSelectList"
+	resultType="co.yo.prj.food.service.FoodReviewVO">
+		SELECT * FROM YO_REVIEW
+		WHERE review_member_email = ${review_member_email}
+	</select>
+	
+	
+
+</mapper>

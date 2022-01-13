@@ -28,7 +28,7 @@ public class CrawController {
 	@RequestMapping(value = "/foodImgSelectOne.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
 	public String foodImgSelectOne(@RequestParam("food_id") String food_id) {
-		System.out.println("이거 확인해야 함 음식점번호 ========" + food_id);
+		//System.out.println("이거 확인해야 함 음식점번호 ========" + food_id);
 		try {
 			FoodImgVO foodResult = foodImgDao.foodImgSelectOne(food_id);
 			String foodImg;
@@ -38,7 +38,7 @@ public class CrawController {
 				// System.out.println("사진 링크 =============" + foodImg);
 				//foodImg = new String(foodImg.getBytes("8859_1"), "utf-8");
 
-				System.out.println("사진 링크 =============" + foodImg);
+				//System.out.println("사진 링크 =============" + foodImg);
 				// foodImg = URLEncoder.encode(foodImg, "euc-kr");
 
 				return foodImg;
@@ -62,10 +62,10 @@ public class CrawController {
 
 		String address = "https://www.daegufood.go.kr/kor/food/food.asp?sw=" + food_name;
 		Document rawData = Jsoup.connect(address).timeout(5000).get();
-		System.out.println("음식점 이름 =======" + food_name);
-		System.out.println("음식점 번호 ======= " + food_id);
-
-		System.out.println("주소 =======================" + address);
+//		System.out.println("음식점 이름 =======" + food_name);
+//		System.out.println("음식점 번호 ======= " + food_id);
+//
+//		System.out.println("주소 =======================" + address);
 
 		Elements blogOption = rawData.select(".food_list02");
 

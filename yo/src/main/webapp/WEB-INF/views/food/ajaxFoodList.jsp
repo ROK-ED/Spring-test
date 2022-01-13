@@ -118,7 +118,6 @@
 </style>
 </head>
 <body>
-
 	<div class="super_container">
 		<div class="home">
 			<div class="home_background parallax-window" data-parallax="scroll"
@@ -274,10 +273,7 @@
 						table_body.appendChild(createBody(data, i));///데이터 출력하기
 						findImgLink(data.data[i].OPENDATA_ID);
 						
-						/* 
-						findImgLink(data.data[i].OPENDATA_ID,
-								data.data[i].BZ_NM); */
-
+					
 					}
 
 				},
