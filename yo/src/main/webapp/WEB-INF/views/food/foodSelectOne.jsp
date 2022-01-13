@@ -447,7 +447,7 @@ h1 {
 			let items = document.querySelectorAll('.rate_radio');
 			//document.querySelector('#rate').value = newrate;
 			console.log("newrate 값 ============="+ newrate);
-			document.getElementById('rate').value = newrate;
+			document.getElementById('rate').setAttribute('value',newrate);
 			//rate.value =newrate;
 
 			

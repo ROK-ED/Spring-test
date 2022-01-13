@@ -137,6 +137,11 @@
 								</div>
 								<div class="col-lg-11 text-lg-right">
 									<div class="room_button">
+									<c:if	test="${sessionScope.member_email eq hotel.hotel_enroll_email || sessionScope.member_author eq 'ADMIN' }">
+										<h5>예약된 회원여부:<c:if test="${resnull eq true}">X</c:if>
+														<c:if test="${resnull ne true}">O</c:if>
+										</h5>
+									</c:if>
 										<c:if test="${sessionScope.member_email eq hotel.hotel_enroll_email}">
 											<div class="button book_button trans_200">
 												<a href="hotelUpadteForm.do?hotel_id=${hotel.hotel_id }">수정<span></span><span></span><span></span></a>

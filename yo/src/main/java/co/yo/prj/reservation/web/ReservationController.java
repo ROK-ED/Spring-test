@@ -66,7 +66,6 @@ public class ReservationController {
 	ModelAndView hotelJoin(@RequestParam("reservation_date1") String da,ReservationVO vo, ModelAndView mav, HttpSession session) {
 		try {
 			SimpleDateFormat transFormat = new SimpleDateFormat("yymmdd");
-			System.out.println(vo.getHotel_title());
 			Date to = transFormat.parse(da);
 			vo.setReservation_date(to);
 			reservationDao.HoteReslInsert(vo);
