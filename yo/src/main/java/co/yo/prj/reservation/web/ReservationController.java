@@ -1,5 +1,10 @@
 package co.yo.prj.reservation.web;
 
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,7 +12,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import co.yo.prj.Message;
 
 import co.yo.prj.reservation.service.ReservationService;
 import co.yo.prj.reservation.service.ReservationVO;
@@ -50,6 +60,25 @@ public class ReservationController {
 			reservationDao.reservationInsert(vo);
 		}
 		request.getRequestDispatcher("reservation.do").forward(request, response);
+
+	}
+	@RequestMapping(value = "hotelResInsert.do", produces = "text/plain; charset=UTF-8")
+	ModelAndView hotelJoin(@RequestParam("reservation_date1") String da,ReservationVO vo, ModelAndView mav, HttpSession session) {
+		try {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yymmdd");
+			System.out.println(vo.getHotel_title());
+			Date to = transFormat.parse(da);
+			vo.setReservation_date(to);
+			reservationDao.HoteReslInsert(vo);
+			mav.addObject("data", new Message("예약 되었습니다.", "hotelSelectList.do"));
+			mav.setViewName("Message");
+
+		} catch (Exception e) {// 이거쓸일 없음
+			e.printStackTrace();
+			mav.addObject("data", new Message("예약에 실패하였습니다.", "hotelSelectList.do"));
+			mav.setViewName("Message");
+		}
+		return mav;
 
 	}
 }

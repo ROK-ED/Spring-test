@@ -10,8 +10,13 @@
 		<filter-class>co.yo.prj.CharsetFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>charsetFilter</filter-name>
-		<url-pattern>/</url-pattern>
+	   <filter-name>charsetFilter</filter-name>
+      <url-pattern>/</url-pattern>
+      <url-pattern>*.do</url-pattern>
+      <url-pattern>/*/*</url-pattern>
+      <url-pattern>/**/**</url-pattern>
+      <url-pattern>/*/*/*</url-pattern>
+      <url-pattern>/**/**/**</url-pattern>
 	</filter-mapping>
 	
 	

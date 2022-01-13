@@ -15,4 +15,5 @@ public interface HotelMapper {
 	
 	List<String> HotelResSearch(@Param("resName")String resName,@Param("resDate")String resDate);
 	List<String> HotelBlock(String id);
+	List<String> HotelRestrue(String id);
 }

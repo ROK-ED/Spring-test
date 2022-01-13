@@ -13,4 +13,5 @@ public interface HotelService {
 	
 	List<String> HotelResSearch(String resName,String resDate);
 	List<String> HotelBlock(String id);
+	List<String> HotelRestrue(String id);
 }
