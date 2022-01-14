@@ -2,7 +2,8 @@ package co.yo.prj.place.web;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -24,10 +25,10 @@ public class PlaceController {
 	
 	@PostMapping("/ajaxPlace.do") // 아이디 중복 체크
 	@ResponseBody
-	public String ajaxPlace(String path, Model model ) throws IOException {
+	public Map<String, String> ajaxPlace(String path ) throws IOException {
 		System.out.println(path);
 		
-//		ArrayList<String> al1 = new ArrayList<>();
+		Map<String, String> al1 = new HashMap();
 		
 		Document rawData = Jsoup.connect(path).timeout(5000).get();
 //		System.out.println("==================================================================================");
@@ -44,23 +45,22 @@ public class PlaceController {
 		String description_text = description.attr("content");
 		System.out.println("description_text : " + description_text);
 		System.out.println();
-		Elements photo = rawData.select("html");
-		System.out.println("photo : " + photo);
 		
-//		String realURL = "";
-//		String realTITLE = "";
-		//System.out.println(blogOption);
+		//model.addAttribute("path", path);
+		//model.addAttribute("title_text", title_text);
+		//model.addAttribute("description_text", description_text);
 		
-		System.out.println("");
-//		for (Element option : blogOption) {
-//			System.out.println("여기오냐");
-//			realURL = option.select("a").attr("href");
-//			realTITLE = option.select("a").attr("title");
-//			System.out.println(realURL);
-//			System.out.println(realTITLE);
-//		}
 		
-		return model.toString();
+		al1.put("path", path);
+		al1.put("description_text",description_text);
+		al1.put("title_text",title_text);
+	
+		
+		System.out.println(al1.toString());
+		
+	
+		
+		return al1;
 	}
 
 }

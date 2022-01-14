@@ -242,13 +242,19 @@
 
 
 				<div class="col-lg-7">
+				
 					<!-- Offers Grid -->
 					<!-- 내용물~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-					<div class="offers_grid">시작</div>
+					<div class="offers_grid">
+					<h3 id="iframeAddress"></h3>					
+					<h3 id="iframeTitle"></h3>
+					<iframe id="iframeShow" src="" width="100%" height="650"  ></iframe>
+					</div>
 
 			
 					<br>
 				</div>
+				<br>
 				<!-- 내용물~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<div class="col-lg-5">
@@ -426,7 +432,7 @@
 	// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 	function displayPlaceInfo(place) {
 		var content = '<div class="placeinfo" onclick="onClickData()" style="padding-bottom: 0;">'
-				+ '   <a class="title" id="' + place.place_url + '" href="' + place.place_url + '"target="_blank" title="' + place.place_name + '" style="color: white;" >'
+				+ '   <a class="title" id="' + place.place_url + '" target="i_a" target="_blank" title="' + place.place_name + '" style="color: white;" >'
 				+ place.place_name + '</a>';
 
 		if (place.road_address_name) {
@@ -498,14 +504,21 @@
 			data : {
 				"path" : path
 			},
-			dataType : "text",
-			success : function(str) {
+			dataType : "json",
+			success : function(result) {
 				console.log("검색되냐?");
+				console.log(typeof result);
+				console.log(result);
+				console.log(result.path);
+				//$('#iframeShow').attr({'src','result.path'});
+				document.getElementById( 'iframeShow' ).setAttribute( 'src', result.path );
+				
+				
 				//location.reload();
 			},
 			error : function() {
-				alert("동결 과정에서 오류가 발생했습니다.");
-				//location.reload();
+				alert("검색 과정에서 오류가 발생했습니다.");
+				location.reload();
 				
 			}
 		});

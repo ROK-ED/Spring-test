@@ -84,7 +84,7 @@ td{
 						<td>${member.member_tel }</td>
 						<td>${member.member_addr }</td>
 						<td>${member.member_author }</td>
-						<td><button type="button" id="ice" onclick="ajaxIce()"
+						<td><button type="button" id="reservation" onclick="ajaxReservation()"
 								class="form_submit_button button trans_200 "
 								style="margin-bottom: 20px; background-color: orange; margin-top: 2px">
 								예약확인
@@ -130,5 +130,12 @@ function ajaxIce() {
 			}
 		});
  	
+}
+
+function ajaxReservation() {
+	var member_email = this.event.path[2].children[0].textContent;
+	console.log(member_email);
+	var member_author = this.event.path[2].children[6].textContent;
+	console.log(member_author);
 }
 </script>
