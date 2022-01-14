@@ -19,4 +19,5 @@ public class ReservationVO {
 	private String hotel_title;
 	private String place_name;
 	private String food_name;
+	private String reservation_host;
 }

@@ -14,11 +14,23 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private ReservationMapper map;
-	
+
 	@Override
 	public List<ReservationVO> reservationList() {
 		// TODO Auto-generated method stub
 		return map.reservationList();
+	}
+
+	@Override
+	public List<ReservationVO> reservationUserSelect(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.reservationUserSelect(vo);
+	}
+
+	@Override
+	public List<ReservationVO> reservationHostSelect(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.reservationHostSelect(vo);
 	}
 
 	@Override
