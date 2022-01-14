@@ -83,12 +83,13 @@ public class FoodController {
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxFood(HttpSession session) {
+	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		try {
-			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
+			System.out.println("주소 확인하기 ==================================="+apiURL);
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -118,12 +119,12 @@ public class FoodController {
 
 			session.setAttribute("jsonModel", jArray);
 
-//			for (int i = 0; i < jArray.length(); i++) {
-//				JSONObject obj = jArray.getJSONObject(i);
-//				String title = obj.getString("BZ_NM");
-//				 System.out.println("title(" + i + "): " + title);
-//
-//			}
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject obj = jArray.getJSONObject(i);
+				String title = obj.getString("BZ_NM");
+				 System.out.println("title(" + i + "): " + title);
+
+			}
 
 			urlconnection.disconnect();
 		} catch (Exception e) {

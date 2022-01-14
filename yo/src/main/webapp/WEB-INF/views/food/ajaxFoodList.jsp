@@ -140,16 +140,27 @@
 						<div class="col fill_height">
 
 
-							<!-- Search Panel -->
+							 Search Panel 
 
 							<div class="search_panel active">
-								<form action="" id="search_form_1" method="post"
-									class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+							<!--<form action="" id="search_form_1" method=""
+									class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start"> -->
 									<div class="search_item">
 										<div>위치</div>
-										<input type="text" class="food_address search_input"
-											id="food_address">
+										<select name="food_location" id="food_location"
+											class="dropdown_item_select search_input">
+											<option>선택</option>
+											<option>달서구</option>
+											<option>중구</option>
+											<option>서구</option>
+											<option>북구</option>
+											<option>남구</option>
+											<option>수성구</option>
+											<option>달성군</option>
+										</select>
 									</div>
+									
+									
 
 									<div class="search_item">
 										<div>가게이름</div>
@@ -165,6 +176,7 @@
 
 									<div class="search_item">
 										<div>분류</div>
+										
 										<select name="food_class" id="food_class"
 											class="dropdown_item_select search_input">
 											<option>분류</option>
@@ -206,7 +218,7 @@
 									<button class="button search_button" onclick="searchData()">
 										검색<span></span><span></span><span></span>
 									</button>
-								</form>
+								<!--</form> -->
 							</div>
 						</div>
 					</div>
@@ -250,21 +262,45 @@
 		</div>
 	</div>
 
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1&libraries=services"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
 
 	<script type="text/javascript">
-		window.onload = function() {
+		$(document).ready (function (){
+			//카카오 맵 api로 주소 찍기
+			//주소 출력하기
+			var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
+			mapOption = {
+				center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
+				level : 3
+			// 지도의 확대 레벨
+			};
+
+			// 지도를 생성합니다    
+			var mapi = new kakao.maps.Map(mapContainer, mapOption);
+
+		});
+	
+		function searchData() {
+			 var food_location =  $("#food_location").val();
+			
+			console.log("주소 확인 ==================================="+food_location);
+			
+			var searchLocation = document.querySelector('.searchLocation');
+			//searchLocation.value = food_location;
 			$.ajax({
 				type : "POST",
 				url : "ajaxFood.do",
+				data : {
+					"food_location" : food_location
+				},
 				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
 					console.log("222222222222222222");
 					var data = JSON.parse(result);
-					//console.log(data);
-					//console.log(data.data[1].GNG_CS);
 					var table_body = document.querySelector('.table_body');
 					
 					for (var i = 0; i < data.data.length; i++) {
@@ -355,18 +391,7 @@
 		
 		
 
-		//카카오 맵 api로 주소 찍기
-		//주소 출력하기
-		var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-
-		// 지도를 생성합니다    
-		var mapi = new kakao.maps.Map(mapContainer, mapOption);
-
+		
 		function mapKakao(data, i) {
 
 			// 주소-좌표 변환 객체를 생성합니다
@@ -533,13 +558,13 @@
 
 
 		}
-		
-		/* function findImgLink(food_id, food_name) {
+		////////////////////////사진 저장 fnc
+/*		 function findImgLink(food_id, food_name) {
 			console.log("음식점 이름!!! === " + food_name);
 
 			$.ajax({
 				type : "POST",
-				url : "foodImgSelectOne.do",
+				url : "oneImgCrawl.do",
 				data : {
 					"food_id" : food_id,
 					"food_name" : food_name
@@ -558,7 +583,8 @@
 				}
 
 			});
-		} */
+		} 
+		*/
 	</script>
 </body>
 </html>
