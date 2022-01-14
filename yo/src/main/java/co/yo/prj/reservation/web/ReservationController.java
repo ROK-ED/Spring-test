@@ -1,9 +1,7 @@
 package co.yo.prj.reservation.web;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,9 +27,26 @@ public class ReservationController {
 
 	@RequestMapping("reservation.do")
 	public String reservation(HttpSession session, Model model) {
+		// session이 있는지 확인하고 화면을 열고, 권한을 조회해서 권한에 맞는 리스트를 출력한다.
+		
 		String member_email = (String) session.getAttribute("member_email");
+		String member_author = (String) session.getAttribute("member_author");
+		
+		ReservationVO reservation = new ReservationVO();
+		reservation.setReservation_member_email(member_email);
+		reservation.setReservation_host(member_author);
+		
 		if (member_email != null) {
-			model.addAttribute("reservationList", reservationDao.reservationList());
+			if (("ADMIN").equals(member_author)) {
+				System.out.println("ADMIN 실행");
+				model.addAttribute("reservationList", reservationDao.reservationList());
+			} else if (("HOST").equals(member_author)) {
+				System.out.println("HOST 실행");
+				model.addAttribute("reservationList", reservationDao.reservationHostSelect(reservation));
+			} else if (("USER").equals(member_author)) {
+				System.out.println("USER 실행");
+				model.addAttribute("reservationList", reservationDao.reservationUserSelect(reservation));
+			}
 			return "reservation/reservation";
 		} else {
 			return "member/memberLoginForm";
@@ -62,8 +77,10 @@ public class ReservationController {
 		request.getRequestDispatcher("reservation.do").forward(request, response);
 
 	}
+
 	@RequestMapping(value = "hotelResInsert.do", produces = "text/plain; charset=UTF-8")
-	ModelAndView hotelJoin(@RequestParam("reservation_date1") String da,ReservationVO vo, ModelAndView mav, HttpSession session) {
+	ModelAndView hotelJoin(@RequestParam("reservation_date1") String da, ReservationVO vo, ModelAndView mav,
+			HttpSession session) {
 		try {
 			SimpleDateFormat transFormat = new SimpleDateFormat("yymmdd");
 			Date to = transFormat.parse(da);

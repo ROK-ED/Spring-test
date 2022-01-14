@@ -8,6 +8,18 @@
 		SELECT * FROM
 		YO_RESERVATION
 	</select>
+	
+	<select id="reservationUserSelect" resultType="co.yo.prj.reservation.service.ReservationVO">
+		SELECT * FROM
+		YO_RESERVATION
+		WHERE RESERVATION_MEMBER_EMAIL = #{reservation_member_email}
+	</select>
+	
+	<select id="reservationHostSelect" resultType="co.yo.prj.reservation.service.ReservationVO">
+		SELECT * FROM
+		YO_RESERVATION
+		WHERE RESERVATION_HOST = #{reservation_host}
+	</select>
 
 	<update id="reservationInsert"
 		parameterType="co.yo.prj.reservation.service.ReservationVO">

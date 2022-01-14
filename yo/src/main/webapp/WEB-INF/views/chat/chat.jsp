@@ -69,6 +69,7 @@
 					<div class="card example-1 scrollbar-ripe-malinka">
 						<div id="divChatData"></div>
 					</div>
+					
 					<div>
 						<div class="input-group mb-3">
 							<input type="text" id="message" class="form-control"
