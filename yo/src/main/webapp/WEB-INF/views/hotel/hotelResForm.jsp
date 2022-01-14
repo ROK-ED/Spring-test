@@ -106,7 +106,7 @@
 						<input type="hidden" id="reservation_hotel_id" name="reservation_hotel_id" value="${hotel.hotel_id }">
 						<input type="hidden" id="hotel_title" name="hotel_title" value="${hotel.hotel_title }">
 						<input type="hidden" id="reservation_member_email" name="reservation_member_email" value="${sessionScope.member_email }">
-						
+						<input type="hidden" id="reservation_host" name="reservation_host" value="${hotel.hotel_enroll_email }">
 					</form>
 				</div>
 		
