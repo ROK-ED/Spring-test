@@ -145,16 +145,16 @@
 								<div class="food_title_container d-flex flex-lg-row flex-column">
 									<div class="food_title_content">
 										<br><br>	
-										<input type="text" class="food_id" id="food_id"
+										<input type="hidden" class="food_id" id="food_id"
 											value='${jsonModel.getString("OPENDATA_ID")}'>
 										<h1 class="food_title">${jsonModel.getString("BZ_NM")}</h1>
-										<input type="text" class="food_name" id ="food_name" value='${jsonModel.getString("BZ_NM")}'>
+										<input type="hidden" class="food_name" id ="food_name" value='${jsonModel.getString("BZ_NM")}'>
 										<div class="food_info_text">
 											
 										</div>
 										<br>
 										<div class="food_location">${jsonModel.getString("GNG_CS")}</div>
-										<input type="text" class="food_location_map" id="food_location_map" value='${jsonModel.getString("GNG_CS")}'>
+										<input type="hidden" class="food_location_map" id="food_location_map" value='${jsonModel.getString("GNG_CS")}'>
 									</div>
 									<div class="food_title_button ml-lg-auto text-lg-right">
 										
@@ -325,8 +325,9 @@
 							
 						}//for
 						
-						drawStar();//별찍기
-						mapKakao();
+						drawStar($("#food_id").val());//별찍기
+						mapKakao();//지도 그리기
+						showReview($("#food_id").val());//리뷰 출력하기
 						
 					} else {
 						alert("ㅠㅠㅠ");
@@ -337,15 +338,19 @@
 		
 		//==================================별찍기
 		
-		function drawStar() {
-			console.log("됨!!!!! wpqkf!!!!");/////////////////////////////////////////////////////////////////////////////////////////여기하기...
-			$({
-				url: "showRate.do?food_review_id=11",
+		function drawStar(food_id) {
+			
+			console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
+			
+			$.ajax({
+				url: "showRate.do",
 				type:"POST",
 				data : {
-					"food_review_id" :  $("#food_id").val()
+					"review_food_id" : food_id
 				},
 				success : function(result) {
+					console.log("+++++++++++");
+					console.log("+++++++++++");
 					console.log(result);
 					//console.log("됨!!!1");
 				}
@@ -356,6 +361,45 @@
 			
 		//==================================
 		
+		//=====================댓글 출력   ====================
+			
+			
+		function showReview(food_id) {
+			console.log(food_id);
+			$.ajax({
+				url: "showReview.do",
+				data : {
+					"review_food_id": food_id
+				},
+				type:"POST",
+				success : function (result) {
+					
+					console.log(result)
+				}
+					
+								
+			})
+		}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		//=====================댓글 출력 끗=====================
+			
 
 		//////////////////////////////////////댓글 입력
 

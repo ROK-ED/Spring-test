@@ -52,21 +52,27 @@ public class FoodReviewController {
 	// 별찍기
 	@RequestMapping("/showRate.do")
 	@ResponseBody
-	public String showRate(HttpServletRequest request) {
-		String review_food_id = request.getParameter("food_review_id");
+	public FoodReviewVO showRate(HttpServletRequest request, @RequestParam String review_food_id) {
+//		review_food_id = request.getParameter("food_review_id");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println(review_food_id);
 		FoodReviewVO foodReview = foodReviewDao.showRate(review_food_id);
 		System.out.println("***************************************************");
 		System.out.println("입력자수 ==============="+foodReview.getReview_hit());
 		System.out.println("별점 ==============="+foodReview.getReview_rate());
-		return null;
+		return foodReview;
 	}
 	
+	//출력
 	@RequestMapping("/showReview.do")
 	@ResponseBody
-	public List<FoodReviewVO> showReview(String review_food_id) {
+	public List<FoodReviewVO> showReview(@RequestParam String review_food_id) {
+		//System.out.println("review_food_id =============================="+review_food_id);
 		List<FoodReviewVO> foodReviewList = foodReviewDao.foodReviewSelectList(review_food_id);
-		
+		for(FoodReviewVO review : foodReviewList) {
+			System.out.println(review.getReview_subject());
+		}
 		return foodReviewList;
 	}
 

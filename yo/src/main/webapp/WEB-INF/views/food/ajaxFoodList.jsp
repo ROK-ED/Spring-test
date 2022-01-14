@@ -415,7 +415,7 @@
 							if (result != "") {
 
 								var temp = result + "";
-							//	console.log("5555555555555555이미지.. 나와야함..."	+ temp);
+								//	console.log("5555555555555555이미지.. 나와야함..."	+ temp);
 								var img = document.createElement('img');
 								img
 										.setAttribute("style",
@@ -456,7 +456,11 @@
 
 					});
 		}
-
+		
+		
+		
+		//지도 찍기..........
+		var marker;
 		function mapKakao(data, food_location) {
 
 			// 주소-좌표 변환 객체를 생성합니다
@@ -474,63 +478,71 @@
 			// 지도를 생성합니다    
 			var mapi = new kakao.maps.Map(mapContainer, mapOption);
 
+			//for (var i = 0; i < data.data.length; i++) {
+
 			
-			
-			for (var i = 0; i < data.data.length; i++) {
-				var foodName = data.data[i].BZ_NM + "";
-				var foodAddr = data.data[i].GNG_CS + "";
-				var foodId = data.data[i].OPENDATA_ID + "";
-				console.log(foodName);
-				// 주소로 좌표를 검색합니다
-				geocoder
-						.addressSearch(
-								foodAddr,
-								function(result, status) {
-									console.log("카카오 맵 나와주세요.......... ========================"+foodAddr);
+			marker = $(data.data).map(function(i, data) {
+					console.log("aal;skdjf;lajsdflj;lasjdf;lkjas;dkfj;lakjsd;flkj");
 
-									// 정상적으로 검색이 완료됐으면 
-									if (status === kakao.maps.services.Status.OK) {
+								var foodName = data.BZ_NM + "";
+								var foodAddr = data.GNG_CS + "";
+								var foodId = data.OPENDATA_ID + "";
+								console.log("가게명! ================"+foodName);
 
-										var coords = new kakao.maps.LatLng(
-												result[0].y, result[0].x);
+								// 주소로 좌표를 검색합니다
+								geocoder.addressSearch(foodAddr, function(result, status) {
+													console.log("카카오 맵 나와주세요.......... ========================"+ foodAddr);
 
-										// 결과값으로 받은 위치를 마커로 표시합니다
-										var marker = new kakao.maps.Marker({
-											map : mapi,
-											position : coords
-										});
+													// 정상적으로 검색이 완료됐으면 
+													if (status === kakao.maps.services.Status.OK) {
 
-										// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-										var iwContent = '<div style="padding:5px;">'
-												+ foodName
-												+ '<br>'
-												+ '<a href="foodSelectOne.do?food_id='
-												+ foodId
-												+ '&food_location='
-												+ food_location + '">상세보기</a>'
+														var coords = new kakao.maps.LatLng(
+																result[0].y,
+																result[0].x);
 
-												+ '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-										iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-										
-										// 인포윈도우를 생성합니다
-										var infowindow = new kakao.maps.InfoWindow(
-												{
-													content : iwContent,
-													removable : iwRemoveable
-												});
+														// 결과값으로 받은 위치를 마커로 표시합니다
+														var marker = new kakao.maps.Marker(
+																{
+																	map : mapi,
+																	position : coords
+																});
 
-										// 마커에 클릭이벤트를 등록합니다
-										kakao.maps.event.addListener(marker,
-												'click', function() {
-													// 마커 위에 인포윈도우를 표시합니다
-													infowindow.open(mapi,
-															marker);
-												});
+														// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+														var iwContent = '<div style="padding:5px;">'
+																+ foodName
+																+ '<br>'
+																+ '<a href="foodSelectOne.do?food_id='
+																+ foodId
+																+ '&food_location='
+																+ food_location
+																+ '">상세보기</a>'
 
-									}//if
+																+ '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+														iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-								});//geocoder
-			}
+														// 인포윈도우를 생성합니다
+														var infowindow = new kakao.maps.InfoWindow(
+																{
+																	content : iwContent,
+																	removable : iwRemoveable
+																});
+														// 마커에 클릭이벤트를 등록합니다
+														kakao.maps.event.addListener(marker, 'click',
+																function() {
+																	// 마커 위에 인포윈도우를 표시합니다
+																	infowindow.open(mapi, marker);
+																});//addListener
+													}//if 
+
+												});//geocoder
+
+							
+								
+
+							});//map
+							
+
+			//} //for
 		}
 
 		//화면에 리스트 생성하기

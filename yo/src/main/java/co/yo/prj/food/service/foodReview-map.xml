@@ -17,10 +17,11 @@
 	</insert>
 
 	<select id="foodReviewSelectList"
+	parameterType="String"
 	resultType="co.yo.prj.food.service.FoodReviewVO">
 		SELECT * FROM YO_REVIEW
 		WHERE REVIEW_FOOD_ID = ${review_food_id}
-		ORDER BY DESC;
+		ORDER BY 1 DESC
 	</select>
 	
 	<select id="showRate"
@@ -28,7 +29,7 @@
 	parameterType="String">
 		SELECT ROUND(AVG(REVIEW_RATE), 2) AS REVIEW_RATE, COUNT(*) AS REVIEW_HIT
 		FROM YO_REVIEW
-		WHERE REVIEW_FOOD_ID = ${review_food_id};
+		WHERE REVIEW_FOOD_ID = ${review_food_id}
 	</select>
 	
 
