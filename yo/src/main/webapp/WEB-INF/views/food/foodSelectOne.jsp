@@ -13,27 +13,6 @@
 <link rel="stylesheet" type="text/css"
    href="resources/styles/single_listing_responsive.css">
 <style type="text/css">
-/
-html, body {
-   background-color: #e8e8e8;
-   height: 100%;
-}
-
-a, a:hover, a:visited, a:active {
-   text-decoration: none;
-   color: #000;
-}
-
-a:hover {
-   color: #a00;
-}
-
-h1 {
-   text-align: center;
-   background-color: #fff;
-   padding: 5px;
-   margin: 0;
-}
 
 /* 레이아웃 외곽 너비 400px 제한*/
 .wrap {
@@ -72,14 +51,14 @@ h1 {
    width: 60px;
    height: 60px;
    background-image: url(./resources/img/starrate/starrate.png);
-   /*  =================================바꾼부분 */
+
    background-repeat: no-repeat;
    background-size: 60px 60px;
    cursor: pointer;
 }
 
 .rating .ratefill {
-   background-color: #fa9e1b; /*  =================================바꾼부분 */
+   background-color: #fa9e1b; 
    width: 0;
    height: 60px;
    position: absolute;
@@ -129,15 +108,7 @@ h1 {
 
    <div class="super_container">
 
-      <!-- Header -->
-
-
-      <!-- Top Bar -->
-
-      <!-- Main Navigation -->
-
-
-
+      
 
 
       <!-- Home -->
@@ -149,7 +120,7 @@ h1 {
 
 
          <div class="home_content">
-            <div class="home_title">the offers</div>
+            <div class="home_title">food</div>
          </div>
       </div>
 
@@ -167,56 +138,52 @@ h1 {
                <div class="col-lg-12">
                   <div class="single_listing">
 
-                     <!-- Hotel Info -->
+                     <!-- food Info -->
 
                      <div class="food_info">
                         <!-- Title -->
                         <div class="food_title_container d-flex flex-lg-row flex-column">
                            <div class="food_title_content">
-                              <input type="text" class="food_id" id="food_id"
+                              <br><br>   
+                              <input type="hidden" class="food_id" id="food_id"
                                  value='${jsonModel.getString("OPENDATA_ID")}'>
                               <h1 class="food_title">${jsonModel.getString("BZ_NM")}</h1>
+                              <input type="hidden" class="food_name" id ="food_name" value='${jsonModel.getString("BZ_NM")}'>
                               <div class="food_info_text">
-                                 <%--    <c:if test="${hotel.hotel_tel eq null}">
-                           번호가 등록되지 않았습니다.
-                           </c:if> --%>
-                                 음식점 번호
+                                 
                               </div>
+                              <br>
                               <div class="food_location">${jsonModel.getString("GNG_CS")}</div>
+                              <input type="hidden" class="food_location_map" id="food_location_map" value='${jsonModel.getString("GNG_CS")}'>
                            </div>
                            <div class="food_title_button ml-lg-auto text-lg-right">
-                              <br>
-                              <div class="room_text">
-                                 <%--   <h2>
-                                    가격 들어가는 곳인데 빼도 될듯원
-                                    <h3></h3> --%>
-                              </div>
-
-
+                              
+                              <div class="room_text"></div>
                            </div>
                         </div>
-
+                        <br>
+                        <div class="food_info_text">
+                        
+                           설명 :
+                           ${jsonModel.getString("SMPL_DESC")}
+                           <br><br>
+                           메뉴 :
+                           ${jsonModel.getString("MNU")}
+                           <br><br>
+                           주차장 :
+                           ${jsonModel.getString("PKPL")}
+                           <br><br>
+                            
+                        </div>
                         <!-- Listing Image -->
 
                         <div class="food_image">
-                           이미지 위치
-                           <%-- <c:if test="${hotel.hotel_picture ne null }"><img src="resources/img/${hotel.hotel_pfile }" alt=""></c:if>
-                           <c:if test="${hotel.hotel_picture eq null }"><img src="resources/images/noimage.jpg" alt=""></c:if>
- --%>
+
+                           <!-- 이미지 들어가는 곳 -->
                         </div>
 
-                        <!-- Hotel Gallery -->
 
 
-                        <!-- Hotel Info Text -->
-
-                        <div class="food_info_text">
-                           info 들어가는 곳
-                           <%-- <c:if test="${hotel.hotel_content eq null}">
-                           등록된 내용이 없습니다.
-                           </c:if>
-                           <p>${hotel.hotel_content }</p>--%>
-                        </div>
 
                         <div class="col-lg-12 text-lg-right">
                            <div class="room_button">
@@ -235,19 +202,16 @@ h1 {
 
                            <form name="reviewform" class="reviewform" method="get"
                               action="foodReviewInsert.do">
-                              <input type="text" class="rate" name="rate" id="rate"
-                                 /> 
-                                 
-                                 <input type="text" name="review_member_email"
+                              <input type="text" class="rate" name="rate" id="rate" />
+
+                              <input type="text" name="review_member_email"
                                  id="review_member_email"
-                                 value="${sessionScope.member_email }"> 
-                                 
-                                 <input
+                                 value="${sessionScope.member_email }"> <input
                                  type="text" name="review_food_id" class="review_food_id"
                                  id="review_food_id"
                                  value='${jsonModel.getString("OPENDATA_ID")}'>
-                                 
-                                 
+
+
                               <p class="title_star">별점과 리뷰를 남겨주세요.</p>
 
                               <div class="review_rating_click">
@@ -276,9 +240,9 @@ h1 {
                                  <input type="submit" name="save" id="save" value="등록">
                               </div>
                            </form>
-
-
-
+                        </div>
+                        <div class="print_review" id ="print_review">
+                        
                         </div>
 
 
@@ -331,10 +295,12 @@ h1 {
    <script src="resources/plugins/colorbox/jquery.colorbox-min.js"></script>
    <script src="resources/js/single_listing_custom.js"></script>
    <script type="text/javascript"
-      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0bc9146edbdf1e1ef713709f1af03a5d"></script>
-   <script>
-      //지도
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1&libraries=services"></script>
+   <script type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
 
+      <script>
+      //이미지 크롤링 해오기
       window.onload = function() {
          $.ajax({
             url : "imgListCrawl.do",
@@ -349,27 +315,96 @@ h1 {
                         .getElementsByClassName('food_image')[0];
 
                   for (var i = 0; i < result.length; i++) {
+                     
                      var img = document.createElement('img');
                      img.setAttribute("src", result[i]);
-
+                     img.setAttribute("style",
+                           "height:100%; width:100%;")
                      food_image.appendChild(img)
-                     console.log(result[i]);
-                  }
+                     console.log(result[i]);   
+                     
+                  }//for
+                  
+                  drawStar($("#food_id").val());//별찍기
+                  mapKakao();//지도 그리기
+                  showReview($("#food_id").val());//리뷰 출력하기
+                  
                } else {
                   alert("ㅠㅠㅠ");
                }
             }
+         });
+      }
+      
+      //==================================별찍기
+      
+      function drawStar(food_id) {
+         
+         console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
+         
+         $.ajax({
+            url: "showRate.do",
+            type:"POST",
+            data : {
+               "review_food_id" : food_id
+            },
+            success : function(result) {
+               console.log(result);
+            }
+            
          })
       }
+         
+         
+      //==================================
+      
+      //=====================댓글 출력   ====================
+         
+         
+      function showReview(food_id) {
+         console.log(food_id);
+         $.ajax({
+            url: "showReview.do",
+            data : {
+               "review_food_id": food_id
+            },
+            type:"POST",
+            success : function (result) {
+               
+               console.log(result)
+            }
+               
+                        
+         })
+      }
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+      //=====================댓글 출력 끗=====================
+         
 
-      //////////////////////////////////////별찍기
+      //////////////////////////////////////댓글 입력
 
       document.addEventListener(
                   'DOMContentLoaded',
                   function() {
                      //별점선택 이벤트 리스너
-                     document
-                           .querySelector('.rating')
+                     document.querySelector('.rating')
                            .addEventListener(
                                  'click',
                                  function(e) {
@@ -445,18 +480,12 @@ h1 {
       Rating.prototype.rate = 0;
       Rating.prototype.setRate = function(newrate) {
          //별점 마킹 - 클릭한 별 이하 모든 별 체크 처리
-         //this.rate.value = newrate;
-         console.log("this 확인 ============"+this.rate.value);
+         console.log("this 확인 ============" + this.rate.value);
          document.querySelector('.ratefill').style.width = parseInt(newrate * 60)
                + 'px';
          let items = document.querySelectorAll('.rate_radio');
-         //document.querySelector('#rate').value = newrate;
-         console.log("newrate 값 ============="+ newrate);
-         document.getElementById('rate').setAttribute("value",newrate);
-         
-         //Rating.prototype.rate=newrate;
-         //console.log("Rating.prototype.rate======== "+Rating.prototype.rate)
-         //rate.value =newrate;
+         console.log("newrate 값 =============" + newrate);
+         document.getElementById('rate').setAttribute("value", newrate);
 
          
          items.forEach(function(item, idx) {
@@ -502,14 +531,13 @@ h1 {
 
       /////////// ///////////////////////////별찍기끗
 
-      //지도
+      //=============================지도=============================
       //카카오 맵 api로 주소 찍기
       //주소 출력하기
       var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
-      mapOption = {
-         center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
-         level : 3
-      // 지도의 확대 레벨
+         mapOption = {
+            center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
+            level : 3
       };
 
       // 지도를 생성합니다    
@@ -518,13 +546,14 @@ h1 {
       function mapKakao(data, i) {
 
          // 주소-좌표 변환 객체를 생성합니다
+         
          var geocoder = new kakao.maps.services.Geocoder();
-         var foodName = data.data[i].BZ_NM;
-         var foodAddr = data.data[i].GNG_CS;
-         var foodId = data.data[i].OPENDATA_ID;
-
+         var food_name = document.querySelector('.food_name').value; 
+         var food_location_map = document.querySelector('.food_location_map').value;
+         console.log("음식점 이름 ============"+food_name);
+         console.log("음식점 주소ㅓ ============"+food_location_map);
          // 주소로 좌표를 검색합니다
-         geocoder.addressSearch(data.data[i].GNG_CS,
+         geocoder.addressSearch(food_location_map,
                function(result, status) {
 
                   // 정상적으로 검색이 완료됐으면 
@@ -540,58 +569,30 @@ h1 {
                      });
 
                      // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-                     var iwContent = '<div style="padding:5px;">'
-                           + foodName + '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                     iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+                     var iwContent = '<div style="padding:10px; ">'
+                           + food_name + '</div>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                     //iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
                      // 인포윈도우를 생성합니다
                      var infowindow = new kakao.maps.InfoWindow({
-                        content : iwContent,
-                        removable : iwRemoveable
+                        position : coords, 
+                        content : iwContent
+                        //removable : iwRemoveable
                      });
-
-                     // 마커에 클릭이벤트를 등록합니다
-                     kakao.maps.event.addListener(marker, 'click',
-                           function() {
-                              // 마커 위에 인포윈도우를 표시합니다
-                              infowindow.open(mapi, marker);
-                           });
-
+                     
+                     infowindow.open(mapi, marker); 
+                     
+                     var moveLatLon = new kakao.maps.LatLng(result[0].y,
+                           result[0].x);
+                      mapi.setCenter(moveLatLon);
+                      
                   }//if
 
                });//geocoder
 
       }
 
-      /* var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
-      var options = { //지도를 생성할 때 필요한 기본 옵션
-         center : new kakao.maps.LatLng(${hotel.hotel_locx },${hotel.hotel_locy }), //지도의 중심좌표.
-         level : 3
-      //지도의 레벨(확대, 축소 정도)
-      };
-
-      var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-      var markerPosition  = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); 
-
-      // 마커를 생성합니다
-      var marker = new kakao.maps.Marker({
-          position: markerPosition
-      });
-
-      // 마커가 지도 위에 표시되도록 설정합니다
-      marker.setMap(mapi);
-
-      var iwContent = '<div style="padding:5px; color: black; font-size:70%;">${hotel.hotel_title }</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-          iwPosition = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); //인포윈도우 표시 위치입니다
-
-      // 인포윈도우를 생성합니다
-      var infowindow = new kakao.maps.InfoWindow({
-          position : iwPosition, 
-          content : iwContent 
-      });
-        
-      // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-      infowindow.open(mapi, marker);  */
+      
    </script>
 </body>
 

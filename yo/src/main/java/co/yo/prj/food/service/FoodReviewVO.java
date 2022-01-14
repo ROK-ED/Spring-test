@@ -13,7 +13,7 @@ public class FoodReviewVO {
 	private String review_option;
 	private String review_subject;
 	private int review_place_id;
-	private int review_rate;
+	private double review_rate;
 	private int review_hit;
 	
 }

@@ -25,4 +25,9 @@ public class FoodReviewServiceImpl implements FoodReviewService {
 		return map.foodReviewSelectList(member_email);
 	}
 
+	@Override
+	public FoodReviewVO showRate(String review_food_id) {
+		return map.showRate(review_food_id);
+	}
+
 }

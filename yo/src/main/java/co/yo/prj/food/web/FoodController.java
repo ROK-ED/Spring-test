@@ -35,16 +35,16 @@ public class FoodController {
 		return "food/food";
 	}
 
-	@RequestMapping("/foodInsert.do")
-	public String foodInsert(FoodVO food, Model model) {
-
-		// int result=foodDao.foodInsert(food);
-		// (result>1) {
-		// model.addAttribute("message", "정상적으로 입력되었습니다");
-		// }
-
-		return "food/foodInsert";
-	}
+//	@RequestMapping("/foodInsert.do")
+//	public String foodInsert(FoodVO food, Model model) {
+//
+//		// int result=foodDao.foodInsert(food);
+//		// (result>1) {
+//		// model.addAttribute("message", "정상적으로 입력되었습니다");
+//		// }
+//
+//		return "food/foodInsert";
+//	}
 
 	@RequestMapping("/foodList.do")
 	public String foodSelectList(Model model) {
@@ -61,12 +61,12 @@ public class FoodController {
 
 	}
 
-	@PostMapping("makeMarker.do")
-	@ResponseBody
-	public List<FoodVO> makeMarker() {
-		return foodDao.foodSelectList();
-
-	}
+//	@PostMapping("makeMarker.do")
+//	@ResponseBody
+//	public List<FoodVO> makeMarker() {
+//		return foodDao.foodSelectList();
+//
+//	}
 
 	@RequestMapping("/foodSelect.do")
 	public String foodSelect(FoodVO food, Model model) {
@@ -83,12 +83,14 @@ public class FoodController {
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxFood(HttpSession session) {
+	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location,
+			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		try {
-			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
+			System.out.println("주소 확인하기 ===================================" + apiURL);
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -118,24 +120,62 @@ public class FoodController {
 
 			session.setAttribute("jsonModel", jArray);
 
+			// 확인용
 //			for (int i = 0; i < jArray.length(); i++) {
 //				JSONObject obj = jArray.getJSONObject(i);
-//				String title = obj.getString("BZ_NM");
-//				 System.out.println("title(" + i + "): " + title);
-//
+//				String title = obj.getString("FD_CS");
+//				// if (title.equals("중식")) {
+//				//System.out.println("title(" + i + "): " + title);
+//				// }
 //			}
 
+			// 검색용
+			boolean food_name_check = (!food_name.equals("")) ? true : false;
+			boolean food_class_check = (!food_class.equals("")) ? true : false;
+
+			JSONArray searchArray = new JSONArray();
+
+			if (food_name_check == true || food_class_check == true) {
+
+				for (int i = 0; i < jArray.length(); i++) {
+					JSONObject obj = jArray.getJSONObject(i);
+					String jsonFoodClass = obj.getString("FD_CS");
+					String jsonFoodName = obj.getString("BZ_NM");
+
+					if ((food_name_check == true) ? (jsonFoodName.contains(food_name) ? true : false)
+							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
+						searchArray.put(obj);
+
+						System.out
+								.println("확인하기 !!!!!!!!!!!====================" + jsonFoodClass + " : " + jsonFoodName);
+
+					} else {
+						System.out.println("안되는게 정상인 경우... 검색결과 X........");
+					}
+				}
+
+				if (searchArray.length() > 0) {
+					String first = "{\"status\":\"DONE\", \"total\":\"" + searchArray.length() + "\", \"data\":";
+
+					String tmp = searchArray.toString();
+					data = first + tmp + "}";
+//				System.out.println(data);
+				} else {
+					data = "-1";
+				}
+			}
+
 			urlconnection.disconnect();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		//System.out.println(data);
 		return data;
 
 	}
 
-	
-	//음식점 전체조회 (api에서 가져오기)
+	// 음식점 전체조회 (api에서 가져오기)
 	@RequestMapping(value = "/ajaxFoodList.do", produces = "application/text;charset=utf8")
 	public String ajaxFoodList(Model model) {
 
@@ -174,12 +214,13 @@ public class FoodController {
 
 	// 음식점 상세조회(api에서 가져오기)
 	@RequestMapping("/foodSelectOne.do")
-	public String foodSelectOne(@RequestParam("food_id") String food_id, Model model) {
+	public String foodSelectOne(@RequestParam("food_id") String food_id,
+			@RequestParam("food_location") String food_location, Model model) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		try {
-			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -202,31 +243,25 @@ public class FoodController {
 
 			// String to json --> model
 
-
-
-
 			JSONObject jObject = new JSONObject();
 			JSONArray jArray = new JSONArray();
-			
-			
-			
+
 			jObject = new JSONObject(data);
 
 			jArray = jObject.getJSONArray("data");
 
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject obj = jArray.getJSONObject(i);
-				String title = obj.getString("BZ_NM");
-				
+				String title = obj.getString("FD_CS");
+
 				if (obj.getString("OPENDATA_ID").equals(food_id)) {
 
-					String asdf = obj.getString("BZ_NM");
 					String returnTitle = title;
 					System.out.println("===============================title(" + i + "): " + title);
 					System.out.println("returnTitle===============================title(" + i + "): " + returnTitle);
 					model.addAttribute("jsonModel", obj);
 					break;
-					
+
 				}
 
 			}
@@ -238,22 +273,15 @@ public class FoodController {
 
 		return "food/foodSelectOne";
 	}
-	
-	
-	
-	
-	
-	//리뷰 저장하기
-	@RequestMapping("/foodReview.do")
-	public String foodReview() {
-		
-		
-		
-		return null;
-		
-	}
-	
-	
-	
+
+//	//리뷰 저장하기
+//	@RequestMapping("/foodReview.do")
+//	public String foodReview() {
+//		
+//		
+//		
+//		return null;
+//		
+//	}
 
 }

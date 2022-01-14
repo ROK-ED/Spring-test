@@ -5,18 +5,32 @@
 
 	<insert id="foodReviewInsert"
 		parameterType="co.yo.prj.food.service.FoodReviewVO">
-		INSERT INTO YO_REVIEW
+		<selectKey keyProperty="review_id" resultType="int" order="BEFORE">
+			SELECT NVL( MAX (REVIEW_ID) + 1, 1) AS REVIEW_ID 
+			FROM YO_REVIEW			
+		</selectKey>
+		INSERT INTO YO_REVIEW(REVIEW_ID, REVIEW_MEMBER_EMAIL, REVIEW_FOOD_ID, REVIEW_OPTION, 
+			REVIEW_SUBJECT, REVIEW_RATE, REVIEW_HIT )
 		VALUES(  #{review_id}, #{review_member_email}, #{review_food_id}, 
-			#{review_option}, #{review_subject}, #{review_place_id}, #{review_rate},
+			#{review_option}, #{review_subject}, #{review_rate},
 			#{review_hit}  )
 	</insert>
 
 	<select id="foodReviewSelectList"
+	parameterType="String"
 	resultType="co.yo.prj.food.service.FoodReviewVO">
 		SELECT * FROM YO_REVIEW
-		WHERE review_member_email = ${review_member_email}
+		WHERE REVIEW_FOOD_ID = ${review_food_id}
+		ORDER BY 1 DESC
 	</select>
 	
+	<select id="showRate"
+	resultType="co.yo.prj.food.service.FoodReviewVO" 
+	parameterType="String">
+		SELECT ROUND(AVG(REVIEW_RATE), 2) AS REVIEW_RATE, COUNT(*) AS REVIEW_HIT
+		FROM YO_REVIEW
+		WHERE REVIEW_FOOD_ID = ${review_food_id}
+	</select>
 	
 
 </mapper>
