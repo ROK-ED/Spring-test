@@ -158,7 +158,11 @@
                            </div>
                            <div class="food_title_button ml-lg-auto text-lg-right">
                               
-                              <div class="room_text"></div>
+                              <div class="room_text" id="printStar">
+                              
+                              <!-- 별찍기 넣을 곳 -->
+                              
+                              </div>
                            </div>
                         </div>
                         <br>
@@ -333,6 +337,7 @@
                   alert("ㅠㅠㅠ");
                }
             }
+            
          });
       }
       
@@ -340,7 +345,7 @@
       
       function drawStar(food_id) {
          
-         console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
+        // console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
          
          $.ajax({
             url: "showRate.do",
@@ -349,7 +354,13 @@
                "review_food_id" : food_id
             },
             success : function(result) {
+            	
+            	$('#printStar').textContext = result.review_hit
+            	for(var i=0;i<result.review_rate;i++){
+            		0
+            	}
                console.log(result);
+               
             }
             
          })
