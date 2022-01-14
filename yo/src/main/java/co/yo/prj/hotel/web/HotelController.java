@@ -1,8 +1,12 @@
 package co.yo.prj.hotel.web;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,16 +15,20 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.yo.prj.Message;
+import co.yo.prj.food.service.FoodImgVO;
 import co.yo.prj.hotel.service.HotelService;
 import co.yo.prj.hotel.service.HotelVO;
 
@@ -228,5 +236,31 @@ public class HotelController {
 		model.addAttribute("hotels", hotels);
 		return "hotel/hotelSelectList";
 	}
+	
+	@RequestMapping("ajaxtest.do") // ajax 테스트(이미 데이터 들어갔으니 들어가지말것)
+	public String hotelResSearch(Model model) {
+		return "hotel/ajaxtest";
+	}
+	@RequestMapping(value = "/ajaxhotelinset.do", produces = "application/text;charset=utf8")
+	@ResponseBody
+	public String ajaxhotelinset(@RequestParam("ad") String ad,@RequestParam("im") String im,@RequestParam("lox") double lox,@RequestParam("loy") double loy,@RequestParam("te") String te,@RequestParam("titl") String titl) {
 
+
+			HotelVO hotel =new HotelVO();		
+			hotel.setHotel_address(ad);
+			hotel.setHotel_content(titl);
+			hotel.setHotel_enroll_email("admin@admin.com");
+			hotel.setHotel_locx(lox);
+			hotel.setHotel_locy(loy);
+			hotel.setHotel_thumbnail(im);
+			hotel.setHotel_tfile(im);
+			hotel.setHotel_price(70000);//7만원 디폴트
+			hotel.setHotel_title(titl);
+			hotel.setHotel_loom(30);//객실수 30 디폴트
+			hotel.setHotel_tel(te);
+			hotelDao.HotelInsert(hotel);
+			
+			return null;
+
+	}
 }

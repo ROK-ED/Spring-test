@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <head>
 <title>숙박</title>
@@ -81,14 +82,14 @@
 										<div class="search_item">
 											<br> <br>
 											<div>이름</div>
-											<input type="text" class="destination search_input" id="resName" name="resName"
-												required="required">
+											<input type="text" class="destination search_input"
+												id="resName" name="resName" required="required">
 										</div>
 										<div class="search_item">
 											<br> <br>
 											<div>check in</div>
-											<input type="text" class="check_in search_input" id="resDate" name="resDate"
-												placeholder="YYMMDD">
+											<input type="text" class="check_in search_input" id="resDate"
+												name="resDate" placeholder="YYMMDD">
 										</div>
 
 										<button type="submit" class="button search_button">
@@ -120,7 +121,7 @@
 
 							<table id="mTable" class="table table-bordered">
 								<thead>
-									<tr>
+									<tr style="display: none;">
 										<th></th>
 									</tr>
 								</thead>
@@ -138,9 +139,17 @@
 																<div class="offers_image_background">
 																	<a href="hotelSelect.do?hotel_id=${hotel.hotel_id }">
 																		<c:if test="${hotel.hotel_thumbnail ne null }">
-																			<img alt="숙소 섬네일"
-																				src="resources/img/${hotel.hotel_tfile }"
-																				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+																			<c:if test="${fn:contains(hotel.hotel_thumbnail, 'http:')}">
+																				<img alt="숙소 섬네일"
+																					src="${hotel.hotel_thumbnail }"
+																					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+																			</c:if>
+																			<c:if test="${not fn:contains(hotel.hotel_thumbnail, 'http:')}">
+																				<img alt="숙소 섬네일"
+																					src="resources/img/${hotel.hotel_tfile }"
+																					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+																			</c:if>
+												
 																		</c:if> <c:if test="${hotel.hotel_thumbnail eq null }">
 																			<img alt="숙소 섬네일" src="resources/images/noimage.jpg"
 																				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
@@ -159,14 +168,14 @@
 																	<div class="offer_reviews_title">${hotel.hotel_price}
 																		원</div>
 																	<div id="emailf${hotel.hotel_id }">
-																	<script>var x="${hotel.hotel_enroll_email }"
+																		<script>var x="${hotel.hotel_enroll_email }"
 																	var y=x.split('@')[0];
 																	document.getElementById('emailf${hotel.hotel_id }').innerText=y;
 																	</script>
 																	</div>
 																</div>
 															</div>
-															
+
 															<p class="offers_text">${hotel.hotel_content }</p>
 
 															<div class="button book_button">
@@ -188,13 +197,7 @@
 
 
 						</div>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
-						<br>
+						<br> <br> <br> <br> <br> <br> <br>
 					</div>
 					<div class="col-lg-5">
 						<br> <br>
@@ -244,12 +247,29 @@
 	<script>
 	
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
-		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(35.86904345726449, 128.59330830315685), //지도의 중심좌표.(기본 예담)
-			level : 3
-		//지도의 레벨(확대, 축소 정도)
-		};
+		<%String id = (String) session.getAttribute("member_email");%>
+		
+		<%if (id == null) {%>//로그인 안했을시 기본위치: 예담
+		
+			console.log('false');
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+					center : new kakao.maps.LatLng(35.86904345726449, 128.59330830315685), //지도의 중심좌표
+					level : 3
+				//지도의 레벨(확대, 축소 정도)
+				};
 
+		<%} else {%>//로그인 햇을시 자신이 등록한 위치
+
+		
+			var x='<%=(double) session.getAttribute("member_x")%>';
+			var y='<%=(double) session.getAttribute("member_y")%>';
+			var options = { //지도를 생성할 때 필요한 기본 옵션
+					center : new kakao.maps.LatLng(y, x), //지도의 중심좌표.
+					level : 3
+				//지도의 레벨(확대, 축소 정도)
+				};
+			
+		<%}%>
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
 		
 		var positions = [];
@@ -266,7 +286,8 @@
 	  		  });	
 			
 			var infowindow = new kakao.maps.InfoWindow({
-		        content: '<h5 style="color:black;">'+positions[i].title+'</h5><a href="hotelResForm.do?hotel_id='+positions[i].id+'" style="color:blue" >예약하기</a>' // 인포윈도우에 표시할 내용
+		        content: '<h5 style="color:black;">'+positions[i].title+'</h5><a href="hotelResForm.do?hotel_id='+positions[i].id+'" style="color:blue" >예약하기 </a><a href="hotelSelect.do?hotel_id='+positions[i].id+'" style="color:blue" > 상세정보</a>'
+		        		// 인포윈도우에 표시할 내용
 		        ,removable : true
 		    });
 			 kakao.maps.event.addListener(marker, 'click', makeOverListener(mapi, marker, infowindow));
