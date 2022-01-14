@@ -83,13 +83,14 @@ public class FoodController {
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location) {
+	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location,
+			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		try {
 			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
-			System.out.println("주소 확인하기 ==================================="+apiURL);
+			System.out.println("주소 확인하기 ===================================" + apiURL);
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -119,18 +120,57 @@ public class FoodController {
 
 			session.setAttribute("jsonModel", jArray);
 
-			for (int i = 0; i < jArray.length(); i++) {
-				JSONObject obj = jArray.getJSONObject(i);
-				String title = obj.getString("BZ_NM");
-				 System.out.println("title(" + i + "): " + title);
+			// 확인용
+//			for (int i = 0; i < jArray.length(); i++) {
+//				JSONObject obj = jArray.getJSONObject(i);
+//				String title = obj.getString("FD_CS");
+//				// if (title.equals("중식")) {
+//				//System.out.println("title(" + i + "): " + title);
+//				// }
+//			}
 
+			// 검색용
+			boolean food_name_check = (!food_name.equals("")) ? true : false;
+			boolean food_class_check = (!food_class.equals("")) ? true : false;
+
+			JSONArray searchArray = new JSONArray();
+
+			if (food_name_check == true || food_class_check == true) {
+
+				for (int i = 0; i < jArray.length(); i++) {
+					JSONObject obj = jArray.getJSONObject(i);
+					String jsonFoodClass = obj.getString("FD_CS");
+					String jsonFoodName = obj.getString("BZ_NM");
+
+					if ((food_name_check == true) ? (jsonFoodName.contains(food_name) ? true : false)
+							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
+						searchArray.put(obj);
+
+						System.out
+								.println("확인하기 !!!!!!!!!!!====================" + jsonFoodClass + " : " + jsonFoodName);
+
+					} else {
+						System.out.println("안되는게 정상인 경우... 검색결과 X........");
+					}
+				}
+
+				if (searchArray.length() > 0) {
+					String first = "{\"status\":\"DONE\", \"total\":\"" + searchArray.length() + "\", \"data\":";
+
+					String tmp = searchArray.toString();
+					data = first + tmp + "}";
+//				System.out.println(data);
+				} else {
+					data = "-1";
+				}
 			}
 
 			urlconnection.disconnect();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		//System.out.println(data);
 		return data;
 
 	}
@@ -174,12 +214,13 @@ public class FoodController {
 
 	// 음식점 상세조회(api에서 가져오기)
 	@RequestMapping("/foodSelectOne.do")
-	public String foodSelectOne(@RequestParam("food_id") String food_id, Model model) {
+	public String foodSelectOne(@RequestParam("food_id") String food_id,
+			@RequestParam("food_location") String food_location, Model model) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		try {
-			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=달서구";
+			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -211,7 +252,7 @@ public class FoodController {
 
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject obj = jArray.getJSONObject(i);
-				String title = obj.getString("BZ_NM");
+				String title = obj.getString("FD_CS");
 
 				if (obj.getString("OPENDATA_ID").equals(food_id)) {
 

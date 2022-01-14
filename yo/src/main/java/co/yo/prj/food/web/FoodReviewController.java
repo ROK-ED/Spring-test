@@ -1,11 +1,15 @@
 package co.yo.prj.food.web;
 
+import java.net.http.HttpRequest;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.yo.prj.food.service.FoodReviewService;
@@ -42,19 +46,28 @@ public class FoodReviewController {
 			System.out.println("이메일 안됨...ㅠ");
 		}
 
-		return "";/// =================나중에 여기에 redirect 넣어야함
+		return "redirect food/foodSelectOne";/// =================나중에 여기에 redirect 넣어야함
 	}
 
 	// 별찍기
 	@RequestMapping("/showRate.do")
 	@ResponseBody
-	public String showRate(String review_food_id) {
-
+	public String showRate(HttpServletRequest request) {
+		String review_food_id = request.getParameter("food_review_id");
+		System.out.println(review_food_id);
 		FoodReviewVO foodReview = foodReviewDao.showRate(review_food_id);
 		System.out.println("***************************************************");
 		System.out.println("입력자수 ==============="+foodReview.getReview_hit());
 		System.out.println("별점 ==============="+foodReview.getReview_rate());
 		return null;
+	}
+	
+	@RequestMapping("/showReview.do")
+	@ResponseBody
+	public List<FoodReviewVO> showReview(String review_food_id) {
+		List<FoodReviewVO> foodReviewList = foodReviewDao.foodReviewSelectList(review_food_id);
+		
+		return foodReviewList;
 	}
 
 }

@@ -300,7 +300,7 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
 
 		<script>
-
+		//이미지 크롤링 해오기
 		window.onload = function() {
 			$.ajax({
 				url : "imgListCrawl.do",
@@ -340,7 +340,7 @@
 		function drawStar() {
 			console.log("됨!!!!! wpqkf!!!!");/////////////////////////////////////////////////////////////////////////////////////////여기하기...
 			$({
-				url: "showRate.do",
+				url: "showRate.do?food_review_id=11",
 				type:"POST",
 				data : {
 					"food_review_id" :  $("#food_id").val()
