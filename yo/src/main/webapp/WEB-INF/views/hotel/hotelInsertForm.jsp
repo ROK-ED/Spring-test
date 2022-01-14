@@ -43,10 +43,10 @@
 								<input type="text" id="hotel_title" name="hotel_title"
 									class="contact_form_subject input_field" placeholder="*숙소명"
 									required="required" data-error="email is required."> <input
-									type="text" id="hotel_locx" name="hotel_locx"
+									type="text" id="hotel_locy" name="hotel_locy"
 									class="contact_form_name input_field" placeholder="*위도"
 									required="required" data-error="LocX is required." readonly>
-								<input type="text" id="hotel_locy" name="hotel_locy"
+								<input type="text" id="hotel_locx" name="hotel_locx"
 									class="contact_form_email input_field" placeholder="*경도"
 									required="required" data-error="LocY is required." readonly>
 								<input type="text" id="hotel_address" name="hotel_address"
@@ -178,8 +178,8 @@
 		kakao.maps.event.addListener(mapi, 'click', function(mouseEvent) {
 			// 클릭한 위도, 경도 정보를 가져옵니다 
 			var latlng = mouseEvent.latLng;
-			$('#hotel_locx').val(latlng.getLat());
-			$('#hotel_locy').val(latlng.getLng());
+			$('#hotel_locy').val(latlng.getLat());
+			$('#hotel_locx').val(latlng.getLng());
 
 			searchDetailAddrFromCoords(mouseEvent.latLng, function(result,
 					status) {

@@ -179,13 +179,13 @@
 		<script>//지도
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(${hotel.hotel_locx },${hotel.hotel_locy }), //지도의 중심좌표.
+			center : new kakao.maps.LatLng(${hotel.hotel_locy },${hotel.hotel_locx }), //지도의 중심좌표.
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
 
 		var mapi = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-		var markerPosition  = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); 
+		var markerPosition  = new kakao.maps.LatLng( ${hotel.hotel_locy },${hotel.hotel_locx }); 
 
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({
@@ -196,7 +196,7 @@
 		marker.setMap(mapi);
 
 		var iwContent = '<div style="padding:5px; color: black; font-size:70%;">${hotel.hotel_title }</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-		    iwPosition = new kakao.maps.LatLng(${hotel.hotel_locx }, ${hotel.hotel_locy }); //인포윈도우 표시 위치입니다
+		    iwPosition = new kakao.maps.LatLng(${hotel.hotel_locy },${hotel.hotel_locx }); //인포윈도우 표시 위치입니다
 
 		// 인포윈도우를 생성합니다
 		var infowindow = new kakao.maps.InfoWindow({

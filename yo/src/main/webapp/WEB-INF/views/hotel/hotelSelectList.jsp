@@ -254,7 +254,7 @@
 		
 		var positions = [];
 		<c:forEach items="${hotels }" var="hotel">
-		positions.push({title: '${hotel.hotel_title}', latlng: new kakao.maps.LatLng(${hotel.hotel_locx},${hotel.hotel_locy}), id: '${hotel.hotel_id}'});
+		positions.push({title: '${hotel.hotel_title}', latlng: new kakao.maps.LatLng(${hotel.hotel_locy},${hotel.hotel_locx}), id: '${hotel.hotel_id}'});
 		</c:forEach>
 		
 		for (var i = 0; i < positions.length; i ++) 

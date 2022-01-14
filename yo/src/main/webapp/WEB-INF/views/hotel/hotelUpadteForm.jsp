@@ -42,13 +42,13 @@
 									class="contact_form_subject input_field" placeholder="*숙소명"
 									required="required" data-error="email is required." value="${hotel.hotel_title }">
 								 <input
-									type="text" id="hotel_locx" name="hotel_locx"
-									class="contact_form_name input_field" placeholder="*위도"
-									required="required" data-error="LocX is required." readonly  value="${hotel.hotel_locx }"> 
-								<input
 									type="text" id="hotel_locy" name="hotel_locy"
+									class="contact_form_name input_field" placeholder="*위도"
+									required="required" data-error="LocX is required." readonly  value="${hotel.hotel_locy }"> 
+								<input
+									type="text" id="hotel_locx" name="hotel_locx"
 									class="contact_form_email input_field" placeholder="*경도"
-									required="required" data-error="LocY is required." readonly  value="${hotel.hotel_locy }"> 
+									required="required" data-error="LocY is required." readonly  value="${hotel.hotel_locx }"> 
 								 <input
 									type="text" id="hotel_address" name="hotel_address"
 									class="contact_form_subject input_field" placeholder="*주소"
@@ -148,8 +148,7 @@
 	<script>
 		var container = document.getElementById('mapi'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
-			center : new kakao.maps.LatLng(${hotel.hotel_locx},
-					${hotel.hotel_locy}), //지도의 중심좌표.
+			center : new kakao.maps.LatLng(${hotel.hotel_locy},${hotel.hotel_locx}), //지도의 중심좌표.
 			level : 3
 		//지도의 레벨(확대, 축소 정도)
 		};
@@ -162,8 +161,8 @@
 		kakao.maps.event.addListener(mapi, 'click', function(mouseEvent) {
 			// 클릭한 위도, 경도 정보를 가져옵니다 
 			var latlng = mouseEvent.latLng;
-			$('#hotel_locx').val(latlng.getLat());
-			$('#hotel_locy').val(latlng.getLng());
+			$('#hotel_locy').val(latlng.getLat());
+			$('#hotel_locx').val(latlng.getLng());
 
 			searchDetailAddrFromCoords(mouseEvent.latLng, function(result,
 					status) {
