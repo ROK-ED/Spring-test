@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
 import co.yo.prj.food.service.FoodService;
 import co.yo.prj.food.service.FoodVO;
@@ -81,16 +82,20 @@ public class FoodController {
 
 	}
 
-	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
-	@ResponseBody
-	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location,
-			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name) {
+	// 확인 출력하는 함수
+	public JSONArray findLocation(String food_location, JSONArray searchArray) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
+//		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
+		// JSONArray jArray = new JSONArray();
 		try {
 			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
 			System.out.println("주소 확인하기 ===================================" + apiURL);
+
+			if (food_location.equals("전체")) {
+
+			}
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -109,16 +114,12 @@ public class FoodController {
 			data = data.replace("\", }", "\"}");
 //			data = data.replace("\"능이버섯\"", "능이버섯");
 //			data = data.replace("\"한우마을 석정가든\"", "한우마을 석정가든");
-
 			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
 			data = data.replace(str, " ");
 
 			// String to json --> model
 			JSONObject jObject = new JSONObject(data);
-
-			JSONArray jArray = jObject.getJSONArray("data");
-
-			session.setAttribute("jsonModel", jArray);
+			searchArray = jObject.getJSONArray("data");
 
 			// 확인용
 //			for (int i = 0; i < jArray.length(); i++) {
@@ -129,11 +130,83 @@ public class FoodController {
 //				// }
 //			}
 
+			urlconnection.disconnect();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// System.out.println(data);
+		return searchArray;
+
+	}
+
+	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
+	@ResponseBody
+	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location,
+			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name) {
+
+		StringBuffer result = new StringBuffer();
+		String data = "";
+		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
+		JSONArray searchArray = new JSONArray();
+		JSONArray jArray = new JSONArray();
+		try {
+//			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
+//			System.out.println("주소 확인하기 ===================================" + apiURL);
+//			if (food_location.equals("전체")) {
+//
+//			}
+//			URL url = new URL(apiURL);
+//			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
+//			urlconnection.setRequestMethod("GET");
+//
+//			BufferedReader br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+//
+//			String returnLine;
+//
+//			while ((returnLine = br.readLine()) != null) {
+//				result.append(returnLine);
+//				// System.out.println("리턴라인"+returnLine);
+//			}
+//
+//			// 데이터 정리하기
+//			data = result.toString();
+//			data = data.replace("\", }", "\"}");
+////			data = data.replace("\"능이버섯\"", "능이버섯");
+////			data = data.replace("\"한우마을 석정가든\"", "한우마을 석정가든");
+//
+//			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
+//			data = data.replace(str, " ");
+//
+//			// String to json --> model
+//			JSONObject jObject = new JSONObject(data);
+//
+//			JSONArray jArray = jObject.getJSONArray("data");
+//
+//			session.setAttribute("jsonModel", jArray);
+//
+//			// 확인용
+////			for (int i = 0; i < jArray.length(); i++) {
+////				JSONObject obj = jArray.getJSONObject(i);
+////				String title = obj.getString("FD_CS");
+////				// if (title.equals("중식")) {
+////				//System.out.println("title(" + i + "): " + title);
+////				// }
+////			}
+
+			if (food_location.equals("전체")) {
+				for (int i = 0; i < daeguLocation.length; i++) {
+					findLocation(daeguLocation[i], searchArray);
+				}
+			} else {
+				findLocation(food_location, searchArray);
+			}
+
 			// 검색용
 			boolean food_name_check = (!food_name.equals("")) ? true : false;
 			boolean food_class_check = (!food_class.equals("")) ? true : false;
 
-			JSONArray searchArray = new JSONArray();
+			//JSONArray searchArray = new JSONArray();
 
 			if (food_name_check == true || food_class_check == true) {
 
@@ -146,8 +219,8 @@ public class FoodController {
 							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
 						searchArray.put(obj);
 
-						System.out
-								.println("확인하기 !!!!!!!!!!!====================" + jsonFoodClass + " : " + jsonFoodName);
+						System.out.println(
+								"확인하기 !!!!!!!!!!!====================  " + jsonFoodClass + " : " + jsonFoodName);
 
 					} else {
 						System.out.println("안되는게 정상인 경우... 검색결과 X........");
@@ -160,17 +233,18 @@ public class FoodController {
 					String tmp = searchArray.toString();
 					data = first + tmp + "}";
 //				System.out.println(data);
+
 				} else {
 					data = "-1";
 				}
 			}
 
-			urlconnection.disconnect();
+			//urlconnection.disconnect();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//System.out.println(data);
+		// System.out.println(data);
 		return data;
 
 	}
