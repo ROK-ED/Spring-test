@@ -83,10 +83,11 @@ public class FoodController {
 	}
 
 	// 확인 출력하는 함수
-	public JSONArray findLocation(String food_location, JSONArray searchArray) {
+	public JSONArray findLocation(String food_location) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
+		JSONArray searchArray = new JSONArray();
 //		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
 		// JSONArray jArray = new JSONArray();
 		try {
@@ -196,10 +197,10 @@ public class FoodController {
 
 			if (food_location.equals("전체")) {
 				for (int i = 0; i < daeguLocation.length; i++) {
-					findLocation(daeguLocation[i], searchArray);
+					searchArray.put(findLocation(daeguLocation[i]));
 				}
 			} else {
-				findLocation(food_location, searchArray);
+				searchArray.put(findLocation(food_location));
 			}
 
 			// 검색용
@@ -208,16 +209,18 @@ public class FoodController {
 
 			//JSONArray searchArray = new JSONArray();
 
+			JSONArray resultArray = new JSONArray();
 			if (food_name_check == true || food_class_check == true) {
 
-				for (int i = 0; i < jArray.length(); i++) {
-					JSONObject obj = jArray.getJSONObject(i);
+				for (int i = 0; i < searchArray.length(); i++) {
+					JSONObject obj = searchArray.getJSONObject(i);
 					String jsonFoodClass = obj.getString("FD_CS");
 					String jsonFoodName = obj.getString("BZ_NM");
+					
 
 					if ((food_name_check == true) ? (jsonFoodName.contains(food_name) ? true : false)
 							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
-						searchArray.put(obj);
+						resultArray.put(obj);
 
 						System.out.println(
 								"확인하기 !!!!!!!!!!!====================  " + jsonFoodClass + " : " + jsonFoodName);
