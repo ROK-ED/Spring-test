@@ -443,10 +443,7 @@
 									review_form.setAttribute("deleteReview.do");
 									review_form.setAttribute("method","get");
 									
-									var review_del_input =  document.createElement('div');
-									review_del_input.setAttribute("type","text");
-									review_del_input.setAttribute("value",result[i].review_id);
-									review_del_input.setAttribute("name","review_id");
+									
 									
 									review_del_submit = document.createElement('submit');
 									review_del_submit.setAttribute("type","submit");
@@ -454,25 +451,33 @@
 									review_form.append(review_del_input,review_del_submit);
 								 */	
 
+								 	var review_del_input =  document.createElement('input');
+									review_del_input.setAttribute("type","text");
+									review_del_input.setAttribute("value",result[i].review_id);
+									review_del_input.setAttribute("name","review_id_del");
+									review_del_input.setAttribute("id","review_id_del");
 									
-										
 									var tdBtn = document.createElement('div');
 									tdBtn.setAttribute("style","width:200px; float:right;");
-									var upBtn = document.createElement('button');
-									upBtn.textContent ="수정";
+									var upBtn = document.createElement('input');
+									upBtn.setAttribute("value","수정");
 									upBtn.setAttribute("style", "width:50px; height:30px; margin:10px; float:right;");
 									upBtn.setAttribute("type", "button");
 									
-									var delBtn = document.createElement('button');
+									var delBtn = document.createElement('input');
 									//delBtn.setAttribute("value","삭제");
 									delBtn.setAttribute("style", "width:50px; height:30px; margin:10px; float:right;");
 									delBtn.setAttribute("type", "button");
+									var str = "delBtn"+result[i].review_id;
 									delBtn.setAttribute("id", "delBtn");
+									delBtn.setAttribute("class", "delBtn");
+									delBtn.addEventListener("click", reviewDel());
 									delBtn.textContent ="삭제";
-									//delBtn.onclick = "reviewDel()";// setAttribute("onclick","reviewDel()");
+									delBtn.setAttribute("value","삭제");
+									//delBtn.addEventListener("click", reviewDel);
+									//delBtn.addEventListener("click",reviewDel());
 									
-									
-									tdBtn.append(delBtn, upBtn);
+									tdBtn.append(delBtn, upBtn, review_del_input);
 									
 									review_body.append(tdBtn);
 								}
@@ -496,24 +501,31 @@
 		
 		
 		
+
+
+
+		
 		function reviewDel() {
-			var delBtn = document.getElementById("delBtn");
+			console.log("삭제버튼 누르면 떠야함 =====");
+			//var review_id = $(this).attr('id');
+			//console.log("리뷰 id 값 확인 ====="+review_id);
+			/* var delBtn = document.getElementById("delBtn");
 			delBtn.onclick = function () {
-				console.log("삭제버튼 누르면 떠야함 =====");
 				
-			}
+				
+			} */
 			//console.log("리뷰 id 값 확인 ====="+$("#review_food_id").val());
-		}
+		
 			/* $.ajax({
 				url : "deleteReview.do",
 				type : "POST",
 				data : {
-					"food_id" : $("#review_food_id").val()
+					"review_id" : review_id
 				},
 				success : function(result) {
 				
-			})
-		}  */
+			})*/
+		}  
 
 		//=====================댓글 출력 끗=====================
 

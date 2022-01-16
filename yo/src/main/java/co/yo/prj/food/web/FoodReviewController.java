@@ -86,7 +86,8 @@ public class FoodReviewController {
 	public String deleteReview(@RequestParam int review_id, HttpServletRequest request) {
 		
 		System.out.println(review_id);
-		
+		int result = foodReviewDao.foodReviewDelete(review_id);
+		System.out.println(result+"건 삭제");
 		String referer = request.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
 		return "redirect:"+ referer; // 이전 페이지로 리다이렉트
 		
