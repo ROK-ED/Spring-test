@@ -7,115 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <style>
-.wrap {
-	position: absolute;
-	left: 0;
-	bottom: 40px;
-	width: 288px;
-	height: 132px;
-	margin-left: -144px;
-	text-align: left;
-	overflow: hidden;
-	font-size: 12px;
-	font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;
-	line-height: 1.5;
-}
 
-.wrap * {
-	padding: 0;
-	margin: 0;
-}
-
-.wrap .info {
-	width: 286px;
-	height: 120px;
-	border-radius: 5px;
-	border-bottom: 2px solid #ccc;
-	border-right: 1px solid #ccc;
-	overflow: hidden;
-	background: #fff;
-}
-
-.wrap .info:nth-child(1) {
-	border: 0;
-	box-shadow: 0px 1px 2px #888;
-}
-
-.info .title {
-	padding: 5px 0 0 10px;
-	height: 30px;
-	background: #eee;
-	border-bottom: 1px solid #ddd;
-	font-size: 18px;
-	font-weight: bold;
-}
-
-.info .close {
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	color: #888;
-	width: 17px;
-	height: 17px;
-	background:
-		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');
-}
-
-.info .close:hover {
-	cursor: pointer;
-}
-
-.info .body {
-	position: relative;
-	overflow: hidden;
-}
-
-.info .desc {
-	position: relative;
-	margin: 13px 0 0 90px;
-	height: 75px;
-}
-
-.desc .ellipsis {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.desc .jibun {
-	font-size: 11px;
-	color: #888;
-	margin-top: -2px;
-}
-
-.info .img {
-	position: absolute;
-	top: 6px;
-	left: 5px;
-	width: 73px;
-	height: 71px;
-	border: 1px solid #ddd;
-	color: #888;
-	overflow: hidden;
-}
-
-.info:after {
-	content: '';
-	position: absolute;
-	margin-left: -12px;
-	left: 50%;
-	bottom: 0;
-	width: 22px;
-	height: 12px;
-	background:
-		url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
-}
-
-.info .link {
-	color: #5085BB;
-}
-</style> -->
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/offers_styles.css">
 <link rel="stylesheet" type="text/css"
@@ -208,15 +100,24 @@
 											</select>
 										</div>
 
-
-
-
-										<div class="search_item">
-											<br> <br>
-											<div>check in</div>
-											<input type="text" class="check_in search_input" id="resDate"
-												name="resDate" placeholder="YYMMDD">
+										<div class="more_options" style="padding-bottom:100px;">
+											<div class="more_options_trigger">
+												<a href="#">옵션 더보기</a>
+											</div>
+											<ul class="more_options_list clearfix">
+												<li class="more_options_item">
+													<div class="clearfix">
+														<input type="checkbox" id="more_options_1" class="search_extras_cb">
+														<label for="more_options_1">주차장</label>
+													</div>	
+												</li>
+											</ul>
 										</div>
+										<br><br>
+										
+
+
+										
 
 										<button class="button search_button" onclick="searchData()">
 											검색<span></span><span></span><span></span>
@@ -256,11 +157,7 @@
 						<div class="offers_grid">
 							<div>
 								<table id="mTable" class="table table-bordered">
-									<thead>
-										<tr>
-											<th></th>
-										</tr>
-									</thead>
+									
 									<!-- <tbody class="table_body" >
 										<!-- script에서 입력되는 곳 
 									</tbody> -->
@@ -309,14 +206,14 @@
 			var food_location = "";
 			var food_name = "";
 			var food_class = "";
-
+			var park_check = "";
 			food_name = ($('#form_food_name').val() != null) ? $(
 					'#form_food_name').val() : "";
 			food_location = ($('#form_food_location').val() != null) ? $(
 					'#form_food_location').val() : "";
 			food_class = ($('#form_food_class').val() != "선택") ? $(
 					'#form_food_class').val() : "";
-
+			park_check = $('#ckBox').is(':checked');
 			///////////////////////////////////////////////////위에 보기
 
 			console.log("주소 확인 ==================================="
@@ -327,6 +224,7 @@
 			console.log("분류 확인 ==================================="
 					+ food_class);
 			var searchLocation = document.querySelector('.searchLocation');
+			
 			//searchLocation.value = food_location;
 			$.ajax({
 				type : "POST",
@@ -334,7 +232,8 @@
 				data : {
 					"food_location" : food_location,
 					"food_name" : food_name,
-					"food_class" : food_class
+					"food_class" : food_class,
+					"park_check" : park_check
 				},
 				success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
 
@@ -347,33 +246,45 @@
 							//var table_body = document.querySelector("#table_body");
 
 							$("#table_body").remove(); // div#main 없애기
-
-							//table_body.remove();
-
+							$("#table_head").remove();
 						}
 						var table_body = document.createElement('tbody');
 						table_body.setAttribute("class", "table_body");
 						table_body.setAttribute("id", "table_body");
 
+						
+						var table_head = document.createElement('tbody');
+						table_head.setAttribute("class", "table_head");
+						table_head.setAttribute("id", "table_head");
+						
 						console.log("222222222222222222");
 						var data = JSON.parse(result);
+						console.log(data);
 						var mTable = document.querySelector('#mTable');
+						
+						for (var i = 0; i < data.length; i++) {
 
-						for (var i = 0; i < data.data.length; i++) {
-
-							//var findImg = findImgLink(data.data[i].OPENDATA_ID);
+							//var findImg = findImgLink(data[i].OPENDATA_ID);
 							table_body.appendChild(createBody(data, i));///데이터 출력하기
-							findImgLink(data.data[i].OPENDATA_ID);
+							findImgLink(data[i].OPENDATA_ID);
 							//console.log(table_body);
 
 						}
 
 						mapKakao(data, $('#form_food_location').val());//mapKakao(data, i, $('#form_food_location').val());
 
-						if (data.data.length == 0) {
+						if (data.length == 0) {
 							alert("검색 결과가 없습니다")
 						} else {
+							var tr = document.createElement('tr');
+							var th = document.createElement('th');
+							
+							th.textContent = "검색 결과 : "+data.length+"건";
+							tr.append(th);
+							table_head.append(tr);
+							mTable.append(table_head);
 							mTable.append(table_body);
+							
 						}
 
 					}
@@ -408,7 +319,7 @@
 						},
 						success : function(result) { //서블렛을 통한 결과 값을 받을 수 있습니다.
 
-							//var foodImg = findImgLink(data.data[i].OPENDATA_ID );
+							//var foodImg = findImgLink(data[i].OPENDATA_ID );
 							//	result = decodeURIComponent(result)+"";
 							//console.log("================이미지.. 나와야함..."	+ result);
 
@@ -478,20 +389,29 @@
 			// 지도를 생성합니다    
 			var mapi = new kakao.maps.Map(mapContainer, mapOption);
 
-			//for (var i = 0; i < data.data.length; i++) {
+			//for (var i = 0; i < data.length; i++) {
 
 			
-			marker = $(data.data).map(function(i, data) {
+			marker = $(data).map(function(i, data) {
 					console.log("aal;skdjf;lajsdflj;lasjdf;lkjas;dkfj;lakjsd;flkj");
 
 								var foodName = data.BZ_NM + "";
 								var foodAddr = data.GNG_CS + "";
 								var foodId = data.OPENDATA_ID + "";
 								console.log("가게명! ================"+foodName);
+								
+								var loc = data.GNG_CS ;
+								
+
+								var check = loc.substr(6,3);
+								console.log("정규식 확인학 ========="+check);	
+								
+								
+								
 
 								// 주소로 좌표를 검색합니다
 								geocoder.addressSearch(foodAddr, function(result, status) {
-													console.log("카카오 맵 나와주세요.......... ========================"+ foodAddr);
+													//console.log("카카오 맵 나와주세요.......... ========================"+ foodAddr);
 
 													// 정상적으로 검색이 완료됐으면 
 													if (status === kakao.maps.services.Status.OK) {
@@ -514,7 +434,7 @@
 																+ '<a href="foodSelectOne.do?food_id='
 																+ foodId
 																+ '&food_location='
-																+ food_location
+																+ check
 																+ '">상세보기</a>'
 
 																+ '</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
@@ -572,16 +492,25 @@
 			var offers_image_background = document.createElement('div');
 			offers_image_background.setAttribute("class",
 					"offers_image_background");
+			
+			var loc = data[i].GNG_CS ;
+			
 
+			var check = loc.substr(6,3);
+			//console.log("정규식 확인학 ========="+check);	
+			
 			var imgA = document.createElement('a');
-			var tmp = "imgA" + data.data[i].OPENDATA_ID;/////////////////////////=======================
+			var tmp = "imgA" + data[i].OPENDATA_ID;/////////////////////////=======================
 			imgA.setAttribute("class", tmp);
 			imgA.setAttribute("id", tmp);
 			imgA.setAttribute("href", "foodSelectOne.do?food_id="
-					+ data.data[i].OPENDATA_ID + "&food_location="
-					+ $('#form_food_location').val()) //////////////////////////////////////수정2
-
-			/*  var foodImg = findImgLink(data.data[i].OPENDATA_ID );
+					+ data[i].OPENDATA_ID + "&food_location="
+					+ check) //////////////////////////////////////수정2
+					
+					
+					
+			
+			/*  var foodImg = findImgLink(data[i].OPENDATA_ID );
 			console.log("================이미지.. 나와야함..."+foodImg);
 			
 			if (foodImg != null) {
@@ -612,15 +541,15 @@
 			var offers_price = document.createElement('div');
 			offers_price.setAttribute("class", "offers_price");
 			offers_price.setAttribute("style", "line-height: 1.2em");
-			offers_price.textContent = data.data[i].BZ_NM; //////////////////////////////
+			offers_price.textContent = data[i].BZ_NM; //////////////////////////////
 
 			var offer_reviews = document.createElement('div');
 			offer_reviews.setAttribute("class", "offer_reviews");
 
 			var offers_text = document.createElement('p');
 			offers_text.setAttribute("class", "offers_text");
-			if (data.data[i].SMPL_DESC != null) {
-				offers_text.textContent = data.data[i].SMPL_DESC;//////////////////////////////여기에 음식점 설명 or 메뉴 
+			if (data[i].SMPL_DESC != null) {
+				offers_text.textContent = data[i].SMPL_DESC;//////////////////////////////여기에 음식점 설명 or 메뉴 
 			}
 
 			var book_button = document.createElement('div');
@@ -653,6 +582,7 @@
 			return tr;
 
 		}
+		
 		////////////////////////사진 저장 fnc
 		/*		 function findImgLink(food_id, food_name) {
 		 console.log("음식점 이름!!! === " + food_name);

@@ -30,4 +30,10 @@ public class FoodReviewServiceImpl implements FoodReviewService {
 		return map.showRate(review_food_id);
 	}
 
+	@Override
+	public int foodReviewDelete(int review_food_id) {
+		
+		return map.foodReviewDelete(review_food_id);
+	}
+
 }

@@ -16,6 +16,12 @@
 			#{review_hit}  )
 	</insert>
 
+	<delete id="foodReviewDelete"
+		parameterType="int">
+		DELETE FROM YO_REVIEW
+		WHERE REVIEW_ID = ${review_id};
+	</delete>
+	
 	<select id="foodReviewSelectList"
 	parameterType="String"
 	resultType="co.yo.prj.food.service.FoodReviewVO">

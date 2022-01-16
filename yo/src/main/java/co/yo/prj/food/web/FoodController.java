@@ -83,20 +83,15 @@ public class FoodController {
 	}
 
 	// 확인 출력하는 함수
-	public JSONArray findLocation(String food_location) {
+	public String findLocation(String food_location) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		JSONArray searchArray = new JSONArray();
-//		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
-		// JSONArray jArray = new JSONArray();
 		try {
 			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
 			System.out.println("주소 확인하기 ===================================" + apiURL);
 
-			if (food_location.equals("전체")) {
-
-			}
 			URL url = new URL(apiURL);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -113,23 +108,13 @@ public class FoodController {
 			// 데이터 정리하기
 			data = result.toString();
 			data = data.replace("\", }", "\"}");
-//			data = data.replace("\"능이버섯\"", "능이버섯");
-//			data = data.replace("\"한우마을 석정가든\"", "한우마을 석정가든");
 			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
 			data = data.replace(str, " ");
 
 			// String to json --> model
 			JSONObject jObject = new JSONObject(data);
-			searchArray = jObject.getJSONArray("data");
 
-			// 확인용
-//			for (int i = 0; i < jArray.length(); i++) {
-//				JSONObject obj = jArray.getJSONObject(i);
-//				String title = obj.getString("FD_CS");
-//				// if (title.equals("중식")) {
-//				//System.out.println("title(" + i + "): " + title);
-//				// }
-//			}
+			searchArray = jObject.getJSONArray("data");
 
 			urlconnection.disconnect();
 
@@ -137,20 +122,20 @@ public class FoodController {
 			e.printStackTrace();
 		}
 		// System.out.println(data);
-		return searchArray;
+		return searchArray.toString();
 
 	}
 
 	@RequestMapping(value = "/ajaxFood.do", produces = "application/text;charset=utf8")
 	@ResponseBody
 	public String ajaxFood(HttpSession session, @RequestParam("food_location") String food_location,
-			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name) {
+			@RequestParam("food_class") String food_class, @RequestParam("food_name") String food_name,
+			@RequestParam("park_check") boolean park_check) {
 
 		StringBuffer result = new StringBuffer();
 		String data = "";
 		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
-		JSONArray searchArray = new JSONArray();
-		JSONArray jArray = new JSONArray();
+
 		try {
 //			String apiURL = "https://www.daegufood.go.kr/kor/api/tasty.html?mode=json&addr=" + food_location;
 //			System.out.println("주소 확인하기 ===================================" + apiURL);
@@ -197,52 +182,74 @@ public class FoodController {
 
 			if (food_location.equals("전체")) {
 				for (int i = 0; i < daeguLocation.length; i++) {
-					searchArray.put(findLocation(daeguLocation[i]));
+					data += findLocation(daeguLocation[i]);
 				}
+
+				data = data.replaceAll("\\]\\[", ", ");
+
 			} else {
-				searchArray.put(findLocation(food_location));
+				data = findLocation(food_location);
 			}
+			// searchArray = new JSONArray();
+			// JSONArray jArray = new JSONArray();
+			JSONArray searchArray = new JSONArray(data);
+
+			// 확인용
+//			for (int i = 0; i < searchArray.length(); i++) {
+//				JSONObject obj = searchArray.getJSONObject(i);
+//				String title = obj.getString("FD_CS");
+//				if (title.equals("중식")) {
+//					System.out.println("title(" + i + "): " + title + " : " + obj.getString("BZ_NM"));
+//				}
+//			}
 
 			// 검색용
 			boolean food_name_check = (!food_name.equals("")) ? true : false;
 			boolean food_class_check = (!food_class.equals("")) ? true : false;
+			String food_park_check = (park_check == true) ? "없음" : "";
 
-			//JSONArray searchArray = new JSONArray();
-
+			// JSONArray searchArray = new JSONArray(data);
+			System.out.println("가게이름이랑 분류 확인 ========" + food_name + " : " + food_class);
 			JSONArray resultArray = new JSONArray();
 			if (food_name_check == true || food_class_check == true) {
 
 				for (int i = 0; i < searchArray.length(); i++) {
+
 					JSONObject obj = searchArray.getJSONObject(i);
 					String jsonFoodClass = obj.getString("FD_CS");
 					String jsonFoodName = obj.getString("BZ_NM");
-					
+					String jsonParkCheck = obj.getString("PKPL");
 
-					if ((food_name_check == true) ? (jsonFoodName.contains(food_name) ? true : false)
-							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
+//					if ((food_name_check == true) ? (jsonFoodName.contains(food_name) ? true : false)
+//							: true && (food_class_check == true) ? jsonFoodClass.contains(food_class) : true) {
+//						resultArray.put(obj);
+//
+//						System.out.println(
+//								"확인하기 !!!!!!!!!!!====================  " + jsonFoodClass + " : " + jsonFoodName);
+//
+//					} 
+//&& (park_check == true)? (!jsonParkCheck.contains("없음")):true
+
+					if (jsonFoodName.contains(food_name) && jsonFoodClass.contains(food_class)
+						) {
 						resultArray.put(obj);
 
 						System.out.println(
 								"확인하기 !!!!!!!!!!!====================  " + jsonFoodClass + " : " + jsonFoodName);
 
-					} else {
-						System.out.println("안되는게 정상인 경우... 검색결과 X........");
 					}
 				}
 
-				if (searchArray.length() > 0) {
-					String first = "{\"status\":\"DONE\", \"total\":\"" + searchArray.length() + "\", \"data\":";
+				if (resultArray.length() > 0) {
+					data = resultArray.toString();
 
-					String tmp = searchArray.toString();
-					data = first + tmp + "}";
-//				System.out.println(data);
-
-				} else {
+				}
+				if (resultArray.length() == 0) {
 					data = "-1";
 				}
 			}
 
-			//urlconnection.disconnect();
+			// urlconnection.disconnect();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -278,6 +285,7 @@ public class FoodController {
 			data = data.replace("\", }", "\"}");
 
 			String str = "/^(\"SMPL_DESC\":\")[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9]\"[^가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9](\"})$\"}/g";
+
 			data = data.replace(str, " ");
 
 			urlconnection.disconnect();
