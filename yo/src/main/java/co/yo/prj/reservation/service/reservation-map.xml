@@ -41,4 +41,16 @@
 		(#{reservation_id},#{reservation_hotel_id},#{reservation_member_email},#{reservation_date},'H',#{hotel_title})
 	</insert>
 	
+	<insert id="PlaceReslInsert"
+		parameterType="co.yo.prj.reservation.service.ReservationVO"> <!-- 장소 등록 -->
+		<selectKey keyProperty="reservation_id" resultType="int"
+			order="BEFORE">
+			SELECT NVL(MAX(RESERVATION_ID) +1 , 1) AS RESERVATION_ID FROM YO_RESERVATION
+		</selectKey>
+		INSERT INTO
+		YO_RESERVATION(RESERVATION_ID,RESERVATION_PLACE_ID,RESERVATION_MEMBER_EMAIL,RESERVATION_OPTION,PLACE_NAME)
+		VALUES
+		(#{reservation_id},#{reservation_id},#{reservation_member_email},'P',#{place_name})
+	</insert>
+	
 </mapper>

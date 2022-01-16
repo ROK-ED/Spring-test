@@ -8,4 +8,5 @@ public interface ReservationService {
 	List<ReservationVO> reservationHostSelect(ReservationVO vo);
 	int reservationInsert(ReservationVO vo);
 	int HoteReslInsert(ReservationVO vo);
+	int PlaceReslInsert(ReservationVO vo);
 }

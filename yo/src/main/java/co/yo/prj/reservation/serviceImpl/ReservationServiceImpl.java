@@ -45,4 +45,10 @@ public class ReservationServiceImpl implements ReservationService {
 		return map.HoteReslInsert(vo);
 	}
 
+	@Override
+	public int PlaceReslInsert(ReservationVO vo) {
+		// TODO Auto-generated method stub
+		return map.PlaceReslInsert(vo);
+	}
+
 }

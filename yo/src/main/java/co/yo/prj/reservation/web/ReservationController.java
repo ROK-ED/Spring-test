@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.yo.prj.Message;
@@ -97,4 +98,31 @@ public class ReservationController {
 		return mav;
 
 	}
+	
+	// 등록
+		@PostMapping(value = "ajaxInsert.do", produces = "text/plain; charset=UTF-8")
+		@ResponseBody
+		public String ajaxInsert(double testx, double testy, String testtitle, String testemail, ReservationVO vo, String print, HttpSession session) {
+			System.out.println("여기 들어오냐?????????");
+			System.out.println(testx);
+			System.out.println(testy);
+			System.out.println(testtitle);
+			System.out.println(testemail);
+			vo.setReservation_member_email(testemail);
+			vo.setPlace_name(testtitle);
+			try {
+			reservationDao.PlaceReslInsert(vo);
+			print = "추가 되었습니다.";
+			System.out.println(print);
+			
+			//추가후 세션값도 변경
+			session.setAttribute("member_x", testx);
+			session.setAttribute("member_y", testy);
+			
+			}catch (Exception e) {
+				print = "추가에 실패 하였습니다.";	
+			System.out.println(print);
+			}
+			return print;
+		}
 }

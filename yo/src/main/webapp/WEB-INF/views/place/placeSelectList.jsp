@@ -61,7 +61,7 @@
 
 #category li .category_bg {
 	background:
-		url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
+		url(./resources/img/category.png)
 		no-repeat;
 }
 
@@ -167,11 +167,12 @@
 	margin-top: 0;
 }
 </style>
+<!-- 
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/offers_styles.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/styles/offers_responsive.css">
-
+ -->
 <div class="super_container">
 
 	<!-- Header -->
@@ -187,23 +188,21 @@
 
 	<!-- Offers -->
 
-	<div class="offers">
+	<div class="offers" style="padding-top: 0px">
 
 		<!-- Search -->
 
-		<div class="search">
+		<!-- <div class="search">
 			<div class="search_inner">
 
-				<!-- Search Contents -->
+				Search Contents
 
 				<div class="container fill_height no-padding">
 					<div class="row fill_height no-margin">
 						<div class="col fill_height no-padding">
 
-							<!-- Search Tabs -->
 
 
-							<!-- Search Panel -->
 
 							<div class="search_panel active">
 
@@ -215,30 +214,33 @@
 										<input type="text" class="destination search_input"
 											required="required">
 									</div>
-									<div class="search_item">
-										<br> <br>
-										<div>check in</div>
-										<input type="text" class="check_in search_input"
-											placeholder="YYMMDD">
-									</div>
-
+									
 									<button class="button search_button">
 										search<span></span><span></span><span></span>
 									</button>
 								</form>
 							</div>
 
-							<!-- Search Panel -->
 
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
+		
 		<!-- Offers -->
 
-		<div class="container">
-			<div class="row">
+		<div class="container" style="max-width: 1648.3px; height: 1200px">
+		<div style="padding-bottom: 10px">여백~~~~~~~~</div>
+		<div id="clickLatlng"></div>
+		<div class="">마음에 드는곳 표현</div>
+		<div class="">날씨 표현</div>
+		<div class="weather">
+			<img class="CurrIcon"></div>
+			<div class="CurrTemp"></div>
+			<div class="City"></div>
+		</div>
+			<div class="row" style="height: 1200px">
 
 
 				<div class="col-lg-7">
@@ -248,17 +250,16 @@
 					<div class="offers_grid">
 					<h3 id="iframeAddress"></h3>					
 					<h3 id="iframeTitle"></h3>
-					<iframe id="iframeShow" src="" width="100%" height="650"  ></iframe>
+					<iframe id="iframeShow" src="" width="100%" height="900px"  ></iframe>
 					</div>
-
-			
+					
 					<br>
 				</div>
 				<br>
 				<!-- 내용물~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<div class="col-lg-5">
-					<div class="map_wrap" style="width: 500px; height: 700px;">
+					<div class="map_wrap" style="width: 100%; height: 900px; ">
 						<div id="map"
 							style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 						<ul id="category">
@@ -278,12 +279,11 @@
 					</div>
 				</div>
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-				<div class="col-lg-12 text-lg-right">
-					<div class="room_button">
-						<div class="button book_button trans_200">
-							<a href="hotelInsertForm.do">등록<span></span><span></span><span></span></a>
-						</div>
-					</div>
+				<div class="col-lg-12 text-lg-right" style="height: 230px">
+					<button type="button" onclick="ajaxInsert()" id="form_submit_button"
+									class="form_submit_button button trans_200 " style="padding-top: 0px; margin-top: 0px">
+									예정추가<span></span><span></span><span></span>
+					</button>
 				</div>
 
 			</div>
@@ -299,6 +299,44 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d80e5a0baade8c2e7bcb777ff68c73a4&libraries=services,clusterer,drawing"></script>
 <script>
+
+	var testx = null;
+	var testy = null;
+	var testtitle = null;
+
+	
+	window.onload = function a(testy, testy) {
+		testx = 128.593347;
+		testy = 35.8690419;
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" +testy+ "&lon=" +testx+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
+        $.ajax({
+            url: apiURI,
+            dataType: "json",
+            type: "GET",
+            async: "false",
+            success: function(resp) {
+                console.log(resp);
+                console.log("현재온도 : "+ (resp.main.temp) );
+                console.log("현재습도 : "+ resp.main.humidity);
+                console.log("날씨 : "+ resp.weather[0].main );
+                console.log("상세날씨설명 : "+ resp.weather[0].description );
+                console.log("날씨 이미지 : "+ resp.weather[0].icon );
+                console.log("바람   : "+ resp.wind.speed );
+                console.log("나라   : "+ resp.sys.country );
+                console.log("도시이름  : "+ resp.name );
+                console.log("구름  : "+ (resp.clouds.all) +"%" );   
+                
+                var $Icon = (resp.weather[0].icon);
+                var $Temp = Math.floor(resp.main.temp) + 'º';
+                var $city = resp.name;
+
+                //$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+                $('.CurrIcon').attr('src','http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+                $('.CurrTemp').prepend($Temp);
+                $('.City').append($city);
+            }
+        })
+	}
 	// 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 	var placeOverlay = new kakao.maps.CustomOverlay({
 		zIndex : 1
@@ -306,11 +344,35 @@
 	markers = [], // 마커를 담을 배열입니다
 	currCategory = ''; // 현재 선택된 카테고리를 가지고 있을 변수입니다
 
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-		center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
-		level : 1 // 지도의 확대 레벨
-	};
+	<%String id = (String) session.getAttribute("member_email");%>
+	var testemail='<%=(String) session.getAttribute("member_email")%>';
+	
+	<%if (id == null) {%>//로그인 안했을시 기본위치: 예담
+		testx = 128.593347;
+		testy = 35.8690419;
+		
+		console.log('false');
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
+			level : 1 // 지도의 확대 레벨
+		};
+	<%} else {%>//로그인 햇을시 자신이 등록한 위치
+
+	
+		testx = '<%=(double) session.getAttribute("member_x")%>';
+		testy = '<%=(double) session.getAttribute("member_y")%>';
+		
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
+			level : 1 // 지도의 확대 레벨
+		};
+		
+	<%}%>
+	
+	//날씨 만들기/////////////////////////////////////////////////////////////////
+	
 
 	// 지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -402,7 +464,7 @@
 
 	// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
 	function addMarker(position, order) {
-		var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+		var imageSrc = './resources/img/category.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
 		imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
 		imgOptions = {
 			spriteSize : new kakao.maps.Size(72, 208), // 스프라이트 이미지의 크기
@@ -431,6 +493,8 @@
 
 	// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 	function displayPlaceInfo(place) {
+		
+		
 		var content = '<div class="placeinfo" onclick="onClickData()" style="padding-bottom: 0;">'
 				+ '   <a class="title" id="' + place.place_url + '" target="i_a" target="_blank" title="' + place.place_name + '" style="color: white;" >'
 				+ place.place_name + '</a>';
@@ -451,8 +515,45 @@
 
 		contentNode.innerHTML = content;
 		placeOverlay.setPosition(new kakao.maps.LatLng(place.y, place.x));
+		//console.log("==========================================================")
+		//console.log(new kakao.maps.LatLng(place.y, place.x).La);
+		testx = new kakao.maps.LatLng(place.y, place.x).La;
+		//console.log(new kakao.maps.LatLng(place.y, place.x).Ma);
+		testy = new kakao.maps.LatLng(place.y, place.x).Ma
 		placeOverlay.setMap(map);
+		
+		
 	}
+	
+	
+	
+	// 지도를 클릭한 위치에 표출할 마커입니다//////////////////////////////////////////////////////////
+	var marker = new kakao.maps.Marker({ 
+	    // 지도 중심좌표에 마커를 생성합니다 
+	    position: map.getCenter() 
+	}); 
+	// 지도에 마커를 표시합니다
+	marker.setMap(map);
+
+	// 지도에 클릭 이벤트를 등록합니다
+	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
+	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
+	    
+	    // 클릭한 위도, 경도 정보를 가져옵니다 
+	    var latlng = mouseEvent.latLng; 
+	    
+	    // 마커 위치를 클릭한 위치로 옮깁니다
+	    marker.setPosition(latlng);
+	    
+	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+	    message += '경도는 ' + latlng.getLng() + ' 입니다';
+	    
+	    var resultDiv = document.getElementById('clickLatlng'); 
+	    resultDiv.innerHTML = message;
+	    
+	});
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	// 각 카테고리에 클릭 이벤트를 등록합니다
 	function addCategoryClickEvent() {
@@ -494,9 +595,13 @@
 	}
 	// 클릭시 데이터 가져오기 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	function onClickData() {
-		console.log("실행되냐");
+		//console.log(testx);
+		//console.log(testy);
+		//console.log(this);
+		//console.log(this.event);
+		//console.log("실행되냐");
 		var path = this.event.path[1].children[0].id;
-		console.log("path :" +path);
+		//console.log("path :" +path);
 		
 		$.ajax({
 			url : "ajaxPlace.do",
@@ -506,10 +611,14 @@
 			},
 			dataType : "json",
 			success : function(result) {
-				console.log("검색되냐?");
-				console.log(typeof result);
-				console.log(result);
-				console.log(result.path);
+				//console.log("검색되냐?");
+				//console.log(typeof result);
+				//console.log(result);
+				//console.log(result.path);
+				
+				//console.log(result.title_text);
+				testtitle = result.title_text;
+				//console.log(testtitle);
 				//$('#iframeShow').attr({'src','result.path'});
 				document.getElementById( 'iframeShow' ).setAttribute( 'src', result.path );
 				
@@ -525,4 +634,43 @@
  	
 		
 	}
+	
+	function ajaxInsert() {
+		console.log(testx);
+		console.log(testy);
+		console.log(testtitle);
+		console.log(testemail);
+		console.log(this);
+		console.log(this.event);
+		console.log("실행되냐");
+		
+		$.ajax({
+			url : "ajaxInsert.do",
+			type : "post",
+			data : {
+				"testx" : testx,
+				"testy" : testy,
+				"testtitle" : testtitle,
+				"testemail" : testemail
+			},
+			dataType : "text",
+			success : function(result) {
+				console.log(result);
+				console.log("등록되냐?");
+				alert(result);
+				
+				
+				//location.reload();
+			},
+			error : function() {
+				alert("로그인을 먼저 해주세요");
+				//location.reload();
+				
+			}
+		});
+ 	
+		
+	}
+	
+	
 </script>
