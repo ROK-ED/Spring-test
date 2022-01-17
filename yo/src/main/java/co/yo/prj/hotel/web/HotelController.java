@@ -163,7 +163,6 @@ public class HotelController {
 				}
 				else {
 					hotelDao.HotelDelete(id);
-					hotelDao.HotelIdUpdate(id);
 					mav.addObject("data", new Message("삭제 되었습니다.", "hotelSelectList.do"));
 					mav.setViewName("Message");
 				}
@@ -239,14 +238,15 @@ public class HotelController {
 	
 	@RequestMapping("ajaxtest.do") // ajax 테스트(이미 데이터 들어갔으니 들어가지말것)
 	public String hotelResSearch(Model model) {
-		return "hotel/ajaxtest";
+		return "hotel/hotelSelectList";//실행완료했으므로 리스트로 돌림
 	}
 	@RequestMapping(value = "/ajaxhotelinset.do", produces = "application/text;charset=utf8")
 	@ResponseBody
-	public String ajaxhotelinset(@RequestParam("ad") String ad,@RequestParam("im") String im,@RequestParam("lox") double lox,@RequestParam("loy") double loy,@RequestParam("te") String te,@RequestParam("titl") String titl) {
+	public String ajaxhotelinset(@RequestParam("id")int id,  @RequestParam("ad") String ad,@RequestParam("im") String im,@RequestParam("lox") double lox,@RequestParam("loy") double loy,@RequestParam("te") String te,@RequestParam("titl") String titl) {
 
-
-			HotelVO hotel =new HotelVO();		
+			
+			HotelVO hotel =new HotelVO();	
+			hotel.setHotel_id(id);
 			hotel.setHotel_address(ad);
 			hotel.setHotel_content(titl);
 			hotel.setHotel_enroll_email("admin@admin.com");
@@ -258,7 +258,8 @@ public class HotelController {
 			hotel.setHotel_title(titl);
 			hotel.setHotel_loom(30);//객실수 30 디폴트
 			hotel.setHotel_tel(te);
-			hotelDao.HotelInsert(hotel);
+			System.out.println("인서트 실행");
+			hotelDao.HotelInsertt(hotel);
 			
 			return null;
 

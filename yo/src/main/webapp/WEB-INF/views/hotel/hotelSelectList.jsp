@@ -51,7 +51,7 @@
 			<div class="home_background parallax-window" data-parallax="scroll"
 				data-image-src="resources/images/about_background.jpg"></div>
 			<div class="home_content">
-				<div class="home_title">숙박</div>
+				<div class="home_title">HOTEL</div>
 			</div>
 		</div>
 
@@ -139,17 +139,18 @@
 																<div class="offers_image_background">
 																	<a href="hotelSelect.do?hotel_id=${hotel.hotel_id }">
 																		<c:if test="${hotel.hotel_thumbnail ne null }">
-																			<c:if test="${fn:contains(hotel.hotel_thumbnail, 'http:')}">
-																				<img alt="숙소 섬네일"
-																					src="${hotel.hotel_thumbnail }"
+																			<c:if
+																				test="${fn:contains(hotel.hotel_thumbnail, 'http:')}">
+																				<img alt="숙소 섬네일" src="${hotel.hotel_thumbnail }"
 																					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 																			</c:if>
-																			<c:if test="${not fn:contains(hotel.hotel_thumbnail, 'http:')}">
+																			<c:if
+																				test="${not fn:contains(hotel.hotel_thumbnail, 'http:')}">
 																				<img alt="숙소 섬네일"
 																					src="resources/img/${hotel.hotel_tfile }"
 																					style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
 																			</c:if>
-												
+
 																		</c:if> <c:if test="${hotel.hotel_thumbnail eq null }">
 																			<img alt="숙소 섬네일" src="resources/images/noimage.jpg"
 																				style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
@@ -163,9 +164,9 @@
 														<div class="col-lg-7">
 															<div class="offers_content"></div>
 															<div class="row">
-															<div class="col-lg-10">
-															<div class="offers_price" style="font-size: 20px;">${hotel.hotel_title }</div>
-															</div>
+																<div class="col-lg-10">
+																	<div class="offers_price" style="font-size: 20px;">${hotel.hotel_title }</div>
+																</div>
 															</div>
 															<div class="offer_reviews">
 																<div class="offer_reviews_content">
@@ -179,7 +180,7 @@
 																	</div>
 																</div>
 															</div>
-
+															<p class="offers_text" style="color:black;">${hotel.hotel_address }</p>
 															<p class="offers_text">${hotel.hotel_content }</p>
 
 															<div class="button book_button">
