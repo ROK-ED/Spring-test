@@ -184,21 +184,21 @@
 					<!-- Search Panel -->
 
 					<div class="search_panel">
-						<form action="#" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<form action="hotelResSearch.do" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
 							<div class="search_item">
 							
 								<div>이름</div>
-								<input type="text" class="destination search_input"
-									required="required">
+									<input type="text" class="destination search_input"
+												id="resName" name="resName" required="required">
 							</div>
 							<div class="search_item">
 				
 								<div>check in</div>
-								<input type="text" class="check_in search_input"
-									placeholder="YYMMDD">
+									<input type="text" class="check_in search_input" id="resDate"
+												name="resDate" placeholder="YYMMDD">
 							</div>
 
-							<button class="button search_button">
+							<button type="submit" class="button search_button">
 								search<span></span><span></span><span></span>
 							</button>
 						</form>
