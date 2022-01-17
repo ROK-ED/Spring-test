@@ -11,11 +11,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.yo.prj.Message;
 import co.yo.prj.food.service.FoodReviewService;
 import co.yo.prj.food.service.FoodReviewVO;
 
@@ -26,8 +28,8 @@ public class FoodReviewController {
 	private FoodReviewService foodReviewDao;
 
 	@RequestMapping("/foodReviewInsert.do")
-	public String foodReviewInsert(HttpServletResponse response, HttpServletRequest request, HttpSession session,
-			FoodReviewVO foodReview) throws IOException {
+	public String foodReviewInsert(Model model, HttpServletResponse response, HttpServletRequest request,
+			HttpSession session, FoodReviewVO foodReview) throws IOException {
 
 		String review_member_email = request.getParameter("review_member_email");
 		String food_locaton = request.getParameter("form_food_location");
@@ -52,9 +54,11 @@ public class FoodReviewController {
 			foodReviewDao.foodReviewInsert(foodReview);
 
 		} else {
-			System.out.println("이메일 안됨...ㅠ");
+			String returnStr = "foodSelectOne.do?food_id=" + food_id + "&food_location=" + food_locaton;
+			
+			model.addAttribute("data", new Message("로그인 후 사용해 주세요", returnStr));
+			return "Message";
 		}
-		// String returnStr =
 		// "redirect:foodSelectOne.do?food_id="+food_id+"&food_location="+food_locaton;
 		String referer = request.getHeader("Referer"); // 헤더에서 이전 페이지를 읽는다.
 		return "redirect:" + referer; // 이전 페이지로 리다이렉트

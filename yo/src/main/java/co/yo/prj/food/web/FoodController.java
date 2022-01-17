@@ -264,6 +264,79 @@ public class FoodController {
 
 	}
 
+	@RequestMapping(value = "/foodSearchHome.do", produces = "application/text;charset=utf8")
+	public String foodSearchHome(HttpSession session, String form_food_location, String form_food_class,
+			String form_food_name, boolean park_check, Model model) {
+
+		StringBuffer result = new StringBuffer();
+		String data = "";
+		String[] daeguLocation = { "중구", "남구", "달서구", "북구", "달성군", "서구", "수성구" };
+
+		try {
+
+			if (form_food_location.equals("전체")) {
+				for (int i = 0; i < daeguLocation.length; i++) {
+					data += findLocation(daeguLocation[i]);
+				}
+
+				data = data.replaceAll("\\]\\[", ", ");
+
+			} else {
+				data = findLocation(form_food_location);
+			}
+
+			JSONArray searchArray = new JSONArray(data);
+
+			// 검색용
+			boolean food_name_check = (!form_food_name.equals("")) ? true : false;
+			boolean food_class_check = (!form_food_class.equals("")) ? true : false;
+			String food_park_check = (park_check == true) ? "없음" : "";
+
+			// JSONArray searchArray = new JSONArray(data);
+			System.out.println("가게이름이랑 분류 확인 ========" + form_food_name + " : " + form_food_class);
+			JSONArray resultArray = new JSONArray();
+			if (food_name_check == true || food_class_check == true) {
+
+				for (int i = 0; i < searchArray.length(); i++) {
+
+					JSONObject obj = searchArray.getJSONObject(i);
+					String jsonFoodClass = obj.getString("FD_CS");
+					String jsonFoodName = obj.getString("BZ_NM");
+					String jsonParkCheck = obj.getString("PKPL");
+
+					form_food_class = (form_food_class.equals("선택"))? "" : form_food_class;
+
+					if (jsonFoodName.contains(form_food_name) && jsonFoodClass.contains(form_food_class)) {
+						resultArray.put(obj);
+
+						//System.out.println(
+						//		"확인하기 !!!!!!!!!!!====================  " + jsonFoodClass + " : " + jsonFoodName);
+
+					}
+				}
+
+				if (resultArray.length() > 0) {
+					data = resultArray.toString();
+					model.addAttribute("foodList", resultArray);
+
+				}
+				if (resultArray.length() == 0) {
+					data = "-1";
+					model.addAttribute("foodList", data);
+
+				}
+				
+				// System.out.println(data);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "food/ajaxFoodList";
+
+	}
+
 	// 음식점 전체조회 (api에서 가져오기)
 	@RequestMapping(value = "/ajaxFoodList.do", produces = "application/text;charset=utf8")
 	public String ajaxFoodList(Model model) {
@@ -370,10 +443,18 @@ public class FoodController {
 			ModelAndView mav, HttpServletResponse response, HttpServletRequest request) {
 		if (session.getAttribute("member_email") == null) {
 
-			model.addAttribute("data", new Message("로그인이 필요합니다", "hotelSelectList.do"));
+			model.addAttribute("data", new Message("로그인이 필요합니다", "ajaxFoodList.do"));
 
 			return "Message";
 		}
+		
+		if (session.getAttribute("member_author").equals("HOST")) {
+
+	         model.addAttribute("data", new Message("일반 유저만 예약이 가능합니다.", "ajaxFoodList.do"));
+
+	         return "Message";
+	      }
+		
 
 		String foodLoc = food_location.substring(6, 9);
 

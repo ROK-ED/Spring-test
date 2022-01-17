@@ -190,6 +190,60 @@
 	<script type="text/javascript">
 	
 		$(document).ready(function() {
+			
+			if (${foodList} == -1) {
+				alert("검색 결과가 없습니다");
+			} else {
+
+				if (document.querySelector("#table_body") != null) {
+					console.log("tbody 있음!!!!!!")
+					//var table_body = document.querySelector("#table_body");
+
+					$("#table_body").remove(); // div#main 없애기
+					$("#table_head").remove();
+				}
+				var table_body = document.createElement('tbody');
+				table_body.setAttribute("class", "table_body");
+				table_body.setAttribute("id", "table_body");
+
+				var table_head = document.createElement('tbody');
+				table_head.setAttribute("class", "table_head");
+				table_head.setAttribute("id", "table_head");
+
+				console.log(${foodList});
+				var data = ${foodList};
+				
+				console.log(data);
+				var mTable = document.querySelector('#mTable');
+
+				for (var i = 0; i < data.length; i++) {
+
+					//var findImg = findImgLink(data[i].OPENDATA_ID);
+					table_body.appendChild(createBody(data, i));///데이터 출력하기
+					findImgLink(data[i].OPENDATA_ID);
+					//console.log(table_body);
+
+				}
+
+				mapKakao(data, $('#form_food_location').val());//mapKakao(data, i, $('#form_food_location').val());
+
+				if (data.length == 0) {
+					alert("검색 결과가 없습니다")
+				} else {
+					var tr = document.createElement('tr');
+					var th = document.createElement('th');
+
+					th.textContent = "검색 결과 : " + data.length + "건";
+					tr.append(th);
+					table_head.append(tr);
+					mTable.append(table_head);
+					mTable.append(table_body);
+
+				}
+
+			}
+			
+			
 			//카카오 맵 api로 주소 찍기
 			//주소 출력하기
 			var testx = null;

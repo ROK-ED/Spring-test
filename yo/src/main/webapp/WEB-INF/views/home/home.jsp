@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+	pageEncoding="UTF-8"%>
+
 <div class="home" style="height: 100vh;">
 
 	<!-- Home Slider -->
@@ -10,10 +10,10 @@
 		<div class="owl-carousel owl-theme home_slider">
 
 			<!-- Slider Item -->
-			<div class="owl-item home_slider_item" >
+			<div class="owl-item home_slider_item">
 				<!-- Image by https://unsplash.com/@anikindimitry -->
 				<div class="home_slider_background"
-					style="height:100%; background-image: url(resources/images/home_slider.jpg)"></div>
+					style="height: 100%; background-image: url(resources/images/home_slider.jpg)"></div>
 
 				<div class="home_slider_content text-center">
 					<div class="home_slider_content_inner" data-animation-in="flipInX"
@@ -126,88 +126,108 @@
 
 <!-- Search -->
 
-	<div class="search">
-		
+<div class="search">
 
-		<!-- Search Contents -->
-		
-		<div class="container fill_height">
-			<div class="row fill_height">
-				<div class="col fill_height">
 
-					<!-- Search Tabs -->
+	<!-- Search Contents -->
 
-					<div class="search_tabs_container">
-						<div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-						
-							<div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="resources/images/suitcase.png" alt="">hotels</div>
-							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="resources/images/foodicon2.png" alt="">food</div>
-						</div>		
+	<div class="container fill_height">
+		<div class="row fill_height">
+			<div class="col fill_height">
+
+				<!-- Search Tabs -->
+
+				<div class="search_tabs_container">
+					<div
+						class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+
+						<div
+							class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
+							<img src="resources/images/suitcase.png" alt="">hotels
+						</div>
+						<div
+							class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
+							<img src="resources/images/foodicon2.png" alt="">food
+						</div>
 					</div>
-
-				
-
-					<div class="search_panel active">
-						<form action="hotelResSearch.do" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-							
-								<div>이름</div>
-									<input type="text" class="destination search_input"
-												id="resName" name="resName" required="required">
-							</div>
-							<div class="search_item">
-				
-								<div>check in</div>
-									<input type="text" class="check_in search_input" id="resDate"
-												name="resDate" placeholder="YYMMDD">
-							</div>
-
-							<button type="submit" class="button search_button">
-								search<span></span><span></span><span></span>
-							</button>
-						</form>
-					</div>
-
-					<!-- Search Panel -->
-
-					<div class="search_panel">
-						<form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required">
-							</div>
-							<div class="search_item">
-								<div>check in</div>
-								<input type="text" class="check_in search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>check out</div>
-								<input type="text" class="check_out search_input" placeholder="YYYY-MM-DD">
-							</div>
-							<div class="search_item">
-								<div>adults</div>
-								<select name="adults" id="adults_3" class="dropdown_item_select search_input">
-									<option>01</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<div class="search_item">
-								<div>children</div>
-								<select name="children" id="children_3" class="dropdown_item_select search_input">
-									<option>0</option>
-									<option>02</option>
-									<option>03</option>
-								</select>
-							</div>
-							<button class="button search_button">search<span></span><span></span><span></span></button>
-						</form>
-					</div>
-
 				</div>
+
+
+
+				<div class="search_panel active">
+					<form action="hotelResSearch.do" id="search_form_2"
+						class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<div class="search_item">
+
+							<div>이름</div>
+							<input type="text" class="destination search_input" id="resName"
+								name="resName" required="required">
+						</div>
+						<div class="search_item">
+
+							<div>check in</div>
+							<input type="text" class="check_in search_input" id="resDate"
+								name="resDate" placeholder="YYMMDD">
+						</div>
+
+						<button type="submit" class="button search_button">
+							search<span></span><span></span><span></span>
+						</button>
+					</form>
+				</div>
+
+				<!-- Search Panel -->
+
+				<div class="search_panel">
+					<form action="foodSearchHome.do" id="search_form_3"
+						class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<div class="search_item">
+							<div>위치</div>
+							<select name="form_food_location" id="form_food_location"
+								class="dropdown_item_select search_input">
+								<option>전체</option>
+								<option>달서구</option>
+								<option>중구</option>
+								<option>서구</option>
+								<option>북구</option>
+								<option>남구</option>
+								<option>수성구</option>
+								<option>달성군</option>
+							</select>
+						</div>
+						<div class="search_item">
+							
+							<div>가게명</div>
+							<input type="text" class="destination search_input"
+								id="form_food_name" name="form_food_name" value="">
+						</div>
+						<div class="search_item">
+							
+							<div>분류</div>
+							<select name="form_food_class" id="form_food_class"
+								class="dropdown_item_select search_input">
+								<option>선택</option>
+								<option>한식</option>
+								<option>중식</option>
+								<option>일식</option>
+								<option>양식</option>
+								<option>세계요리</option>
+								<option>디저트/베이커리</option>
+								<option>전통차/커피전문점</option>
+								<option>특별한 술집</option>
+							</select>
+						</div>
+						
+						<button class="button search_button" type="submit">
+							검색<span></span><span></span><span></span>
+						</button>
+					</form>
+				</div>
+
 			</div>
-		</div>		
+		</div>
 	</div>
+</div>
 
 <!-- Intro -->
 
