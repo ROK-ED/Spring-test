@@ -40,11 +40,7 @@ public class HotelServiceImpl implements HotelService {
 
 
 
-	@Override
-	public int HotelIdUpdate(int hotel_id) {
-		// TODO Auto-generated method stub
-		return map.HotelIdUpdate(hotel_id);
-	}
+
 
 	@Override
 	public int HotelDelete(int hotel_id) {
@@ -68,6 +64,12 @@ public class HotelServiceImpl implements HotelService {
 	public List<String> HotelRestrue(String id) {
 		// TODO Auto-generated method stub
 		return map.HotelRestrue(id);
+	}
+
+	@Override
+	public int HotelInsertt(HotelVO hotel) { //공공데이터 인서트용 사용x
+		// TODO Auto-generated method stub
+		return map.HotelInsertt(hotel);
 	}
 
 }

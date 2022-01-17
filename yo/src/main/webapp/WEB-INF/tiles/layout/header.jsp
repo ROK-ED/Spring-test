@@ -71,7 +71,7 @@
 					<div class="main_nav_container ml-auto">
 						<ul class="main_nav_list">
 							<li class="main_nav_item"><a href="placeSelectList.do">place</a></li>
-							<li class="main_nav_item"><a href="hotelSelectList.do">offers</a></li>
+							<li class="main_nav_item"><a href="hotelSelectList.do">hotel</a></li>
 							<li class="main_nav_item"><a href="food.do">food</a></li>
 							<li class="main_nav_item"><a href="reservation.do">reservation</a></li>
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
@@ -135,7 +135,7 @@
 		<ul>
 			<li class="menu_item"><a href="home.do">yogihang</a></li>
 			<li class="menu_item"><a href="placeSelectList.do">place</a></li>
-			<li class="menu_item"><a href="hotelSelectList.do">offers</a></li>
+			<li class="menu_item"><a href="hotelSelectList.do">hotel</a></li>
 			<li class="menu_item"><a href="food.do">food</a></li>
 			<li class="menu_item"><a href="reservation.do">reservation</a></li>
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>

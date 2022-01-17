@@ -45,7 +45,7 @@
 				
 				
 			<div class="home_content">
-				<div class="home_title">the offers</div>
+				<div class="home_title">the hotel</div>
 			</div>
 		</div>
 

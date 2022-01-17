@@ -9,7 +9,8 @@ public interface HotelService {
 	int HotelUpdate(HotelVO hotel);
 	int HotelDelete(int hotel_id);
 	
-	int HotelIdUpdate(int hotel_id);
+	int HotelInsertt(HotelVO hotel);//공공데이터 인서트용 사용x
+	
 	
 	List<String> HotelResSearch(String resName,String resDate);
 	List<String> HotelBlock(String id);

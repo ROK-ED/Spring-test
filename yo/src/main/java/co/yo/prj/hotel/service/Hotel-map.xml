@@ -3,7 +3,7 @@
 <mapper namespace="co.yo.prj.hotel.service.HotelMapper">
 	<select id="HotelSelectList"
 		resultType="co.yo.prj.hotel.service.HotelVO">
-		SELECT * FROM YO_HOTEL
+		SELECT * FROM YO_HOTEL ORDER BY HOTEL_ID
 	</select>
 
 	<select id="HotelSelect"
@@ -52,13 +52,6 @@
 
 
 	</delete>
-	<update id="HotelIdUpdate" parameterType="int">
-		<![CDATA[
-			UPDATE YO_HOTEL
-			SET HOTEL_ID = HOTEL_ID - 1
-			WHERE HOTEL_ID > #{hotel_id}
-		]]>
-	</update>
 
 	<select id="HotelResSearch" parameterType="String"
 		resultType="String">
@@ -121,4 +114,14 @@ SELECT RESERVATION_DATE
 		WHERE hotel_id=#{id}
 		GROUP by RESERVATION_DATE
 	</select>
+	
+	<insert id="HotelInsertt"
+		parameterType="co.yo.prj.hotel.service.HotelVO">
+		INSERT INTO
+		YO_HOTEL(HOTEL_ID,HOTEL_TITLE,HOTEL_LOCX,HOTEL_LOCY,HOTEL_LOOM,HOTEL_TEL,
+		HOTEL_ADDRESS,HOTEL_CONTENT,HOTEL_PRICE,HOTEL_ENROLL_EMAIL,HOTEL_TFILE,HOTEL_THUMBNAIL,HOTEL_PFILE,HOTEL_PICTURE)
+		VALUES
+		(#{hotel_id},#{hotel_title},#{hotel_locx},#{hotel_locy},#{hotel_loom},#{hotel_tel},#{hotel_address},#{hotel_content},#{hotel_price},#{hotel_enroll_email}
+		,#{hotel_tfile},#{hotel_thumbnail},#{hotel_pfile},#{hotel_picture})
+	</insert>
 </mapper>

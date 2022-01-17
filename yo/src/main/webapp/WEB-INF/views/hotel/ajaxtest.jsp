@@ -53,42 +53,39 @@
 				var locy= temp.getElementsByTagName("mapy")
 				var tel= temp.getElementsByTagName("tel")
 				var title= temp.getElementsByTagName("title")
+				
+				var imgstack=0;
+				var telstack=0;
  				for(var i = 0; i < itemList.length; i++) {
-					
+					//console.log($(itemList[i]).children("firstimage")[0]);
 					var ad=add[i].childNodes[0].nodeValue;
-					if(img[i]!=null)
-						var im=img[i].childNodes[0].nodeValue;
+					if(!!$(itemList[i]).children("firstimage")[0])
+					{
+						var im=img[imgstack].childNodes[0].nodeValue;
+						imgstack+=1;
+					}
 					else
 						var im="";
 					var lox=locx[i].childNodes[0].nodeValue;
 					var loy=locy[i].childNodes[0].nodeValue;
 					
-					if(tel[i]!=null)
-						var te=tel[i].childNodes[0].nodeValue;
+					if(!!$(itemList[i]).children("tel")[0])
+					{
+						var te=tel[telstack].childNodes[0].nodeValue;
+						telstack+=1;
+					}
 					else
-						var te="";
+						var im="";
 					
 					var titl=title[i].childNodes[0].nodeValue;
 					 
-					 /* var ad=add[1].childNodes[0].nodeValue;
-						if(img[1]!=null)
-							var im=img[1].childNodes[0].nodeValue;
-						else
-							var im="";
-						var lox=locx[1].childNodes[0].nodeValue;
-						var loy=locy[1].childNodes[0].nodeValue;
-						
-						if(tel[1]!=null)
-							var te=tel[1].childNodes[0].nodeValue;
-						else
-							var te="";
-						
-						var titl=title[1].childNodes[0].nodeValue; */
-					 
-					$.ajax({
+
+				 console.log(ad+" "+im+" "+lox+" "+loy+" "+te+" "+titl);
+				 	$.ajax({
 						type : "POST",
 						url : "ajaxhotelinset.do",
 						data : {
+							"id" : (i+1),//일반 insert문 사용시 pk제약조건때문에 새로운insert문사용으로 id값을지정함
 							"ad" : ad,
 							"im" : im,
 							"lox" : lox,
@@ -98,13 +95,13 @@
 			
 						},
 						success : function(result) {
-							console.log('성공');
+							
 						},
 						error : function(e) {
-							console.log(e);
+						
 						}
 
-					})
+					}) 
  				}
 			}
 		};

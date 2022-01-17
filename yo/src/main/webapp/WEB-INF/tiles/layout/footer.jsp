@@ -117,8 +117,7 @@
 										<img src="resources/images/placeholder.svg" alt="">
 									</div>
 								</div>
-								<div class="contact_info_text">4127 Raoul Wallenber 45b-c
-									Gibraltar</div>
+								<div class="contact_info_text">대구광역시 중구 중앙대로 403 (남일동 135-1, 5층)</div>
 							</li>
 							<li class="contact_info_item d-flex flex-row">
 								<div>
@@ -126,7 +125,7 @@
 										<img src="resources/images/phone-call.svg" alt="">
 									</div>
 								</div>
-								<div class="contact_info_text">2556-808-8613</div>
+								<div class="contact_info_text">053-421-2460</div>
 							</li>
 							<li class="contact_info_item d-flex flex-row">
 								<div>
@@ -135,8 +134,8 @@
 									</div>
 								</div>
 								<div class="contact_info_text">
-									<a href="mailto:contactme@gmail.com?Subject=Hello"
-										target="_top">contactme@gmail.com</a>
+									<a href="mailto:ask@yedam.ac?Subject=Hello"
+										target="_top">ask@yedam.ac</a>
 								</div>
 							</li>
 							<li class="contact_info_item d-flex flex-row">
@@ -146,7 +145,7 @@
 									</div>
 								</div>
 								<div class="contact_info_text">
-									<a href="https://colorlib.com">www.colorlib.com</a>
+									<a href="http://www.daeguoracle.com/">www.daeguoracle.com</a>
 								</div>
 							</li>
 						</ul>
@@ -185,7 +184,7 @@
 						<ul class="footer_nav_list">
 							<li class="footer_nav_item"><a href="home.do">home</a></li>
 							<li class="footer_nav_item"><a href="placeSelectList.do">place</a></li>
-							<li class="footer_nav_item"><a href="hotelSelectList.do">offers</a></li>
+							<li class="footer_nav_item"><a href="hotelSelectList.do">hotel</a></li>
 							<li class="footer_nav_item"><a href="food.do">food</a></li>
 							<li class="footer_nav_item"><a href="boardSelectList.do">board</a></li>
 							<li class="footer_nav_item"><a href="chat.do">chat</a></li>
