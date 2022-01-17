@@ -28,6 +28,13 @@
 							</tr>
 						</thead>
 						<tbody>
+							<c:choose>
+								<c:when test="${empty reservationList}">
+									<tr>
+										<td colspan="6" style="text-align: center;">내용없음</td>
+									</tr>
+								</c:when>
+							</c:choose>
 							<c:forEach items="${reservationList}" var="reservation">
 								<tr>
 									<c:choose>

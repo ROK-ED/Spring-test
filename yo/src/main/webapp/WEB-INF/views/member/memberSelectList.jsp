@@ -15,36 +15,36 @@
 	jQuery(function($) {
 		$("#mTable").DataTable({
 
-		    // 정렬 기능 숨기기
-		    ordering: false,
+			// 정렬 기능 숨기기
+			ordering : false,
 
-		    // 정보 표시 숨기기
-		    info: false,
-	
-		    displayLength: 5,
-		    
-		    lengthMenu: [ 5, 10, 15, 20 ],
-		
-		    
+			// 정보 표시 숨기기
+			info : false,
+
+			displayLength : 5,
+
+			lengthMenu : [ 5, 10, 15, 20 ],
+
 		});
 	});
-	
-
 </script>
 <style>
-th{
+th {
 	text-align: center;
 	font-weight: normal;
 }
-td{
+
+td {
 	text-align: center;
 	font-weight: bold;
 }
 </style>
 <!-- Home -->
-<link rel="stylesheet" type="text/css" href="resources/DataTables/datatables.min.css"/>
- 
-<script type="text/javascript" src="resources/DataTables/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/DataTables/datatables.min.css" />
+
+<script type="text/javascript"
+	src="resources/DataTables/datatables.min.js"></script>
 
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
@@ -84,18 +84,22 @@ td{
 						<td>${member.member_tel }</td>
 						<td>${member.member_addr }</td>
 						<td>${member.member_author }</td>
-						<td><button type="button" id="reservation" onclick="ajaxReservation()"
-								class="form_submit_button button trans_200 "
-								style="margin-bottom: 20px; background-color: orange; margin-top: 2px">
-								예약확인
-							</button></td>
-					
-						<th>
+						<td style="border-top-width: 1px;padding-top: 0px;padding-bottom: 15px;">
+						<form action="memberReservation.do" id="reservationForm" name="reservationForm" method="post">
+								<input type="hidden" id="member_email" name="member_email" value="${member.member_email }">
+								<input type="hidden" id="member_author" name="member_author" value="${member.member_author }">
+								<input type="submit" id="reservation"
+									class="form_submit_button button trans_200 "
+									style="margin-bottom: 0px; background-color: orange; margin-top: 0px;"
+									value="예약확인">
+							</form>
+						</td>
+
+						<th style="border-top-width: 1px;padding-top: 0px;padding-bottom: 15px;">
 							<button type="button" id="ice" onclick="ajaxIce()"
 								class="form_submit_button button trans_200 "
-								style="margin-bottom: 20px; background-color: orange; margin-top: 2px">
-								동결
-							</button>
+								style="margin-bottom: 0px;background-color: orange;margin-top: 0px;">
+								동결</button>
 						</th>
 					</tr>
 				</c:forEach>
@@ -105,18 +109,18 @@ td{
 </div>
 <br>
 <script type="text/javascript">
-function ajaxIce() {
-	var member_email = this.event.path[2].children[0].textContent;
-	console.log(member_email);
-	var member_author = this.event.path[2].children[6].textContent;
-	console.log(member_author);
- 		
-	$.ajax({
+	function ajaxIce() {
+		var member_email = this.event.path[2].children[0].textContent;
+		console.log(member_email);
+		var member_author = this.event.path[2].children[6].textContent;
+		console.log(member_author);
+
+		$.ajax({
 			url : "ajaxIce.do",
 			type : "post",
 			data : {
 				"member_email" : member_email
-				/* "member_author" : member_author */
+			/* "member_author" : member_author */
 			},
 			dataType : "text",
 			success : function(str) {
@@ -126,16 +130,10 @@ function ajaxIce() {
 			error : function() {
 				alert("동결 과정에서 오류가 발생했습니다.");
 				location.reload();
-				
+
 			}
 		});
- 	
-}
 
-function ajaxReservation() {
-	var member_email = this.event.path[2].children[0].textContent;
-	console.log(member_email);
-	var member_author = this.event.path[2].children[6].textContent;
-	console.log(member_author);
-}
+	}
+
 </script>

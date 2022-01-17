@@ -1,7 +1,9 @@
 package co.yo.prj.reservation.web;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.yo.prj.Message;
-
 import co.yo.prj.reservation.service.ReservationService;
 import co.yo.prj.reservation.service.ReservationVO;
 
@@ -29,14 +30,14 @@ public class ReservationController {
 	@RequestMapping("reservation.do")
 	public String reservation(HttpSession session, Model model) {
 		// session이 있는지 확인하고 화면을 열고, 권한을 조회해서 권한에 맞는 리스트를 출력한다.
-		
+
 		String member_email = (String) session.getAttribute("member_email");
 		String member_author = (String) session.getAttribute("member_author");
-		
+
 		ReservationVO reservation = new ReservationVO();
 		reservation.setReservation_member_email(member_email);
 		reservation.setReservation_host(member_author);
-		
+
 		if (member_email != null) {
 			if (("ADMIN").equals(member_author)) {
 				System.out.println("ADMIN 실행");
@@ -98,31 +99,60 @@ public class ReservationController {
 		return mav;
 
 	}
-	
-	// 등록
-		@PostMapping(value = "ajaxInsert.do", produces = "text/plain; charset=UTF-8")
-		@ResponseBody
-		public String ajaxInsert(double testx, double testy, String testtitle, String testemail, ReservationVO vo, String print, HttpSession session) {
-			System.out.println("여기 들어오냐?????????");
-			System.out.println(testx);
-			System.out.println(testy);
-			System.out.println(testtitle);
-			System.out.println(testemail);
-			vo.setReservation_member_email(testemail);
-			vo.setPlace_name(testtitle);
-			try {
+
+	// 장소등록
+	@PostMapping(value = "ajaxInsert.do", produces = "text/plain; charset=UTF-8")
+	@ResponseBody
+	public String ajaxInsert(double testx, double testy, String testtitle, String testemail, ReservationVO vo,
+			String print, HttpSession session) {
+		System.out.println("여기 들어오냐?????????");
+		System.out.println(testx);
+		System.out.println(testy);
+		System.out.println(testtitle);
+		System.out.println(testemail);
+		vo.setReservation_member_email(testemail);
+		vo.setPlace_name(testtitle);
+		try {
 			reservationDao.PlaceReslInsert(vo);
 			print = "추가 되었습니다.";
 			System.out.println(print);
-			
-			//추가후 세션값도 변경
+
+			// 추가후 세션값도 변경
 			session.setAttribute("member_x", testx);
 			session.setAttribute("member_y", testy);
-			
-			}catch (Exception e) {
-				print = "추가에 실패 하였습니다.";	
+
+		} catch (Exception e) {
+			print = "추가에 실패 하였습니다.";
 			System.out.println(print);
-			}
-			return print;
 		}
+		return print;
+	}
+
+	// 멤버리스트에서 각 예약내역보기
+	@RequestMapping("memberReservation.do")
+	public String memberReservation(String member_email, String member_author, Model model) {
+		System.out.println(member_email);
+		System.out.println(member_author);
+		
+		ReservationVO reservation = new ReservationVO();
+		reservation.setReservation_member_email(member_email);
+		reservation.setReservation_host(member_author);
+
+		if (member_email != null) {
+			if (("ADMIN").equals(member_author)) {
+				System.out.println("ADMIN 실행");
+				model.addAttribute("reservationList", reservationDao.reservationList());
+			} else if (("HOST").equals(member_author)) {
+				System.out.println("HOST 실행");
+				model.addAttribute("reservationList", reservationDao.reservationHostSelect(reservation));
+			} else if (("USER").equals(member_author)) {
+				System.out.println("USER 실행");
+				model.addAttribute("reservationList", reservationDao.reservationUserSelect(reservation));
+			}
+			return "reservation/reservation";
+		} else {
+			return "member/memberSelectList";
+		}
+	}
+
 }

@@ -231,24 +231,26 @@
 		<div class="container" style="max-width: 1648.3px; height: 1200px">
 			<div style="padding-bottom: 10px">여백~~~~~~~~</div>
 			<div id="clickLatlng"></div>
-			
-			
-			<div class="col-lg-12 text-lg-right" style="height: 230px">
-			<div class="weather" style="background: #fa9e1b; color: white; width: 100px; font-size: 15px; border-radius: 5px;">
-				<div>
-					<img class="CurrIcon">
+
+
+			<div class="col-lg-12 text-lg-right" style="height: 100px">
+				<!-- 
+				<div class="weather"
+					style="background: #fa9e1b; color: white; width: 100px; font-size: 15px; border-radius: 5px;">
+					<div>
+						<img class="CurrIcon">
+					</div>
+					<div class=""></div>
+					<div class="CurrTemp"></div>
+					<div class="City"></div>
 				</div>
-				<div class=""></div>
-				<div class="CurrTemp"></div>
-				<div class="City"></div>
+				 -->
+				<button type="button" onclick="ajaxInsert()" id="form_submit_button"
+					class="form_submit_button button trans_200 "
+					style="padding-top: 0px; margin-top: 0px">
+					예정추가<span></span><span></span><span></span>
+				</button>
 			</div>
-					<button type="button" onclick="ajaxInsert()"
-						id="form_submit_button"
-						class="form_submit_button button trans_200 "
-						style="padding-top: 0px; margin-top: 0px">
-						예정추가<span></span><span></span><span></span>
-					</button>
-				</div>
 			<div class="row" style="height: 1200px">
 
 
@@ -259,7 +261,8 @@
 					<div class="offers_grid">
 						<h3 id="iframeAddress"></h3>
 						<h3 id="iframeTitle"></h3>
-						<iframe id="iframeShow" src="" width="100%" height="900px" style="background: linear-gradient(to top right, #fa9e1b, #8d4fff); border: 0px;"></iframe>
+						<iframe id="iframeShow" src="" width="100%" height="900px"
+							style="background: linear-gradient(to top right, #fa9e1b, #8d4fff); border: 0px;"></iframe>
 					</div>
 
 					<br>
@@ -288,7 +291,7 @@
 					</div>
 				</div>
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-				
+
 
 			</div>
 		</div>
@@ -307,40 +310,7 @@
 	var testx = null;
 	var testy = null;
 	var testtitle = null;
-
 	
-	window.onload = function a(testy, testy) {
-		testx = 128.593347;
-		testy = 35.8690419;
-		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" +testy+ "&lon=" +testx+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
-        $.ajax({
-            url: apiURI,
-            dataType: "json",
-            type: "GET",
-            async: "false",
-            success: function(resp) {
-                console.log(resp);
-                console.log("현재온도 : "+ (resp.main.temp) );
-                console.log("현재습도 : "+ resp.main.humidity);
-                console.log("날씨 : "+ resp.weather[0].main );
-                console.log("상세날씨설명 : "+ resp.weather[0].description );
-                console.log("날씨 이미지 : "+ resp.weather[0].icon );
-                console.log("바람   : "+ resp.wind.speed );
-                console.log("나라   : "+ resp.sys.country );
-                console.log("도시이름  : "+ resp.name );
-                console.log("구름  : "+ (resp.clouds.all) +"%" );   
-                
-                var $Icon = (resp.weather[0].icon);
-                var $Temp = Math.floor(resp.main.temp) + 'º';
-                var $city = resp.name;
-
-                //$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
-                $('.CurrIcon').attr('src','http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
-                $('.CurrTemp').prepend($Temp);
-                $('.City').append($city);
-            }
-        })
-	}
 	// 마커를 클릭했을 때 해당 장소의 상세정보를 보여줄 커스텀오버레이입니다
 	var placeOverlay = new kakao.maps.CustomOverlay({
 		zIndex : 1
@@ -362,8 +332,7 @@
 			level : 1 // 지도의 확대 레벨
 		};
 	<%} else {%>//로그인 햇을시 자신이 등록한 위치
-
-	
+		
 		testx = '<%=(double) session.getAttribute("member_x")%>';
 		testy = '<%=(double) session.getAttribute("member_y")%>
 	';
@@ -523,6 +492,38 @@
 		//console.log(new kakao.maps.LatLng(place.y, place.x).Ma);
 		testy = new kakao.maps.LatLng(place.y, place.x).Ma
 		placeOverlay.setMap(map);
+		
+		///이거되냐/////////////////////////////////////////
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" +testy+ "&lon=" +testx+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
+    $.ajax({
+        url: apiURI,
+        dataType: "json",
+        type: "GET",
+        async: "false",
+        success: function(resp) {
+            console.log(resp);
+            console.log("현재온도 : "+ (resp.main.temp) );
+            console.log("현재습도 : "+ resp.main.humidity);
+            console.log("날씨 : "+ resp.weather[0].main );
+            console.log("상세날씨설명 : "+ resp.weather[0].description );
+            console.log("날씨 이미지 : "+ resp.weather[0].icon );
+            console.log("바람   : "+ resp.wind.speed );
+            console.log("나라   : "+ resp.sys.country );
+            console.log("도시이름  : "+ resp.name );
+            console.log("구름  : "+ (resp.clouds.all) +"%" );   
+            
+            var $Icon = (resp.weather[0].icon);
+            var $Temp = Math.floor(resp.main.temp) + 'º';
+            var $city = resp.name;
+
+            //$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+            $('.CurrIcon').attr('src','http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+            $('.CurrTemp').empty();
+            $('.CurrTemp').prepend($Temp);
+            $('.City').empty();
+            $('.City').append($city);
+        }
+    })
 
 	}
 

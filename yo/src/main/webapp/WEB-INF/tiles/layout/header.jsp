@@ -77,36 +77,19 @@
 							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
 							<li class="main_nav_item"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
-							<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+								<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 							</c:if>
 						</ul>
 					</div>
-					<div class="content_search ml-lg-0 ml-auto">
-						<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
-							xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-							width="17px" height="17px" viewBox="0 0 512 512"
-							enable-background="new 0 0 512 512" xml:space="preserve">
-								<g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF"
-								d="M78.438,216.78c0,57.906,22.55,112.343,63.493,153.287c40.945,40.944,95.383,63.494,153.287,63.494
-											s112.344-22.55,153.287-63.494C489.451,329.123,512,274.686,512,216.78c0-57.904-22.549-112.342-63.494-153.286
-											C407.563,22.549,353.124,0,295.219,0c-57.904,0-112.342,22.549-153.287,63.494C100.988,104.438,78.439,158.876,78.438,216.78z
-											M119.804,216.78c0-96.725,78.69-175.416,175.415-175.416s175.418,78.691,175.418,175.416
-											c0,96.725-78.691,175.416-175.416,175.416C198.495,392.195,119.804,313.505,119.804,216.78z" />
-										</g>
-									</g>
-									<g>
-										<g>
-											<path class="mag_glass" fill="#FFFFFF"
-								d="M6.057,505.942c4.038,4.039,9.332,6.058,14.625,6.058s10.587-2.019,14.625-6.058L171.268,369.98
-											c8.076-8.076,8.076-21.172,0-29.248c-8.076-8.078-21.172-8.078-29.249,0L6.057,476.693
-											C-2.019,484.77-2.019,497.865,6.057,505.942z" />
-										</g>
-									</g>
-								</g>
-							</svg>
+					<div class="">
+						<div class="weather"
+							style="color: white; width: 100px; font-size: 15px; display: inline-block;">
+							<div>
+								<img class="CurrIcon" style="width: 75px;">
+							</div>
+							<div class="CurrTemp" style="display: inline-block;"></div>
+							<div class="City" style="display: inline-block;" ></div>
+						</div>
 					</div>
 
 					<form id="search_form" class="search_form bez_1">
@@ -141,8 +124,44 @@
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
 			<li class="menu_item"><a href="chat.do">chat</a></li>
 			<c:if test="${sessionScope.member_author == 'ADMIN' }">
-			<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+				<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
 			</c:if>
 		</ul>
 	</div>
 </div>
+
+<script type="text/javascript">
+window.onload = function a(testy, testy) {
+	var testx = 128.593347;
+	var testy = 35.8690419;
+	var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" +testy+ "&lon=" +testx+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
+    $.ajax({
+        url: apiURI,
+        dataType: "json",
+        type: "GET",
+        async: "false",
+        success: function(resp) {
+            console.log(resp);
+            console.log("현재온도 : "+ (resp.main.temp) );
+            console.log("현재습도 : "+ resp.main.humidity);
+            console.log("날씨 : "+ resp.weather[0].main );
+            console.log("상세날씨설명 : "+ resp.weather[0].description );
+            console.log("날씨 이미지 : "+ resp.weather[0].icon );
+            console.log("바람   : "+ resp.wind.speed );
+            console.log("나라   : "+ resp.sys.country );
+            console.log("도시이름  : "+ resp.name );
+            console.log("구름  : "+ (resp.clouds.all) +"%" );   
+            
+            var $Icon = (resp.weather[0].icon);
+            var $Temp = Math.floor(resp.main.temp) + 'º';
+            var $city = resp.name;
+
+            //$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+            $('.CurrIcon').attr('src','http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+            $('.CurrTemp').prepend($Temp);
+            $('.City').append($city);
+        }
+    })
+}
+</script>
+
