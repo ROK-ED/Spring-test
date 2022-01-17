@@ -229,7 +229,7 @@
 		<!-- Offers -->
 
 		<div class="container" style="max-width: 1648.3px; height: 1200px">
-			<div id="clickLatlng"></div>
+			<!-- <div id="clickLatlng"></div> -->
 
 
 			<div class="col-lg-12 text-lg-right" style="height: 100px">
@@ -534,7 +534,7 @@
 		position : map.getCenter()
 	});
 	// 지도에 마커를 표시합니다
-	marker.setMap(map);
+	/* marker.setMap(map);
 
 	// 지도에 클릭 이벤트를 등록합니다
 	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
@@ -552,7 +552,7 @@
 		var resultDiv = document.getElementById('clickLatlng');
 		resultDiv.innerHTML = message;
 
-	});
+	}); */
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	// 각 카테고리에 클릭 이벤트를 등록합니다

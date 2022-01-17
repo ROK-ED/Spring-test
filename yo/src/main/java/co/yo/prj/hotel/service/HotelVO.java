@@ -20,8 +20,7 @@ public class HotelVO {
 	private String hotel_thumbnail;
 	private String hotel_pfile;
 	private String hotel_picture;
-	private int hotel_hit;
-	
+
 		
 	 
 }

@@ -41,7 +41,6 @@
 		<if test="hotel_thumbnail !=null">HOTEL_THUMBNAIL = #{hotel_thumbnail}, </if>
 		<if test="hotel_pfile !=null">HOTEL_PFILE = #{hotel_pfile}, </if>
 		<if test="hotel_picture !=null">HOTEL_PICTURE = #{hotel_picture}, </if>
-		<if test="hotel_hit !=null">HOTEL_HIT = #{hotel_hit}, </if>
 		HOTEL_PRICE = #{hotel_price}
 
 		WHERE HOTEL_ID = #{hotel_id}
