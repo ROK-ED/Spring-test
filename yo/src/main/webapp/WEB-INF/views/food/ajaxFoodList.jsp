@@ -59,7 +59,6 @@
 											<div>위치</div>
 											<select name="form_food_location" id="form_food_location"
 												class="dropdown_item_select search_input">
-												<option>선택</option>
 												<option>전체</option>
 												<option>달서구</option>
 												<option>중구</option>
@@ -189,12 +188,29 @@
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
 
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
 			//카카오 맵 api로 주소 찍기
 			//주소 출력하기
+			var testx = null;
+			var testy = null;
+			<%String id = (String) session.getAttribute("member_email");%>
+			var testemail='<%=(String) session.getAttribute("member_email")%>';
+			
+			<%if (id == null) {%>//로그인 안했을시 기본위치: 예담
+				testx = 128.593347;
+				testy = 35.8690419;
+				
+				
+			<%} else {%>//로그인 햇을시 자신이 등록한 위치
+				
+				testx = '<%=(double) session.getAttribute("member_x")%>';
+				testy = '<%=(double) session.getAttribute("member_y")%>';
+			<%}%>
+			
 			var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
 			mapOption = {
-				center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
+				center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
 				level : 3
 			// 지도의 확대 레벨
 			};

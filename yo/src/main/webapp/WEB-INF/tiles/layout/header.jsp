@@ -70,20 +70,20 @@
 					</div>
 					<div class="main_nav_container ml-auto">
 						<ul class="main_nav_list">
-							<li class="main_nav_item"><a href="placeSelectList.do">place</a></li>
-							<li class="main_nav_item"><a href="hotelSelectList.do">hotel</a></li>
-							<li class="main_nav_item"><a href="food.do">food</a></li>
-							<li class="main_nav_item"><a href="reservation.do">reservation</a></li>
-							<li class="main_nav_item"><a href="boardSelectList.do">board</a></li>
-							<li class="main_nav_item"><a href="chat.do">chat</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="placeSelectList.do">place</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="hotelSelectList.do">hotel</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="ajaxFoodList.do">food</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="reservation.do">reservation</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="boardSelectList.do">board</a></li>
+							<li class="main_nav_item" style="margin-right: 15px;"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
-								<li class="main_nav_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+								<li class="main_nav_item" style="margin-right: 15px;"><a href="memberSelectList.do" >회원목록(ADMIN)</a></li>
 							</c:if>
 						</ul>
 					</div>
 					<div class="">
 						<div class="weather"
-							style="color: white; width: 100px; font-size: 15px; display: inline-block;">
+							style="color: white; width: 75px; font-size: 15px; display: inline-block;">
 							<div>
 								<img class="CurrIcon" style="width: 75px;">
 							</div>
@@ -119,7 +119,7 @@
 			<li class="menu_item"><a href="home.do">yogihang</a></li>
 			<li class="menu_item"><a href="placeSelectList.do">place</a></li>
 			<li class="menu_item"><a href="hotelSelectList.do">hotel</a></li>
-			<li class="menu_item"><a href="food.do">food</a></li>
+			<li class="menu_item"><a href="ajaxFoodList.do">food</a></li>
 			<li class="menu_item"><a href="reservation.do">reservation</a></li>
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
 			<li class="menu_item"><a href="chat.do">chat</a></li>

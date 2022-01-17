@@ -229,7 +229,6 @@
 		<!-- Offers -->
 
 		<div class="container" style="max-width: 1648.3px; height: 1200px">
-			<div style="padding-bottom: 10px">여백~~~~~~~~</div>
 			<div id="clickLatlng"></div>
 
 
@@ -325,25 +324,19 @@
 		testx = 128.593347;
 		testy = 35.8690419;
 		
-		console.log('false');
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
-			level : 1 // 지도의 확대 레벨
-		};
+		
 	<%} else {%>//로그인 햇을시 자신이 등록한 위치
 		
 		testx = '<%=(double) session.getAttribute("member_x")%>';
-		testy = '<%=(double) session.getAttribute("member_y")%>
-	';
-
+		testy = '<%=(double) session.getAttribute("member_y")%>';
+	<%}%>
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
-		level : 1
+		level : 2
 	// 지도의 확대 레벨
-	};
-<%}%>
+	}
+
 	//날씨 만들기/////////////////////////////////////////////////////////////////
 
 	// 지도를 생성합니다    
@@ -492,38 +485,46 @@
 		//console.log(new kakao.maps.LatLng(place.y, place.x).Ma);
 		testy = new kakao.maps.LatLng(place.y, place.x).Ma
 		placeOverlay.setMap(map);
-		
-		///이거되냐/////////////////////////////////////////
-		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat=" +testy+ "&lon=" +testx+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
-    $.ajax({
-        url: apiURI,
-        dataType: "json",
-        type: "GET",
-        async: "false",
-        success: function(resp) {
-            console.log(resp);
-            console.log("현재온도 : "+ (resp.main.temp) );
-            console.log("현재습도 : "+ resp.main.humidity);
-            console.log("날씨 : "+ resp.weather[0].main );
-            console.log("상세날씨설명 : "+ resp.weather[0].description );
-            console.log("날씨 이미지 : "+ resp.weather[0].icon );
-            console.log("바람   : "+ resp.wind.speed );
-            console.log("나라   : "+ resp.sys.country );
-            console.log("도시이름  : "+ resp.name );
-            console.log("구름  : "+ (resp.clouds.all) +"%" );   
-            
-            var $Icon = (resp.weather[0].icon);
-            var $Temp = Math.floor(resp.main.temp) + 'º';
-            var $city = resp.name;
 
-            //$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
-            $('.CurrIcon').attr('src','http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
-            $('.CurrTemp').empty();
-            $('.CurrTemp').prepend($Temp);
-            $('.City').empty();
-            $('.City').append($city);
-        }
-    })
+		///이거되냐/////////////////////////////////////////
+		var apiURI = "http://api.openweathermap.org/data/2.5/weather?lat="
+				+ testy
+				+ "&lon="
+				+ testx
+				+ "&lang=kr&appid=0f31f112ce8af804a6241206b1d57dec&units=metric";
+		$.ajax({
+			url : apiURI,
+			dataType : "json",
+			type : "GET",
+			async : "false",
+			success : function(resp) {
+				console.log(resp);
+				console.log("현재온도 : " + (resp.main.temp));
+				console.log("현재습도 : " + resp.main.humidity);
+				console.log("날씨 : " + resp.weather[0].main);
+				console.log("상세날씨설명 : " + resp.weather[0].description);
+				console.log("날씨 이미지 : " + resp.weather[0].icon);
+				console.log("바람   : " + resp.wind.speed);
+				console.log("나라   : " + resp.sys.country);
+				console.log("도시이름  : " + resp.name);
+				console.log("구름  : " + (resp.clouds.all) + "%");
+
+				var $Icon = (resp.weather[0].icon);
+				var $Temp = Math.floor(resp.main.temp) + 'º';
+				var $city = resp.name;
+
+				//$('.CurrIcon').append('http://openweathermap.org/img/wn/'+$Icon+'@2x.png');
+				$('.CurrIcon')
+						.attr(
+								'src',
+								'http://openweathermap.org/img/wn/' + $Icon
+										+ '@2x.png');
+				$('.CurrTemp').empty();
+				$('.CurrTemp').prepend($Temp);
+				$('.City').empty();
+				$('.City').append($city);
+			}
+		})
 
 	}
 

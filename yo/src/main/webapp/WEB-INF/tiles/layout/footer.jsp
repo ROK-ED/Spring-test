@@ -185,7 +185,7 @@
 							<li class="footer_nav_item"><a href="home.do">home</a></li>
 							<li class="footer_nav_item"><a href="placeSelectList.do">place</a></li>
 							<li class="footer_nav_item"><a href="hotelSelectList.do">hotel</a></li>
-							<li class="footer_nav_item"><a href="food.do">food</a></li>
+							<li class="footer_nav_item"><a href="ajaxFoodList.do">food</a></li>
 							<li class="footer_nav_item"><a href="boardSelectList.do">board</a></li>
 							<li class="footer_nav_item"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
