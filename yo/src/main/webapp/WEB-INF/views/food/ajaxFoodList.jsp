@@ -100,24 +100,26 @@
 											</select>
 										</div>
 
-										<div class="more_options" style="padding-bottom:100px;">
+										<div class="more_options" style="padding-bottom: 100px;">
 											<div class="more_options_trigger">
 												<a href="#">옵션 더보기</a>
 											</div>
 											<ul class="more_options_list clearfix">
 												<li class="more_options_item">
 													<div class="clearfix">
-														<input type="checkbox" id="more_options_1" class="search_extras_cb">
-														<label for="more_options_1">주차장</label>
-													</div>	
+														<input type="checkbox" id="more_options_1"
+															class="search_extras_cb"> <label
+															for="more_options_1">주차장</label>
+													</div>
 												</li>
 											</ul>
 										</div>
-										<br><br>
-										
+										<br>
+										<br>
 
 
-										
+
+
 
 										<button class="button search_button" onclick="searchData()">
 											검색<span></span><span></span><span></span>
@@ -157,7 +159,7 @@
 						<div class="offers_grid">
 							<div>
 								<table id="mTable" class="table table-bordered">
-									
+
 									<!-- <tbody class="table_body" >
 										<!-- script에서 입력되는 곳 
 									</tbody> -->
@@ -224,7 +226,7 @@
 			console.log("분류 확인 ==================================="
 					+ food_class);
 			var searchLocation = document.querySelector('.searchLocation');
-			
+
 			//searchLocation.value = food_location;
 			$.ajax({
 				type : "POST",
@@ -252,16 +254,15 @@
 						table_body.setAttribute("class", "table_body");
 						table_body.setAttribute("id", "table_body");
 
-						
 						var table_head = document.createElement('tbody');
 						table_head.setAttribute("class", "table_head");
 						table_head.setAttribute("id", "table_head");
-						
+
 						console.log("222222222222222222");
 						var data = JSON.parse(result);
 						console.log(data);
 						var mTable = document.querySelector('#mTable');
-						
+
 						for (var i = 0; i < data.length; i++) {
 
 							//var findImg = findImgLink(data[i].OPENDATA_ID);
@@ -278,13 +279,13 @@
 						} else {
 							var tr = document.createElement('tr');
 							var th = document.createElement('th');
-							
-							th.textContent = "검색 결과 : "+data.length+"건";
+
+							th.textContent = "검색 결과 : " + data.length + "건";
 							tr.append(th);
 							table_head.append(tr);
 							mTable.append(table_head);
 							mTable.append(table_body);
-							
+
 						}
 
 					}
@@ -367,9 +368,7 @@
 
 					});
 		}
-		
-		
-		
+
 		//지도 찍기..........
 		var marker;
 		function mapKakao(data, food_location) {
@@ -391,26 +390,27 @@
 
 			//for (var i = 0; i < data.length; i++) {
 
-			
-			marker = $(data).map(function(i, data) {
-					console.log("aal;skdjf;lajsdflj;lasjdf;lkjas;dkfj;lakjsd;flkj");
+			marker = $(data)
+					.map(
+							function(i, data) {
+								console
+										.log("aal;skdjf;lajsdflj;lasjdf;lkjas;dkfj;lakjsd;flkj");
 
 								var foodName = data.BZ_NM + "";
 								var foodAddr = data.GNG_CS + "";
 								var foodId = data.OPENDATA_ID + "";
-								console.log("가게명! ================"+foodName);
-								
-								var loc = data.GNG_CS ;
-								
+								console.log("가게명! ================" + foodName);
 
-								var check = loc.substr(6,3);
-								console.log("정규식 확인학 ========="+check);	
-								
-								
-								
+								var loc = data.GNG_CS;
+
+								var check = loc.substr(6, 3);
+								console.log("정규식 확인학 =========" + check);
 
 								// 주소로 좌표를 검색합니다
-								geocoder.addressSearch(foodAddr, function(result, status) {
+								geocoder
+										.addressSearch(
+												foodAddr,
+												function(result, status) {
 													//console.log("카카오 맵 나와주세요.......... ========================"+ foodAddr);
 
 													// 정상적으로 검색이 완료됐으면 
@@ -447,20 +447,22 @@
 																	removable : iwRemoveable
 																});
 														// 마커에 클릭이벤트를 등록합니다
-														kakao.maps.event.addListener(marker, 'click',
-																function() {
-																	// 마커 위에 인포윈도우를 표시합니다
-																	infowindow.open(mapi, marker);
-																});//addListener
+														kakao.maps.event
+																.addListener(
+																		marker,
+																		'click',
+																		function() {
+																			// 마커 위에 인포윈도우를 표시합니다
+																			infowindow
+																					.open(
+																							mapi,
+																							marker);
+																		});//addListener
 													}//if 
 
 												});//geocoder
 
-							
-								
-
 							});//map
-							
 
 			//} //for
 		}
@@ -492,24 +494,19 @@
 			var offers_image_background = document.createElement('div');
 			offers_image_background.setAttribute("class",
 					"offers_image_background");
-			
-			var loc = data[i].GNG_CS ;
-			
 
-			var check = loc.substr(6,3);
+			var loc = data[i].GNG_CS;
+
+			var check = loc.substr(6, 3);
 			//console.log("정규식 확인학 ========="+check);	
-			
+
 			var imgA = document.createElement('a');
 			var tmp = "imgA" + data[i].OPENDATA_ID;/////////////////////////=======================
 			imgA.setAttribute("class", tmp);
 			imgA.setAttribute("id", tmp);
 			imgA.setAttribute("href", "foodSelectOne.do?food_id="
-					+ data[i].OPENDATA_ID + "&food_location="
-					+ check) //////////////////////////////////////수정2
-					
-					
-					
-			
+					+ data[i].OPENDATA_ID + "&food_location=" + check) //////////////////////////////////////수정2
+
 			/*  var foodImg = findImgLink(data[i].OPENDATA_ID );
 			console.log("================이미지.. 나와야함..."+foodImg);
 			
@@ -557,7 +554,9 @@
 
 			var bookA = document.createElement('a');
 			bookA.setAttribute('href',
-					"hotelResForm.do?hotel_id=${hotel.hotel_id }");/////일단은 그냥 해둠... 
+
+			"foodResForm.do?food_id=" + data[i].OPENDATA_ID + "&food_name="
+					+ data[i].BZ_NM + "&food_location=" + data[i].GNG_CS);/////일단은 그냥 해둠... 
 			bookA.textContent = "예약";
 			for (var i = 0; i < 3; i++) {
 				var span = document.createElement('span');
@@ -582,7 +581,7 @@
 			return tr;
 
 		}
-		
+
 		////////////////////////사진 저장 fnc
 		/*		 function findImgLink(food_id, food_name) {
 		 console.log("음식점 이름!!! === " + food_name);

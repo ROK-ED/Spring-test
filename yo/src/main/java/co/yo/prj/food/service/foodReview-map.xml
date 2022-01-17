@@ -19,7 +19,7 @@
 	<delete id="foodReviewDelete"
 		parameterType="int">
 		DELETE FROM YO_REVIEW
-		WHERE REVIEW_ID = ${review_id};
+		WHERE REVIEW_ID = ${review_id}
 	</delete>
 	
 	<select id="foodReviewSelectList"
@@ -38,5 +38,11 @@
 		WHERE REVIEW_FOOD_ID = ${review_food_id}
 	</select>
 	
+	<update id="foodReviewUpdate"
+		parameterType="co.yo.prj.food.service.FoodReviewVO">
+		UPDATE YO_REVIEW
+		SET REVIEW_SUBJECT = #{review_subject}
+        WHERE REVIEW_ID = #{review_id}
+	</update>
 
 </mapper>

@@ -36,4 +36,16 @@ public class FoodReviewServiceImpl implements FoodReviewService {
 		return map.foodReviewDelete(review_food_id);
 	}
 
+
+
+	@Override
+	public int foodReviewUpdate(FoodReviewVO foodReview) {
+		// TODO Auto-generated method stub
+		return map.foodReviewUpdate(foodReview);
+	}
+
+
+	
+	
+
 }

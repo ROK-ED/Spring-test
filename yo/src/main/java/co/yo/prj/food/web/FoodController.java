@@ -6,6 +6,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
@@ -19,12 +21,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonArrayFormatVisitor;
 
+import co.yo.prj.Message;
 import co.yo.prj.food.service.FoodService;
 import co.yo.prj.food.service.FoodVO;
+import co.yo.prj.hotel.service.HotelVO;
+import co.yo.prj.reservation.service.ReservationVO;
 
 @Controller
 public class FoodController {
@@ -230,8 +236,7 @@ public class FoodController {
 //					} 
 //&& (park_check == true)? (!jsonParkCheck.contains("없음")):true
 
-					if (jsonFoodName.contains(food_name) && jsonFoodClass.contains(food_class)
-						) {
+					if (jsonFoodName.contains(food_name) && jsonFoodClass.contains(food_class)) {
 						resultArray.put(obj);
 
 						System.out.println(
@@ -359,14 +364,26 @@ public class FoodController {
 		return "food/foodSelectOne";
 	}
 
-//	//리뷰 저장하기
-//	@RequestMapping("/foodReview.do")
-//	public String foodReview() {
-//		
-//		
-//		
-//		return null;
-//		
-//	}
+	// 음식 예약폼
+	@RequestMapping("/foodResForm.do")
+	public String foodResForm(int food_id, String food_name, Model model, String food_location, HttpSession session,
+			ModelAndView mav, HttpServletResponse response, HttpServletRequest request) {
+		if (session.getAttribute("member_email") == null) {
+
+			model.addAttribute("data", new Message("로그인이 필요합니다", "hotelSelectList.do"));
+
+			return "Message";
+		}
+
+		String foodLoc = food_location.substring(6, 9);
+
+		String food_res_name = foodLoc + food_name;
+		model.addAttribute("food_id", food_id);
+		model.addAttribute("food_name", food_name);
+		model.addAttribute("food_res_name", food_res_name);
+		model.addAttribute("food_location", food_location);
+
+		return "food/foodResForm";
+	}
 
 }

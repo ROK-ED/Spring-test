@@ -8,4 +8,5 @@ public interface ReservationMapper {
 	List<ReservationVO> reservationHostSelect(ReservationVO vo);
 	int reservationInsert(ReservationVO vo);
 	int HoteReslInsert(ReservationVO vo);
+	int FoodReslInsert(ReservationVO vo);
 }

@@ -28,14 +28,14 @@ public class ReservationController {
 	@RequestMapping("reservation.do")
 	public String reservation(HttpSession session, Model model) {
 		// session이 있는지 확인하고 화면을 열고, 권한을 조회해서 권한에 맞는 리스트를 출력한다.
-		
+
 		String member_email = (String) session.getAttribute("member_email");
 		String member_author = (String) session.getAttribute("member_author");
-		
+
 		ReservationVO reservation = new ReservationVO();
 		reservation.setReservation_member_email(member_email);
 		reservation.setReservation_host(member_author);
-		
+
 		if (member_email != null) {
 			if (("ADMIN").equals(member_author)) {
 				System.out.println("ADMIN 실행");
@@ -92,6 +92,32 @@ public class ReservationController {
 		} catch (Exception e) {// 이거쓸일 없음
 			e.printStackTrace();
 			mav.addObject("data", new Message("예약에 실패하였습니다.", "hotelSelectList.do"));
+			mav.setViewName("Message");
+		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "foodResInsert.do", produces = "text/plain; charset=UTF-8")
+	ModelAndView foodResInsert(@RequestParam("reservation_date1") String da, ReservationVO vo, ModelAndView mav,
+			HttpSession session, int reservation_food_id, String reservation_food_name) {
+		try {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yymmdd");
+			Date to = transFormat.parse(da);
+			vo.setReservation_date(to);
+			vo.setReservation_food_id(reservation_food_id);
+
+			//reservation_food_location = reservation_food_location.substring(6, 9);
+
+			vo.setFood_name(reservation_food_name);
+			
+			reservationDao.FoodReslInsert(vo);
+			mav.addObject("data", new Message("예약 되었습니다.", "ajaxFoodList.do"));
+			mav.setViewName("Message");
+
+		} catch (Exception e) {// 이거쓸일 없음
+			e.printStackTrace();
+			mav.addObject("data", new Message("예약에 실패하였습니다.", "ajaxFoodList.do"));
 			mav.setViewName("Message");
 		}
 		return mav;
