@@ -155,4 +155,29 @@ public class ReservationController {
 		}
 	}
 
+	@RequestMapping(value = "foodResInsert.do", produces = "text/plain; charset=UTF-8")
+	ModelAndView foodResInsert(@RequestParam("reservation_date1") String da, ReservationVO vo, ModelAndView mav,
+			HttpSession session, int reservation_food_id, String reservation_food_name) {
+		try {
+			SimpleDateFormat transFormat = new SimpleDateFormat("yymmdd");
+			Date to = transFormat.parse(da);
+			vo.setReservation_date(to);
+			vo.setReservation_food_id(reservation_food_id);
+
+			//reservation_food_location = reservation_food_location.substring(6, 9);
+
+			vo.setFood_name(reservation_food_name);
+			
+			reservationDao.FoodReslInsert(vo);
+			mav.addObject("data", new Message("예약 되었습니다.", "ajaxFoodList.do"));
+			mav.setViewName("Message");
+
+		} catch (Exception e) {// 이거쓸일 없음
+			e.printStackTrace();
+			mav.addObject("data", new Message("예약에 실패하였습니다.", "ajaxFoodList.do"));
+			mav.setViewName("Message");
+		}
+		return mav;
+
+	}
 }

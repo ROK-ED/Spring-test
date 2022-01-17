@@ -26,7 +26,7 @@ public class CharsetFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// place your code here
-		System.out.println("doFilter() before");
+		//System.out.println("doFilter() before");
 		//필터할 내용들
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -34,7 +34,7 @@ public class CharsetFilter implements Filter {
 		// pass the request along the filter chain
 		chain.doFilter(request, response);//서블릿 실행
 		//실행후 필요한 내용들
-		System.out.println("doFilter() after");
+		//System.out.println("doFilter() after");
 	}
 
 	

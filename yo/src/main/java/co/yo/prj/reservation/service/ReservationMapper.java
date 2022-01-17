@@ -9,4 +9,5 @@ public interface ReservationMapper {
 	int reservationInsert(ReservationVO vo);
 	int HoteReslInsert(ReservationVO vo);
 	int PlaceReslInsert(ReservationVO vo);
+	int FoodReslInsert(ReservationVO vo);
 }
