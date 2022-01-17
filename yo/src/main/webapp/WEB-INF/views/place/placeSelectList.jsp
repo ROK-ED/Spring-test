@@ -60,9 +60,7 @@
 }
 
 #category li .category_bg {
-	background:
-		url(./resources/img/category.png)
-		no-repeat;
+	background: url(./resources/img/category.png) no-repeat;
 }
 
 #category li .bank {
@@ -227,39 +225,50 @@
 				</div>
 			</div>
 		</div> -->
-		
+
 		<!-- Offers -->
 
 		<div class="container" style="max-width: 1648.3px; height: 1200px">
-		<div style="padding-bottom: 10px">여백~~~~~~~~</div>
-		<div id="clickLatlng"></div>
-		<div class="">마음에 드는곳 표현</div>
-		<div class="">날씨 표현</div>
-		<div class="weather">
-			<img class="CurrIcon"></div>
-			<div class="CurrTemp"></div>
-			<div class="City"></div>
-		</div>
+			<div style="padding-bottom: 10px">여백~~~~~~~~</div>
+			<div id="clickLatlng"></div>
+			
+			
+			<div class="col-lg-12 text-lg-right" style="height: 230px">
+			<div class="weather" style="background: #fa9e1b; color: white; width: 100px; font-size: 15px; border-radius: 5px;">
+				<div>
+					<img class="CurrIcon">
+				</div>
+				<div class=""></div>
+				<div class="CurrTemp"></div>
+				<div class="City"></div>
+			</div>
+					<button type="button" onclick="ajaxInsert()"
+						id="form_submit_button"
+						class="form_submit_button button trans_200 "
+						style="padding-top: 0px; margin-top: 0px">
+						예정추가<span></span><span></span><span></span>
+					</button>
+				</div>
 			<div class="row" style="height: 1200px">
 
 
 				<div class="col-lg-7">
-				
+
 					<!-- Offers Grid -->
 					<!-- 내용물~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 					<div class="offers_grid">
-					<h3 id="iframeAddress"></h3>					
-					<h3 id="iframeTitle"></h3>
-					<iframe id="iframeShow" src="" width="100%" height="900px"  ></iframe>
+						<h3 id="iframeAddress"></h3>
+						<h3 id="iframeTitle"></h3>
+						<iframe id="iframeShow" src="" width="100%" height="900px" style="background: linear-gradient(to top right, #fa9e1b, #8d4fff); border: 0px;"></iframe>
 					</div>
-					
+
 					<br>
 				</div>
 				<br>
 				<!-- 내용물~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 				<div class="col-lg-5">
-					<div class="map_wrap" style="width: 100%; height: 900px; ">
+					<div class="map_wrap" style="width: 100%; height: 900px;">
 						<div id="map"
 							style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
 						<ul id="category">
@@ -273,18 +282,13 @@
 								주유소<br>&nbsp;</li>
 							<li id="CE7" data-order="4"><span class="category_bg cafe"></span>
 								카페<br>&nbsp;</li>
-							<li id="MT1, CS2" data-order="5"><span class="category_bg store"></span>
-								마트<br>편의점</li>
+							<li id="MT1, CS2" data-order="5"><span
+								class="category_bg store"></span> 마트<br>편의점</li>
 						</ul>
 					</div>
 				</div>
 				<!-- 지도~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-				<div class="col-lg-12 text-lg-right" style="height: 230px">
-					<button type="button" onclick="ajaxInsert()" id="form_submit_button"
-									class="form_submit_button button trans_200 " style="padding-top: 0px; margin-top: 0px">
-									예정추가<span></span><span></span><span></span>
-					</button>
-				</div>
+				
 
 			</div>
 		</div>
@@ -361,18 +365,17 @@
 
 	
 		testx = '<%=(double) session.getAttribute("member_x")%>';
-		testy = '<%=(double) session.getAttribute("member_y")%>';
-		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
-			level : 1 // 지도의 확대 레벨
-		};
-		
-	<%}%>
-	
+		testy = '<%=(double) session.getAttribute("member_y")%>
+	';
+
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+		center : new kakao.maps.LatLng(testy, testx), // 지도의 중심좌표
+		level : 1
+	// 지도의 확대 레벨
+	};
+<%}%>
 	//날씨 만들기/////////////////////////////////////////////////////////////////
-	
 
 	// 지도를 생성합니다    
 	var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -493,8 +496,7 @@
 
 	// 클릭한 마커에 대한 장소 상세정보를 커스텀 오버레이로 표시하는 함수입니다
 	function displayPlaceInfo(place) {
-		
-		
+
 		var content = '<div class="placeinfo" onclick="onClickData()" style="padding-bottom: 0;">'
 				+ '   <a class="title" id="' + place.place_url + '" target="i_a" target="_blank" title="' + place.place_name + '" style="color: white;" >'
 				+ place.place_name + '</a>';
@@ -521,39 +523,35 @@
 		//console.log(new kakao.maps.LatLng(place.y, place.x).Ma);
 		testy = new kakao.maps.LatLng(place.y, place.x).Ma
 		placeOverlay.setMap(map);
-		
-		
+
 	}
-	
-	
-	
+
 	// 지도를 클릭한 위치에 표출할 마커입니다//////////////////////////////////////////////////////////
-	var marker = new kakao.maps.Marker({ 
-	    // 지도 중심좌표에 마커를 생성합니다 
-	    position: map.getCenter() 
-	}); 
+	var marker = new kakao.maps.Marker({
+		// 지도 중심좌표에 마커를 생성합니다 
+		position : map.getCenter()
+	});
 	// 지도에 마커를 표시합니다
 	marker.setMap(map);
 
 	// 지도에 클릭 이벤트를 등록합니다
 	// 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {        
-	    
-	    // 클릭한 위도, 경도 정보를 가져옵니다 
-	    var latlng = mouseEvent.latLng; 
-	    
-	    // 마커 위치를 클릭한 위치로 옮깁니다
-	    marker.setPosition(latlng);
-	    
-	    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-	    message += '경도는 ' + latlng.getLng() + ' 입니다';
-	    
-	    var resultDiv = document.getElementById('clickLatlng'); 
-	    resultDiv.innerHTML = message;
-	    
+	kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+
+		// 클릭한 위도, 경도 정보를 가져옵니다 
+		var latlng = mouseEvent.latLng;
+
+		// 마커 위치를 클릭한 위치로 옮깁니다
+		marker.setPosition(latlng);
+
+		var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+		message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+		var resultDiv = document.getElementById('clickLatlng');
+		resultDiv.innerHTML = message;
+
 	});
 	///////////////////////////////////////////////////////////////////////////////////////////////
-
 
 	// 각 카테고리에 클릭 이벤트를 등록합니다
 	function addCategoryClickEvent() {
@@ -602,7 +600,7 @@
 		//console.log("실행되냐");
 		var path = this.event.path[1].children[0].id;
 		//console.log("path :" +path);
-		
+
 		$.ajax({
 			url : "ajaxPlace.do",
 			type : "post",
@@ -615,26 +613,25 @@
 				//console.log(typeof result);
 				//console.log(result);
 				//console.log(result.path);
-				
+
 				//console.log(result.title_text);
 				testtitle = result.title_text;
 				//console.log(testtitle);
 				//$('#iframeShow').attr({'src','result.path'});
-				document.getElementById( 'iframeShow' ).setAttribute( 'src', result.path );
-				
-				
+				document.getElementById('iframeShow').setAttribute('src',
+						result.path);
+
 				//location.reload();
 			},
 			error : function() {
 				alert("검색 과정에서 오류가 발생했습니다.");
 				location.reload();
-				
+
 			}
 		});
- 	
-		
+
 	}
-	
+
 	function ajaxInsert() {
 		console.log(testx);
 		console.log(testy);
@@ -643,7 +640,7 @@
 		console.log(this);
 		console.log(this.event);
 		console.log("실행되냐");
-		
+
 		$.ajax({
 			url : "ajaxInsert.do",
 			type : "post",
@@ -658,19 +655,15 @@
 				console.log(result);
 				console.log("등록되냐?");
 				alert(result);
-				
-				
+
 				//location.reload();
 			},
 			error : function() {
 				alert("로그인을 먼저 해주세요");
 				//location.reload();
-				
+
 			}
 		});
- 	
-		
+
 	}
-	
-	
 </script>
