@@ -103,13 +103,48 @@ public class ReservationController {
 	// 장소등록
 	@PostMapping(value = "ajaxInsert.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
-	public String ajaxInsert(double testx, double testy, String testtitle, String testemail, ReservationVO vo,
-			String print, HttpSession session) {
+	public String ajaxInsert(double testx, double testy, String testtitle, String testemail, String member_author, ReservationVO vo,
+			String print, HttpSession session, Model model) {
 		System.out.println("여기 들어오냐?????????");
+		System.out.println(member_author);
 		System.out.println(testx);
 		System.out.println(testy);
 		System.out.println(testtitle);
 		System.out.println(testemail);
+		
+		
+		
+		
+		if (testemail == null) {
+
+			print = "로그인이 필요합니다";
+			
+			return print;
+
+		}
+		if (member_author.equals("HOST")) {
+			
+			print = "일반 유저만 예약이 가능합니다.";
+
+			return print;
+		}
+		
+		if (testtitle == null) {
+
+			print = "원하는 곳의 마커를 클릭해주세요.";
+			
+			return print;
+
+		}
+		
+		if (testtitle.equals("")) {
+
+			print = "원하는 곳의 마커를 클릭해주세요.";
+			
+			return print;
+
+		}
+		
 		vo.setReservation_member_email(testemail);
 		vo.setPlace_name(testtitle);
 		try {

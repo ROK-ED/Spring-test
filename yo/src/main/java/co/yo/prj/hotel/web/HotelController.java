@@ -74,6 +74,12 @@ public class HotelController {
 
 			return "Message";
 		}
+		if (session.getAttribute("member_author").equals("HOST")) {
+
+			model.addAttribute("data", new Message("일반 유저만 예약이 가능합니다.", "hotelSelectList.do"));
+
+			return "Message";
+		}
 		HotelVO vo = new HotelVO();
 		vo.setHotel_id(Integer.parseInt(id));
 		model.addAttribute("hotel", hotelDao.HotelSelect(vo));

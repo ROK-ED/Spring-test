@@ -635,6 +635,7 @@
 	}
 
 	function ajaxInsert() {
+		var member_author ='<%=(String) session.getAttribute("member_author")%>';
 		console.log(testx);
 		console.log(testy);
 		console.log(testtitle);
@@ -650,7 +651,8 @@
 				"testx" : testx,
 				"testy" : testy,
 				"testtitle" : testtitle,
-				"testemail" : testemail
+				"testemail" : testemail,
+				"member_author" : member_author
 			},
 			dataType : "text",
 			success : function(result) {

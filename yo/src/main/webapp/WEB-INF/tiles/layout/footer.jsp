@@ -6,7 +6,7 @@
 		<div class="row">
 
 			<!-- Footer Column -->
-			<div class="col-lg-3 footer_column">
+			<div class="col-lg-4 footer_column">
 				<div class="footer_col">
 					<div class="footer_content footer_about">
 						<div class="logo_container footer_logo">
@@ -14,33 +14,23 @@
 								<a href="home.do"><img src="resources/images/logo.png" alt="">yogihang</a>
 							</div>
 						</div>
-						<p class="footer_about_text">Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit. Vivamus quis vu lputate eros,
-							iaculis consequat nisl. Nunc et suscipit urna. Integer eleme ntum
-							orci eu vehicula pretium.</p>
-						<ul class="footer_social_list">
-							<li class="footer_social_item"><a href="#"><i
-									class="fa fa-pinterest"></i></a></li>
-							<li class="footer_social_item"><a href="#"><i
-									class="fa fa-facebook-f"></i></a></li>
-							<li class="footer_social_item"><a href="#"><i
-									class="fa fa-twitter"></i></a></li>
-							<li class="footer_social_item"><a href="#"><i
-									class="fa fa-dribbble"></i></a></li>
-							<li class="footer_social_item"><a href="#"><i
-									class="fa fa-behance"></i></a></li>
-						</ul>
+						<p class="footer_about_text"> 여행이 보다 즐겁고 알찬 시간이 되기 위해서는 현지의 맛집이나 관광지에 대한 안내가 필요하고 
+흩어져 있는 여러가지 정보를 한 눈에 볼 수 있으면 좋다는 생각에서 “여기 여행 어때?” 라는 
+여행가이드 커뮤니티 사이트를 구현하였습니다.
+
+</p>
+				
 					</div>
 				</div>
 			</div>
 
 			<!-- Footer Column -->
-			<div class="col-lg-3 footer_column">
+		<!-- 	<div class="col-lg-3 footer_column">
 				<div class="footer_col">
 					<div class="footer_title">blog posts</div>
 					<div class="footer_content footer_blog">
 
-						<!-- Footer blog item -->
+						Footer blog item
 						<div class="footer_blog_item clearfix">
 							<div class="footer_blog_image">
 								<img src="resources/images/footer_blog_1.jpg"
@@ -54,7 +44,7 @@
 							</div>
 						</div>
 
-						<!-- Footer blog item -->
+						Footer blog item
 						<div class="footer_blog_item clearfix">
 							<div class="footer_blog_image">
 								<img src="resources/images/footer_blog_2.jpg"
@@ -68,7 +58,7 @@
 							</div>
 						</div>
 
-						<!-- Footer blog item -->
+						Footer blog item
 						<div class="footer_blog_item clearfix">
 							<div class="footer_blog_image">
 								<img src="resources/images/footer_blog_3.jpg"
@@ -84,29 +74,26 @@
 
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<!-- Footer Column -->
-			<div class="col-lg-3 footer_column">
+			<div class="col-lg-4 footer_column">
 				<div class="footer_col">
 					<div class="footer_title">tags</div>
 					<div class="footer_content footer_tags">
 						<ul class="tags_list clearfix">
-							<li class="tag_item"><a href="#">design</a></li>
-							<li class="tag_item"><a href="#">fashion</a></li>
-							<li class="tag_item"><a href="#">music</a></li>
-							<li class="tag_item"><a href="#">video</a></li>
-							<li class="tag_item"><a href="#">party</a></li>
-							<li class="tag_item"><a href="#">photography</a></li>
-							<li class="tag_item"><a href="#">adventure</a></li>
-							<li class="tag_item"><a href="#">travel</a></li>
+							<li class="tag_item"><a href="placeSelectList.do">장소</a></li>
+							<li class="tag_item"><a href="hotelSelectList.do">숙소</a></li>
+							<li class="tag_item"><a href="ajaxFoodList.do">맛집</a></li>
+							<li class="tag_item"><a href="boardSelectList.do">게시판</a></li>
+						
 						</ul>
 					</div>
 				</div>
 			</div>
 
 			<!-- Footer Column -->
-			<div class="col-lg-3 footer_column">
+			<div class="col-lg-4 footer_column">
 				<div class="footer_col">
 					<div class="footer_title">contact info</div>
 					<div class="footer_content footer_contact">
