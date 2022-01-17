@@ -162,7 +162,11 @@
 														</div>
 														<div class="col-lg-7">
 															<div class="offers_content"></div>
-															<div class="offers_price">${hotel.hotel_title }</div>
+															<div class="row">
+															<div class="col-lg-10">
+															<div class="offers_price" style="font-size: 20px;">${hotel.hotel_title }</div>
+															</div>
+															</div>
 															<div class="offer_reviews">
 																<div class="offer_reviews_content">
 																	<div class="offer_reviews_title">${hotel.hotel_price}
@@ -286,7 +290,7 @@
 	  		  });	
 			
 			var infowindow = new kakao.maps.InfoWindow({
-		        content: '<h5 style="color:black;">'+positions[i].title+'</h5><a href="hotelResForm.do?hotel_id='+positions[i].id+'" style="color:blue" >예약하기 </a><a href="hotelSelect.do?hotel_id='+positions[i].id+'" style="color:blue" > 상세정보</a>'
+		        content: '<div style="color:black; width:100%; height:100%;">'+positions[i].title+'<p><a href="hotelResForm.do?hotel_id='+positions[i].id+'" style="color:blue" >예약하기 </a><a href="hotelSelect.do?hotel_id='+positions[i].id+'" style="color:blue" > 상세정보</a></p></div>'
 		        		// 인포윈도우에 표시할 내용
 		        ,removable : true
 		    });
