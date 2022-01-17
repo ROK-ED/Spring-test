@@ -31,7 +31,7 @@
 			<!-- Slider Item -->
 			<div class="owl-item home_slider_item">
 				<div class="home_slider_background"
-					style="background-image: url(resources/images/board_background.jpg)"></div>
+					style="background-image: url(resources/images/main_hotel.jpg)"></div>
 
 				<div class="home_slider_content text-center">
 					<div class="home_slider_content_inner" data-animation-in="flipInX"
@@ -49,7 +49,7 @@
 			<!-- Slider Item -->
 			<div class="owl-item home_slider_item">
 				<div class="home_slider_background"
-					style="background-image: url(resources/images/home_slider.jpg)"></div>
+					style="background-image: url(resources/images/main_food.jpg)"></div>
 
 				<div class="home_slider_content text-center">
 					<div class="home_slider_content_inner" data-animation-in="flipInX"
