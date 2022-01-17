@@ -219,7 +219,7 @@
 
 										<div class="review_rating_click">
 											<div class="warning_msg">별점을 선택해 주세요.</div>
-											<div class="rating">
+											<div class="rating" >
 												<div class="ratefill"></div>
 												<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
 												<input type="checkbox" name="rating" id="rating1" value="1"
@@ -416,6 +416,14 @@
 
 									var review_head2 = document
 											.createElement('div');//여기에 별 찍을거임..
+									/* review_head2.setAttribute("class","rating_r rating_r_"+result[i].review_rate+" offers_rating");
+											
+									review_head2.setAttribute("data-rating", result[i].review_rate);
+									for(var i=0;i< 5;i++){
+										var star = document.createElement('i');
+										review_head2.append(star); 
+									} */
+											
 									//console.log("별점수 화인"+result[i].review_rate);
 									//console.log("별점수 화인"+ typeof result[i].review_rate);
 									/* for (var i = 0; i < result[i].review_rate ; i++) {
@@ -730,7 +738,7 @@
 						+ 'px';
 				let items = document.querySelectorAll('.rate_radio');
 				console.log("newrate 값 =============" + newrate);
-				document.getElementById('rate').setAttribute("value", newrate);
+				document.getElementById('rate').setAttribute("value", 0);
 
 				items.forEach(function(item, idx) {
 					if (idx < newrate) {
