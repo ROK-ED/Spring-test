@@ -216,13 +216,13 @@
 
 
 
-										<p class="title_star">별점과 리뷰를 남겨주세요.</p>
-
+										<p class="title_star">리뷰를 남겨주세요.</p>
+<!-- 
 										<div class="review_rating_click">
 											<div class="warning_msg">별점을 선택해 주세요.</div>
 											<div class="rating">
 												<div class="ratefill"></div>
-												<!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+												해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용
 												<input type="checkbox" name="rating" id="rating1" value="1"
 													class="rate_radio" title="1점"> <label for="rating1"></label>
 												<input type="checkbox" name="rating" id="rating2" value="2"
@@ -235,6 +235,8 @@
 													class="rate_radio" title="5점"> <label for="rating5"></label>
 											</div>
 										</div>
+-->
+										
 										<div class="review_contents">
 											<div class="warning_msg">5자 이상으로 작성해 주세요.</div>
 											<textarea rows="3" class="review_textarea"
@@ -436,11 +438,16 @@
 
 								var review_content = document
 										.createElement('div');
+								var br = document
+								.createElement('br');
+								
+								
 								review_content.textContent = result[i].review_subject;
 								review_content.setAttribute("id", "review_"
 										+ result[i].review_id);
 								review_content.setAttribute("style",
 										"font-size:30px;");
+								review_content.append(br);
 								review_body.append(review_content);
 
 								if ($('#review_member_email').val() == result[i].review_member_email) {
@@ -508,7 +515,12 @@
 								// table_div.append(review_thead, review_tbody);
 								review_div.append(review_head, review_body);
 								review_li.append(review_div);
+								
+								
+								//delBtn.setAttribute("value","삭제");
+								
 								reveiw.append(review_li);
+						
 
 							}
 

@@ -79,17 +79,16 @@
 
 									<form action="hotelResSearch.do" id="search_form_1"
 										class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-										<div class="search_item">
+										<div class="search_item" style="width: 100%">
 											<br> <br>
-											<div>이름</div>
+											<div>호텔명</div>
 											<input type="text" class="destination search_input"
 												id="resName" name="resName" required="required">
+												<input type="hidden" id="resDate" name="resDate">
 										</div>
 										<div class="search_item">
 											<br> <br>
-											<div>check in</div>
-											<input type="text" class="check_in search_input" id="resDate"
-												name="resDate" placeholder="YYMMDD">
+										
 										</div>
 
 										<button type="submit" class="button search_button">
