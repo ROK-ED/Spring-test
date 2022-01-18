@@ -192,15 +192,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2 class="intro_title text-center">We have the best tours</h2>
+				<h2 class="intro_title text-center">최고의 맛집을 추천합니다</h2>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-lg-10 offset-lg-1">
 				<div class="intro_text text-center">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Nullam eu convallis tortor. Suspendisse potenti. In faucibus massa
-						arcu, vitae cursus mi hendrerit nec.</p>
+					<p>더이상 메뉴 선택에 고민하지 마세요! 요기행에서 추천하는 오늘의 맛집들</p>
 				</div>
 			</div>
 		</div>
@@ -213,22 +211,22 @@
 					<div class="intro_item_overlay"></div>
 					<!-- Image by https://unsplash.com/@dnevozhai -->
 					<div class="intro_item_background"
-						style="background-image: url(resources/images/intro_1.jpg)"></div>
+						style="background-image: url(./resources/img/food/벤투로소.jpg)"></div>
 					<div
 						class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-						<div class="intro_date">May 25th - June 01st</div>
+						<div class="intro_date">달서구 맛집</div>
 						<div class="button intro_button">
 							<div class="button_bcg"></div>
-							<a href="#">see more<span></span><span></span><span></span></a>
+							<a href="http://localhost/prj/foodSelectOne.do?food_id=1166&food_location=%EB%8B%AC%EC%84%9C%EA%B5%AC">더보기<span></span><span></span><span></span></a>
 						</div>
 						<div class="intro_center text-center">
-							<h1>Mauritius</h1>
-							<div class="intro_price">From $1450</div>
-							<div class="rating rating_4">
+							<h1>벤투로소</h1>
+							<div class="intro_price"></div>
+							<!-- <div class="rating rating_4">
 								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -241,22 +239,22 @@
 					<div class="intro_item_overlay"></div>
 					<!-- Image by https://unsplash.com/@hellolightbulb -->
 					<div class="intro_item_background"
-						style="background-image: url(resources/images/intro_2.jpg)"></div>
+						style="background-image: url(./resources/img/food/대도양조장.jpg)"></div>
 					<div
 						class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-						<div class="intro_date">May 25th - June 01st</div>
+						<div class="intro_date">중구 맛집</div>
 						<div class="button intro_button">
 							<div class="button_bcg"></div>
-							<a href="#">see more<span></span><span></span><span></span></a>
+							<a href="http://localhost/prj/foodSelectOne.do?food_id=1609&food_location=%EC%A4%91%EA%B5%AC">더보기<span></span><span></span><span></span></a>
 						</div>
 						<div class="intro_center text-center">
-							<h1>Greece</h1>
-							<div class="intro_price">From $1450</div>
+							<h1>대도양조장</h1>
+							<!-- <div class="intro_price">From $1450</div>
 							<div class="rating rating_4">
 								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -269,22 +267,22 @@
 					<div class="intro_item_overlay"></div>
 					<!-- Image by https://unsplash.com/@willianjusten -->
 					<div class="intro_item_background"
-						style="background-image: url(resources/images/intro_3.jpg)"></div>
+						style="background-image: url(./resources/img/food/삼수장어.jpg)"></div>
 					<div
 						class="intro_item_content d-flex flex-column align-items-center justify-content-center">
-						<div class="intro_date">May 25th - June 01st</div>
+						<div class="intro_date">수성구 맛집</div>
 						<div class="button intro_button">
 							<div class="button_bcg"></div>
-							<a href="#">see more<span></span><span></span><span></span></a>
+							<a href="http://localhost/prj/foodSelectOne.do?food_id=372&food_location=%EC%88%98%EC%84%B1%EA%B5%AC">더보기<span></span><span></span><span></span></a>
 						</div>
 						<div class="intro_center text-center">
-							<h1>Scotland</h1>
-							<div class="intro_price">From $1450</div>
+							<h1>삼수장어</h1>
+							<!-- <div class="intro_price">From $1450</div>
 							<div class="rating rating_4">
 								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
 									class="fa fa-star"></i>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

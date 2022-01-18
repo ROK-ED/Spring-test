@@ -370,7 +370,7 @@ public class FoodController {
 			ModelAndView mav, HttpServletResponse response, HttpServletRequest request) {
 		if (session.getAttribute("member_email") == null) {
 
-			model.addAttribute("data", new Message("로그인이 필요합니다", "hotelSelectList.do"));
+			model.addAttribute("data", new Message("로그인이 필요합니다", "ajaxFoodList.do"));
 
 			return "Message";
 		}
