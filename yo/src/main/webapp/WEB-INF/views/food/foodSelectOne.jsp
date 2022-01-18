@@ -188,7 +188,8 @@
 								<div class="col-lg-12 text-lg-right">
 									<div class="room_button">
 										<div class="button book_button trans_200">
-											<a href="foodResForm.do?food_id=${jsonModel.getString('OPENDATA_ID')}&food_name=${jsonModel.getString('BZ_NM')}&food_location=${jsonModel.getString('GNG_CS')}">예약<span></span><span></span><span></span></a>
+											<a
+												href="foodResForm.do?food_id=${jsonModel.getString('OPENDATA_ID')}&food_name=${jsonModel.getString('BZ_NM')}&food_location=${jsonModel.getString('GNG_CS')}">예약<span></span><span></span><span></span></a>
 										</div>
 										<!-- 예약은 id로 넘겨서 내용 받아오기  -->
 									</div>
@@ -250,8 +251,7 @@
 									</form>
 								</div>
 
-								<br>
-								<br>
+								<br> <br>
 								<ul class="table print_review" id="print_review">
 
 									<!-- 리뷰 출력 -->
@@ -296,541 +296,524 @@
 					value="${hotel.hotel_id }">
 			</form> --%>
 
-
 			</div>
 		</div>
+	</div>
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
-		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="resources/plugins/easing/easing.js"></script>
+	<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
+	<script src="resources/plugins/colorbox/jquery.colorbox-min.js"></script>
+	<script src="resources/js/single_listing_custom.js"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1&libraries=services"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
 
-		<script src="resources/plugins/easing/easing.js"></script>
-		<script src="resources/plugins/parallax-js-master/parallax.min.js"></script>
-		<script src="resources/plugins/colorbox/jquery.colorbox-min.js"></script>
-		<script src="resources/js/single_listing_custom.js"></script>
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1&libraries=services"></script>
-		<script type="text/javascript"
-			src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e03564b57be53bd6ef508d4c357031e1"></script>
+	<script>
+		//이미지 크롤링 해오기
+		window.onload = function() {
+			$.ajax({
+				url : "imgListCrawl.do",
+				type : "POST",
+				data : {
+					"food_id" : $("#food_id").val()
+				},
+				success : function(result) {
+					if (result.length > 0) {
+						//$('.food_image').appendChild(img);
+						var food_image = document
+								.getElementsByClassName('food_image')[0];
 
-		<script>
-			//이미지 크롤링 해오기
-			window.onload = function() {
-				$.ajax({
-					url : "imgListCrawl.do",
-					type : "POST",
-					data : {
-						"food_id" : $("#food_id").val()
-					},
-					success : function(result) {
-						if (result.length > 0) {
-							//$('.food_image').appendChild(img);
-							var food_image = document
-									.getElementsByClassName('food_image')[0];
+						for (var i = 0; i < result.length; i++) {
+
+							var img = document.createElement('img');
+							img.setAttribute("src", result[i]);
+							img.setAttribute("style",
+									"height:100%; width:100%;");
+							food_image.appendChild(img)
+							console.log(result[i]);
+
+						}//for
+
+						//drawStar($("#food_id").val());//별찍기
+						mapKakao();//지도 그리기
+						showReview($("#food_id").val());//리뷰 출력하기
+
+					} else {
+						alert("ㅠㅠㅠ");
+					}
+				}
+
+			});
+		}
+
+		//==================================별찍기
+
+		function drawStar(food_id) {
+
+			// console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
+
+			$.ajax({
+				url : "showRate.do",
+				type : "POST",
+				data : {
+					"review_food_id" : food_id
+				},
+				success : function(result) {
+
+					$('#printStar').textContext = result.review_hit
+					/* for (var i = 0; i < result.review_rate; i++) {
+						0
+					} */
+					console.log(result);
+
+				}
+
+			})
+		}
+
+		//==================================
+
+		//=====================댓글 출력   ====================
+
+		function showReview(food_id) {
+			console.log(food_id);
+			$
+					.ajax({
+						url : "showReview.do",
+						data : {
+							"review_food_id" : food_id
+						},
+						type : "POST",
+						success : function(result) {
+
+							console.log(result);
+							var reveiw = document
+									.querySelector('#print_review');
+
+							//reveiw.setAttribute("style", "border:1;");
 
 							for (var i = 0; i < result.length; i++) {
+								var review_li = document.createElement('li');
 
-								var img = document.createElement('img');
-								img.setAttribute("src", result[i]);
-								img.setAttribute("style",
-										"height:100%; width:100%;");
-								food_image.appendChild(img)
-								console.log(result[i]);
+								var review_div = document.createElement('div');
+								//var re_id = "re"+result[i].review_id
 
-							}//for
+								var review_head = document.createElement('div');
+								review_head
+										.setAttribute("style",
+												"width:100%; float:left; font-size:20px;");
+								var review_head1 = document
+										.createElement('div');
+								var reveiw_email = result[i].review_member_email == null ? "비회원"
+										: result[i].review_member_email;
+								review_head1.textContent = reveiw_email;
 
-							//drawStar($("#food_id").val());//별찍기
-							mapKakao();//지도 그리기
-							showReview($("#food_id").val());//리뷰 출력하기
+								var review_head2 = document
+										.createElement('div');//여기에 별 찍을거임..
+								//console.log("별점수 화인"+result[i].review_rate);
+								//console.log("별점수 화인"+ typeof result[i].review_rate);
+								/* for (var i = 0; i < result[i].review_rate ; i++) {
+									var star = document.createElement('i');
+									star.setAttribute("class", "fa fa-star");
+									review_head2.append(star); 
+									console.log(i+"==번째 출력됨 ====");
+								}  */
 
-						} else {
-							alert("ㅠㅠㅠ");
-						}
-					}
+								review_head1.setAttribute("style",
+										"float:left;");
+								review_head2.setAttribute("style",
+										"float:left;");
+								review_head.append(review_head1, review_head2);
 
-				});
-			}
+								//review_div.append(review_head1, review_head2);
+								//review_thead.append(review_tr1);
 
-			//==================================별찍기
+								var review_body = document.createElement('div');
+								review_body.setAttribute("style",
+										"height:80px; width:100%; float:left;");
 
-			function drawStar(food_id) {
+								var review_content = document
+										.createElement('div');
+								review_content.textContent = result[i].review_subject;
+								review_content.setAttribute("id", "review_"
+										+ result[i].review_id);
+								review_content.setAttribute("style",
+										"font-size:30px;");
+								review_body.append(review_content);
 
-				// console.log("됨!!!!! wpqkf!!!!"+food_id);/////////////////////////////////////////////////////////////////////////////////////////여기하기...
+								if ($('#review_member_email').val() == result[i].review_member_email) {
 
-				$.ajax({
-					url : "showRate.do",
-					type : "POST",
-					data : {
-						"review_food_id" : food_id
-					},
-					success : function(result) {
+									/* var review_form = document.createElement('div');
+									review_form.setAttribute("deleteReview.do");
+									review_form.setAttribute("method","get");
+									
+									
+									
+									review_del_submit = document.createElement('submit');
+									review_del_submit.setAttribute("type","submit");
+									review_del_submit.setAttribute("value","삭제");
+									review_form.append(review_del_input,review_del_submit);
+									 */
 
-						$('#printStar').textContext = result.review_hit
-						/* for (var i = 0; i < result.review_rate; i++) {
-							0
-						} */
-						console.log(result);
+									var review_del_input = document
+											.createElement('input');
+									review_del_input.setAttribute("type",
+											"hidden");
+									review_del_input.setAttribute("value",
+											result[i].review_id);
+									review_del_input.setAttribute("name",
+											"review_id_del");
+									review_del_input.setAttribute("id",
+											"review_id_del");
 
-					}
-
-				})
-			}
-
-			//==================================
-
-			//=====================댓글 출력   ====================
-
-			function showReview(food_id) {
-				console.log(food_id);
-				$
-						.ajax({
-							url : "showReview.do",
-							data : {
-								"review_food_id" : food_id
-							},
-							type : "POST",
-							success : function(result) {
-
-								console.log(result);
-								var reveiw = document
-										.querySelector('#print_review');
-
-								//reveiw.setAttribute("style", "border:1;");
-
-								for (var i = 0; i < result.length; i++) {
-									var review_li = document
-											.createElement('li');
-
-									var review_div = document
-											.createElement('div');
-									//var re_id = "re"+result[i].review_id
-
-									var review_head = document
-											.createElement('div');
-									review_head
+									var tdBtn = document.createElement('div');
+									tdBtn.setAttribute("style",
+											"width:200px; float:right;");
+									var upBtn = document.createElement('input');
+									upBtn.setAttribute("value", "수정");
+									upBtn
 											.setAttribute("style",
-													"width:100%; float:left; font-size:20px;");
-									var review_head1 = document
-											.createElement('div');
-									var reveiw_email = result[i].review_member_email == null ? "비회원"
-											: result[i].review_member_email;
-									review_head1.textContent = reveiw_email;
+													"width:50px; height:30px; margin:10px; float:right;");
+									upBtn.setAttribute("type", "button");
+									upBtn.setAttribute("onclick", "reviewUp("
+											+ result[i].review_id + ")");
 
-									var review_head2 = document
-											.createElement('div');//여기에 별 찍을거임..
-									//console.log("별점수 화인"+result[i].review_rate);
-									//console.log("별점수 화인"+ typeof result[i].review_rate);
-									/* for (var i = 0; i < result[i].review_rate ; i++) {
-										var star = document.createElement('i');
-										star.setAttribute("class", "fa fa-star");
-										review_head2.append(star); 
-										console.log(i+"==번째 출력됨 ====");
-									}  */
-
-									review_head1.setAttribute("style",
-											"float:left;");
-									review_head2.setAttribute("style",
-											"float:left;");
-									review_head.append(review_head1,
-											review_head2);
-
-									//review_div.append(review_head1, review_head2);
-									//review_thead.append(review_tr1);
-
-									var review_body = document
-											.createElement('div');
-									review_body
+									var delBtn = document
+											.createElement('input');
+									//delBtn.setAttribute("value","삭제");
+									delBtn
 											.setAttribute("style",
-													"height:80px; width:100%; float:left;");
+													"width:50px; height:30px; margin:10px; float:right;");
+									delBtn.setAttribute("type", "button");
+									var str = "delBtn" + result[i].review_id;
+									delBtn.setAttribute("id", "delBtn");
+									delBtn.setAttribute("class", "delBtn");
+									delBtn.setAttribute("onclick", "reviewDel("
+											+ result[i].review_id + ")");
 
-									var review_content = document
-											.createElement('div');
-									review_content.textContent = result[i].review_subject;
-									review_content.setAttribute("id", "review_"
-											+ result[i].review_id);
-									review_content.setAttribute("style",
-											"font-size:30px;");
-									review_body.append(review_content);
+									delBtn.textContent = "삭제";
+									delBtn.setAttribute("value", "삭제");
 
-									if ($('#review_member_email').val() == result[i].review_member_email) {
+									tdBtn.append(delBtn, upBtn,
+											review_del_input);
 
-										/* var review_form = document.createElement('div');
-										review_form.setAttribute("deleteReview.do");
-										review_form.setAttribute("method","get");
-										
-										
-										
-										review_del_submit = document.createElement('submit');
-										review_del_submit.setAttribute("type","submit");
-										review_del_submit.setAttribute("value","삭제");
-										review_form.append(review_del_input,review_del_submit);
-										 */
-
-										var review_del_input = document
-												.createElement('input');
-										review_del_input.setAttribute("type",
-												"hidden");
-										review_del_input.setAttribute("value",
-												result[i].review_id);
-										review_del_input.setAttribute("name",
-												"review_id_del");
-										review_del_input.setAttribute("id",
-												"review_id_del");
-
-										var tdBtn = document
-												.createElement('div');
-										tdBtn.setAttribute("style",
-												"width:200px; float:right;");
-										var upBtn = document
-												.createElement('input');
-										upBtn.setAttribute("value", "수정");
-										upBtn
-												.setAttribute("style",
-														"width:50px; height:30px; margin:10px; float:right;");
-										upBtn.setAttribute("type", "button");
-										upBtn.setAttribute("onclick",
-												"reviewUp("
-														+ result[i].review_id
-														+ ")");
-
-										var delBtn = document
-												.createElement('input');
-										//delBtn.setAttribute("value","삭제");
-										delBtn
-												.setAttribute("style",
-														"width:50px; height:30px; margin:10px; float:right;");
-										delBtn.setAttribute("type", "button");
-										var str = "delBtn"
-												+ result[i].review_id;
-										delBtn.setAttribute("id", "delBtn");
-										delBtn.setAttribute("class", "delBtn");
-										delBtn.setAttribute("onclick",
-												"reviewDel("
-														+ result[i].review_id
-														+ ")");
-
-										delBtn.textContent = "삭제";
-										delBtn.setAttribute("value", "삭제");
-
-										tdBtn.append(delBtn, upBtn,
-												review_del_input);
-
-										review_body.append(tdBtn);
-									}
-
-									//review_tbody.append(review_tr2);
-
-									// var table_div = document.createElement('div');
-									// table_div.append(review_thead, review_tbody);
-									review_div.append(review_head, review_body);
-									review_li.append(review_div);
-									reveiw.append(review_li);
-
+									review_body.append(tdBtn);
 								}
+
+								//review_tbody.append(review_tr2);
+
+								// var table_div = document.createElement('div');
+								// table_div.append(review_thead, review_tbody);
+								review_div.append(review_head, review_body);
+								review_li.append(review_div);
+								reveiw.append(review_li);
 
 							}
 
-						})
+						}
+
+					})
+		}
+
+		function reviewDel(review_id) {
+
+			console.log(review_id);
+
+			console.log("삭제버튼 누르면 떠야함 =====");
+
+			$.ajax({
+				url : "deleteReview.do",
+				type : "POST",
+				data : {
+					"review_id" : review_id
+				},
+				success : function(result) {
+					console.log(result);
+					alert("리뷰가 삭제되었습니다");
+					location.reload();
+				}
+
+			})
+		}
+
+		function reviewUp(review_id) {
+
+			console.log(review_id);
+			var review_form = document.createElement('form');
+			var review_textarea = document.createElement('textarea');
+			review_textarea.textContent = $('#review_' + review_id).text();
+			review_textarea.setAttribute("style", "width:100%;");
+			review_textarea.setAttribute("id", "textarea_" + review_id);
+			var submit = document.createElement('input');
+			submit.setAttribute("type", "button");
+			submit.setAttribute("value", "저장");
+
+			submit.setAttribute("onclick", "reviewSubmit(" + review_id + ")");
+
+			var back = document.createElement('input');
+			back.setAttribute("type", "button");
+			back.setAttribute("value", "취소");
+			back.setAttribute("onclick", "reviewBack()");
+
+			review_form.append(review_textarea, back, submit);
+
+			$('#review_' + review_id).replaceWith(review_form);
+
+			//출처: //https:// freehoon.tistory.com/121 [훈잇 블로그]
+
+			console.log("삭제버튼 누르면 떠야함 =====");
+			//var review_id = $(this).attr('id');
+			//console.log("리뷰 id 값 확인 ====="+review_id);
+			/* var delBtn = document.getElementById("delBtn");
+			delBtn.onclick = function () {
+				
+				
+			} */
+			//console.log("리뷰 id 값 확인 ====="+$("#review_food_id").val());
+			/*  $.ajax({
+				url : "deleteReview.do",
+				type : "POST",
+				data : {
+					"review_id" : review_id
+				},
+				success : function(result) {
+					console.log(result);
+					alert("리뷰가 삭제되었습니다");
+					location.reload();
+				}
+				
+			}) */
+		}
+		function reviewBack() {
+			alert("취소되었습니다");
+			location.reload();
+		}
+		function reviewSubmit(review_id) {
+			var inner_value = $("#textarea_" + review_id).val();
+			console.log("확인" + review_id + ": " + inner_value);
+
+			$.ajax({
+				url : "updateReview.do",
+				type : "POST",
+				data : {
+					"review_id" : review_id,
+					"review_subject" : inner_value
+				},
+				success : function(result) {
+					console.log(result);
+					alert("리뷰가 수정되었습니다");
+					location.reload();
+				}
+
+			})
+		}
+
+		//=====================댓글 출력 끗=====================
+
+		//////////////////////////////////////댓글 입력
+
+		document
+				.addEventListener(
+						'DOMContentLoaded',
+						function() {
+							//별점선택 이벤트 리스너
+							document
+									.querySelector('.rating')
+									.addEventListener(
+											'click',
+											function(e) {
+												let elem = e.target;
+												if (elem.classList
+														.contains('rate_radio')) {
+													rating
+															.setRate(parseInt(elem.value));
+												}
+
+											})
+
+							//상품평 작성 글자수 초과 체크 이벤트 리스너
+							document
+									.querySelector('.review_textarea')
+									.addEventListener(
+											'keydown',
+											function() {
+												//리뷰 400자 초과 안되게 자동 자름
+												let review = document
+														.querySelector('.review_textarea');
+												let lengthCheckEx = /^.{400,}$/;
+												if (lengthCheckEx
+														.test(review.value)) {
+													//400자 초과 컷
+													review.value = review.value
+															.substr(0, 400);
+												}
+											});
+
+							//저장 전송전 필드 체크 이벤트 리스너
+							document
+									.querySelector('#save')
+									.addEventListener(
+											'click',
+											function(e) {
+												//별점 선택 안했으면 메시지 표시
+												if (rating.rate == 0) {
+													rating.showMessage('rate');
+													return false;
+												}
+
+												//리뷰 5자 미만이면 메시지 표시
+												if (document
+														.querySelector('.review_textarea').value.length < 5) {
+													rating
+															.showMessage('review');
+													return false;
+												}
+
+												if (document
+														.querySelector('#review_member_email').value.length < 3) {
+													console
+															.log("길이 확인 =================="
+																	+ document
+																			.querySelector('.review_member_email').value.length);
+
+													alert("로그인 후 사용해 주세요");
+													return false;
+												}
+
+												///////////////////////======================================욕 필터링 시도햇다가 넘긴부분...ㅠ
+												var badWord = "/[바보|멍청이]/g"
+												if (document
+														.querySelector('.review_textarea').value
+														.search(badWord) != -1) {
+													rating.showMessage('word');
+													return false;
+												}
+
+												///////////////////////======================================빨리하고 다시하자..
+
+												//폼 서밋
+												//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
+												alert("저장완료!");
+												rating.setRate(0);
+												document
+														.querySelector('.review_textarea').value = '';
+											});
+						});
+
+		//별점 마킹 모듈 프로토타입으로 생성
+		function Rating() {
+		};
+		Rating.prototype.rate = 0;
+		Rating.prototype.setRate = function(newrate) {
+			//별점 마킹 - 클릭한 별 이하 모든 별 체크 처리
+			console.log("this 확인 ============" + this.rate.value);
+			document.querySelector('.ratefill').style.width = parseInt(newrate * 60)
+					+ 'px';
+			let items = document.querySelectorAll('.rate_radio');
+			console.log("newrate 값 =============" + newrate);
+			document.getElementById('rate').setAttribute("value", newrate);
+
+			items.forEach(function(item, idx) {
+				if (idx < newrate) {
+					item.checked = true;
+				} else {
+					item.checked = false;
+				}
+			});
+		}
+
+		Rating.prototype.showMessage = function(type) {//경고메시지 표시
+			switch (type) {
+
+			case 'review':
+				//안내메시지 표시
+				document.querySelector('.review_contents .warning_msg').style.display = 'block';
+				//지정된 시간 후 안내 메시지 감춤
+				setTimeout(
+						function() {
+							document
+									.querySelector('.review_contents .warning_msg').style.display = 'none';
+						}, 1000);
+				break;
+			case 'emailError':
+				alert("로그인 후 사용해 주세요");
+				break;
+			case 'word':
+
+				alert('사용할 수 없는 단어가 포함되어 있습니다');
+				break;
+
 			}
+		}
 
-			function reviewDel(review_id) {
+		let rating = new Rating();//별점 인스턴스 생성
 
-				console.log(review_id);
+		/////////// ///////////////////////////별찍기끗
 
-				console.log("삭제버튼 누르면 떠야함 =====");
+		//=============================지도=============================
+		//카카오 맵 api로 주소 찍기
+		//주소 출력하기
+		var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
+			level : 3
+		};
 
-				$.ajax({
-					url : "deleteReview.do",
-					type : "POST",
-					data : {
-						"review_id" : review_id
-					},
-					success : function(result) {
-						console.log(result);
-						alert("리뷰가 삭제되었습니다");
-						location.reload();
-					}
+		// 지도를 생성합니다    
+		var mapi = new kakao.maps.Map(mapContainer, mapOption);
 
-				})
-			}
+		function mapKakao() {
 
-			function reviewUp(review_id) {
+			// 주소-좌표 변환 객체를 생성합니다
 
-				console.log(review_id);
-				var review_form = document.createElement('form');
-				var review_textarea = document.createElement('textarea');
-				review_textarea.textContent = $('#review_' + review_id).text();
-				review_textarea.setAttribute("style", "width:100%;");
-				review_textarea.setAttribute("id", "textarea_" + review_id);
-				var submit = document.createElement('input');
-				submit.setAttribute("type", "button");
-				submit.setAttribute("value", "저장");
+			var geocoder = new kakao.maps.services.Geocoder();
+			var food_name = document.querySelector('.food_name').value;
+			var food_location_map = document
+					.querySelector('.food_location_map').value;
+			console.log("음식점 이름 ============" + food_name);
+			console.log("음식점 주소ㅓ ============" + food_location_map);
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(food_location_map,
+					function(result, status) {
 
-				submit.setAttribute("onclick", "reviewSubmit(" + review_id
-						+ ")");
+						// 정상적으로 검색이 완료됐으면 
+						if (status === kakao.maps.services.Status.OK) {
 
-				var back = document.createElement('input');
-				back.setAttribute("type", "button");
-				back.setAttribute("value", "취소");
-				back.setAttribute("onclick", "reviewBack()");
+							var coords = new kakao.maps.LatLng(result[0].y,
+									result[0].x);
 
-				review_form.append(review_textarea, back, submit);
-
-				$('#review_' + review_id).replaceWith(review_form);
-
-				//출처: //https:// freehoon.tistory.com/121 [훈잇 블로그]
-
-				console.log("삭제버튼 누르면 떠야함 =====");
-				//var review_id = $(this).attr('id');
-				//console.log("리뷰 id 값 확인 ====="+review_id);
-				/* var delBtn = document.getElementById("delBtn");
-				delBtn.onclick = function () {
-					
-					
-				} */
-				//console.log("리뷰 id 값 확인 ====="+$("#review_food_id").val());
-				/*  $.ajax({
-					url : "deleteReview.do",
-					type : "POST",
-					data : {
-						"review_id" : review_id
-					},
-					success : function(result) {
-						console.log(result);
-						alert("리뷰가 삭제되었습니다");
-						location.reload();
-					}
-					
-				}) */
-			}
-			function reviewBack() {
-				alert("취소되었습니다");
-				location.reload();
-			}
-			function reviewSubmit(review_id) {
-				var inner_value = $("#textarea_" + review_id).val();
-				console.log("확인" + review_id + ": " + inner_value);
-
-				$.ajax({
-					url : "updateReview.do",
-					type : "POST",
-					data : {
-						"review_id" : review_id,
-						"review_subject" : inner_value
-					},
-					success : function(result) {
-						console.log(result);
-						alert("리뷰가 수정되었습니다");
-						location.reload();
-					}
-
-				})
-			}
-
-			//=====================댓글 출력 끗=====================
-
-			//////////////////////////////////////댓글 입력
-
-			document
-					.addEventListener(
-							'DOMContentLoaded',
-							function() {
-								//별점선택 이벤트 리스너
-								document
-										.querySelector('.rating')
-										.addEventListener(
-												'click',
-												function(e) {
-													let elem = e.target;
-													if (elem.classList
-															.contains('rate_radio')) {
-														rating
-																.setRate(parseInt(elem.value));
-													}
-
-												})
-
-								//상품평 작성 글자수 초과 체크 이벤트 리스너
-								document
-										.querySelector('.review_textarea')
-										.addEventListener(
-												'keydown',
-												function() {
-													//리뷰 400자 초과 안되게 자동 자름
-													let review = document
-															.querySelector('.review_textarea');
-													let lengthCheckEx = /^.{400,}$/;
-													if (lengthCheckEx
-															.test(review.value)) {
-														//400자 초과 컷
-														review.value = review.value
-																.substr(0, 400);
-													}
-												});
-
-								//저장 전송전 필드 체크 이벤트 리스너
-								document
-										.querySelector('#save')
-										.addEventListener(
-												'click',
-												function(e) {
-													//별점 선택 안했으면 메시지 표시
-													if (rating.rate == 0) {
-														rating
-																.showMessage('rate');
-														return false;
-													}
-
-													//리뷰 5자 미만이면 메시지 표시
-													if (document
-															.querySelector('.review_textarea').value.length < 5) {
-														rating
-																.showMessage('review');
-														return false;
-													}
-
-													if (document
-															.querySelector('#review_member_email').value.length < 3) {
-														console
-																.log("길이 확인 =================="
-																		+ document
-																				.querySelector('.review_member_email').value.length);
-
-														alert("로그인 후 사용해 주세요");
-														return false;
-													}
-
-													///////////////////////======================================욕 필터링 시도햇다가 넘긴부분...ㅠ
-													var badWord = "/[바보|멍청이]/g"
-													if (document
-															.querySelector('.review_textarea').value
-															.search(badWord) != -1) {
-														rating
-																.showMessage('word');
-														return false;
-													}
-
-													///////////////////////======================================빨리하고 다시하자..
-
-													//폼 서밋
-													//실제로는 서버에 폼을 전송하고 완료 메시지가 표시되지만 저장된 것으로 간주하고 폼을 초기화 함.
-													alert("저장완료!");
-													rating.setRate(0);
-													document
-															.querySelector('.review_textarea').value = '';
-												});
+							// 결과값으로 받은 위치를 마커로 표시합니다
+							var marker = new kakao.maps.Marker({
+								map : mapi,
+								position : coords
 							});
 
-			//별점 마킹 모듈 프로토타입으로 생성
-			function Rating() {
-			};
-			Rating.prototype.rate = 0;
-			Rating.prototype.setRate = function(newrate) {
-				//별점 마킹 - 클릭한 별 이하 모든 별 체크 처리
-				console.log("this 확인 ============" + this.rate.value);
-				document.querySelector('.ratefill').style.width = parseInt(newrate * 60)
-						+ 'px';
-				let items = document.querySelectorAll('.rate_radio');
-				console.log("newrate 값 =============" + newrate);
-				document.getElementById('rate').setAttribute("value", newrate);
+							// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+							var iwContent = '<div style="padding:10px; ">'
+									+ food_name + '</div>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+									//iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
-				items.forEach(function(item, idx) {
-					if (idx < newrate) {
-						item.checked = true;
-					} else {
-						item.checked = false;
-					}
-				});
-			}
+							// 인포윈도우를 생성합니다
+							var infowindow = new kakao.maps.InfoWindow({
+								position : coords,
+								content : iwContent
+							//removable : iwRemoveable
+							});
 
-			Rating.prototype.showMessage = function(type) {//경고메시지 표시
-				switch (type) {
-				
-				case 'review':
-					//안내메시지 표시
-					document.querySelector('.review_contents .warning_msg').style.display = 'block';
-					//지정된 시간 후 안내 메시지 감춤
-					setTimeout(
-							function() {
-								document
-										.querySelector('.review_contents .warning_msg').style.display = 'none';
-							}, 1000);
-					break;
-				case 'emailError':
-					alert("로그인 후 사용해 주세요");
-					break;
-				case 'word':
+							infowindow.open(mapi, marker);
 
-					alert('사용할 수 없는 단어가 포함되어 있습니다');
-					break;
+							var moveLatLon = new kakao.maps.LatLng(result[0].y,
+									result[0].x);
+							mapi.setCenter(moveLatLon);
 
-				}
-			}
+						}//if
 
-			let rating = new Rating();//별점 인스턴스 생성
+					});//geocoder
 
-			/////////// ///////////////////////////별찍기끗
-
-			//=============================지도=============================
-			//카카오 맵 api로 주소 찍기
-			//주소 출력하기
-			var mapContainer = document.getElementById('mapi'), // 지도를 표시할 div 
-			mapOption = {
-				center : new kakao.maps.LatLng(35.8690419, 128.593347), // 지도의 중심좌표
-				level : 3
-			};
-
-			// 지도를 생성합니다    
-			var mapi = new kakao.maps.Map(mapContainer, mapOption);
-
-			function mapKakao() {
-
-				// 주소-좌표 변환 객체를 생성합니다
-
-				var geocoder = new kakao.maps.services.Geocoder();
-				var food_name = document.querySelector('.food_name').value;
-				var food_location_map = document
-						.querySelector('.food_location_map').value;
-				console.log("음식점 이름 ============" + food_name);
-				console.log("음식점 주소ㅓ ============" + food_location_map);
-				// 주소로 좌표를 검색합니다
-				geocoder.addressSearch(food_location_map, function(result,
-						status) {
-
-					// 정상적으로 검색이 완료됐으면 
-					if (status === kakao.maps.services.Status.OK) {
-
-						var coords = new kakao.maps.LatLng(result[0].y,
-								result[0].x);
-
-						// 결과값으로 받은 위치를 마커로 표시합니다
-						var marker = new kakao.maps.Marker({
-							map : mapi,
-							position : coords
-						});
-
-						// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
-						var iwContent = '<div style="padding:10px; ">'
-								+ food_name + '</div>' // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-								//iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-
-						// 인포윈도우를 생성합니다
-						var infowindow = new kakao.maps.InfoWindow({
-							position : coords,
-							content : iwContent
-						//removable : iwRemoveable
-						});
-
-						infowindow.open(mapi, marker);
-
-						var moveLatLon = new kakao.maps.LatLng(result[0].y,
-								result[0].x);
-						mapi.setCenter(moveLatLon);
-
-					}//if
-
-				});//geocoder
-
-			}
-		</script>
+		}
+	</script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
 
 		<div class="home">
 			<div class="home_background parallax-window" data-parallax="scroll"
-				data-image-src="resources/images/contact_background.jpg"></div>
+				data-image-src="resources/images/hotel_background.jpg"></div>
 			<div class="home_content">
 				<div class="home_title">register</div>
 			</div>

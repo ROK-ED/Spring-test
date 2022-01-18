@@ -50,9 +50,9 @@
 
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
-		data-image-src="resources/images/chat_background.jpg"></div>
+		data-image-src="resources/images/chatting_background.jpg"></div>
 	<div class="home_content">
-		<div class="home_title">chatting</div>
+		<div class="home_title">chat</div>
 	</div>
 </div>
 

@@ -48,9 +48,9 @@ td {
 
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
-		data-image-src="resources/images/contact_background.jpg"></div>
+		data-image-src="resources/images/userList_background.jpg"></div>
 	<div class="home_content">
-		<div class="home_title">회원목록(ADMIN)</div>
+		<div class="home_title">UserList(ADMIN)</div>
 	</div>
 </div>
 
