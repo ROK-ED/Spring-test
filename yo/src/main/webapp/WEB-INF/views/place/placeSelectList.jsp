@@ -663,7 +663,7 @@
 				//location.reload();
 			},
 			error : function() {
-				alert("로그인을 먼저 해주세요");
+				alert("추가에 실패 하였습니다.");
 				//location.reload();
 
 			}

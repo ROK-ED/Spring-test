@@ -132,7 +132,7 @@ td {
 				} else if (member_author == 'HOST'){
 					alert("동결 되었습니다.");	
 				} else if (member_author == 'ADMIN'){
-					alert("관리가 계정은 동결할수 없습니다.");	
+					alert("ADMIN 계정은 동결할수 없습니다.");	
 				}
 				
 				location.reload();

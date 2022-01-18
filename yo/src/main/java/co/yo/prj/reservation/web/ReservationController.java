@@ -103,8 +103,8 @@ public class ReservationController {
 	// 장소등록
 	@PostMapping(value = "ajaxInsert.do", produces = "text/plain; charset=UTF-8")
 	@ResponseBody
-	public String ajaxInsert(double testx, double testy, String testtitle, String testemail, String member_author, ReservationVO vo,
-			String print, HttpSession session, Model model) {
+	public String ajaxInsert(double testx, double testy, String testtitle, String testemail, String member_author,
+			ReservationVO vo, String print, HttpSession session, Model model) {
 		System.out.println("여기 들어오냐?????????");
 		System.out.println(member_author);
 		System.out.println(testx);
@@ -113,54 +113,47 @@ public class ReservationController {
 		System.out.println(testemail);
 		
 		
-		
-		
-		if (testemail == null) {
+	
+
+		if (testemail.equals("null")) {
 
 			print = "로그인이 필요합니다";
-			
-			return print;
-
-		}
-		if (member_author.equals("HOST")) {
-			
-			print = "일반 유저만 예약이 가능합니다.";
 
 			return print;
-		}
-		
-		if (testtitle == null) {
 
-			print = "원하는 곳의 마커를 클릭해주세요.";
-			
+		} else if (member_author.equals("HOST")) {
+
+			print = "HOST는 예약이 불가능합니다.";
+
 			return print;
+		} else {
 
+			if (testtitle.equals("")) {
+
+				print = "원하는 곳의 마커를 클릭해주세요.";
+
+				return print;
+
+			} else {
+
+				vo.setReservation_member_email(testemail);
+				vo.setPlace_name(testtitle);
+				try {
+					reservationDao.PlaceReslInsert(vo);
+					print = "추가 되었습니다.";
+					System.out.println(print);
+
+					// 추가후 세션값도 변경
+					session.setAttribute("member_x", testx);
+					session.setAttribute("member_y", testy);
+
+				} catch (Exception e) {
+					print = "추가에 실패 하였습니다.";
+					System.out.println(print);
+				}
+				return print;
+			}
 		}
-		
-		if (testtitle.equals("")) {
-
-			print = "원하는 곳의 마커를 클릭해주세요.";
-			
-			return print;
-
-		}
-		
-		vo.setReservation_member_email(testemail);
-		vo.setPlace_name(testtitle);
-		try {
-			reservationDao.PlaceReslInsert(vo);
-			print = "추가 되었습니다.";
-			System.out.println(print);
-
-			// 추가후 세션값도 변경
-			session.setAttribute("member_x", testx);
-			session.setAttribute("member_y", testy);
-
-		} catch (Exception e) {
-			print = "추가에 실패 하였습니다.";
-			System.out.println(print);
-		}
-		return print;
 	}
 
 	// 멤버리스트에서 각 예약내역보기
@@ -168,7 +161,7 @@ public class ReservationController {
 	public String memberReservation(String member_email, String member_author, Model model) {
 		System.out.println(member_email);
 		System.out.println(member_author);
-		
+
 		ReservationVO reservation = new ReservationVO();
 		reservation.setReservation_member_email(member_email);
 		reservation.setReservation_host(member_author);
@@ -199,10 +192,10 @@ public class ReservationController {
 			vo.setReservation_date(to);
 			vo.setReservation_food_id(reservation_food_id);
 
-			//reservation_food_location = reservation_food_location.substring(6, 9);
+			// reservation_food_location = reservation_food_location.substring(6, 9);
 
 			vo.setFood_name(reservation_food_name);
-			
+
 			reservationDao.FoodReslInsert(vo);
 			mav.addObject("data", new Message("예약 되었습니다.", "ajaxFoodList.do"));
 			mav.setViewName("Message");
