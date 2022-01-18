@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+	pageEncoding="UTF-8"%>
+
 <div class="home" style="height: 100vh;">
 
 	<!-- Home Slider -->
@@ -10,10 +10,10 @@
 		<div class="owl-carousel owl-theme home_slider">
 
 			<!-- Slider Item -->
-			<div class="owl-item home_slider_item" >
+			<div class="owl-item home_slider_item">
 				<!-- Image by https://unsplash.com/@anikindimitry -->
 				<div class="home_slider_background"
-					style="height:100%; background-image: url(resources/images/home_slider.jpg)"></div>
+					style="height: 100%; background-image: url(resources/images/home_slider.jpg)"></div>
 
 				<div class="home_slider_content text-center">
 					<div class="home_slider_content_inner" data-animation-in="flipInX"
@@ -126,65 +126,77 @@
 
 <!-- Search -->
 
-	<div class="search">
-		
+<div class="search">
 
-		<!-- Search Contents -->
-		
-		<div class="container fill_height">
-			<div class="row fill_height">
-				<div class="col fill_height">
 
-					<!-- Search Tabs -->
+	<!-- Search Contents -->
 
-					<div class="search_tabs_container">
-						<div class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-						
-							<div class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="resources/images/suitcase.png" alt="">hotels</div>
-							<div class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start"><img src="resources/images/foodicon2.png" alt="">food</div>
-						</div>		
+	<div class="container fill_height">
+		<div class="row fill_height">
+			<div class="col fill_height">
+
+				<!-- Search Tabs -->
+
+				<div class="search_tabs_container">
+					<div
+						class="search_tabs d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+
+						<div
+							class="search_tab active d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
+							<img src="resources/images/suitcase.png" alt="">hotels
+						</div>
+						<div
+							class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start">
+							<img src="resources/images/foodicon2.png" alt="">food
+						</div>
 					</div>
-
-				
-
-					<div class="search_panel active">
-						<form action="hotelResSearch.do" id="search_form_2" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-							
-								<div>이름</div>
-									<input type="text" class="destination search_input"
-												id="resName" name="resName" required="required">
-							</div>
-							<div class="search_item">
-				
-								<div>check in</div>
-									<input type="text" class="check_in search_input" id="resDate"
-												name="resDate" placeholder="YYMMDD">
-							</div>
-
-							<button type="submit" class="button search_button">
-								search<span></span><span></span><span></span>
-							</button>
-						</form>
-					</div>
-
-					<!-- Search Panel -->
-
-					<div class="search_panel">
-						<form action="#" id="search_form_3" class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
-							<div class="search_item">
-								<div>destination</div>
-								<input type="text" class="destination search_input" required="required" placeholder="미구현~~~~">
-							</div>
-							
-							<button class="button search_button">search<span></span><span></span><span></span></button>
-						</form>
-					</div>
-
 				</div>
+
+
+
+				<div class="search_panel active">
+					<form action="hotelResSearch.do" id="search_form_2"
+						class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<div class="search_item">
+
+							<div>이름</div>
+							<input type="text" class="destination search_input" id="resName"
+								name="resName" required="required">
+						</div>
+						<div class="search_item">
+
+							<div>check in</div>
+							<input type="text" class="check_in search_input" id="resDate"
+								name="resDate" placeholder="YYMMDD">
+						</div>
+
+						<button type="submit" class="button search_button">
+							search<span></span><span></span><span></span>
+						</button>
+					</form>
+				</div>
+
+				<!-- Search Panel -->
+
+				<div class="search_panel">
+					<form action="#" id="search_form_3"
+						class="search_panel_content d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-lg-between justify-content-start">
+						<div class="search_item">
+							<div>destination</div>
+							<input type="text" class="destination search_input"
+								required="required" placeholder="미구현~~~~">
+						</div>
+
+						<button class="button search_button">
+							search<span></span><span></span><span></span>
+						</button>
+					</form>
+				</div>
+
 			</div>
-		</div>		
+		</div>
 	</div>
+</div>
 
 <!-- Intro -->
 
@@ -313,42 +325,117 @@
 			<div class="col-lg-6 offers_col">
 				<div class="offers_item">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-5 col-1680-4">
 							<div class="offers_image_container">
 								<!-- Image by https://unsplash.com/@kensuarez -->
-								<div class="offers_image_background"
-									style="background-image: url(resources/images/offer_1.jpg)"></div>
-								<div class="offer_name">
-									<a href="#">grand castle</a>
+								<div class="offers_image_background">
+									<a href="hotelSelect.do?hotel_id=6"> <img alt="숙소 섬네일"
+										src="http://tong.visitkorea.or.kr/cms/resource/48/2384348_image2_1.jpg"
+										style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+									</a>
 								</div>
+
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="offers_content">
-								<div class="offers_price">
-									$70<span>per night</span>
+						<div class="col-lg-7">
+							<div class="offers_content"></div>
+							<div class="row">
+								<div class="col-lg-10">
+									<div class="offers_price" style="font-size: 20px;">더한옥&스파</div>
 								</div>
-								<div class="rating_r rating_r_4 offers_rating">
-									<i></i> <i></i> <i></i> <i></i> <i></i>
+							</div>
+							<div class="offer_reviews">
+								<div class="offer_reviews_content">
+									<div class="offer_reviews_title"
+										style="font-size: 12px; font-weight: 700; color: #2d2c2c; text-transform: uppercase;">70000원</div>
 								</div>
-								<p class="offers_text">Suspendisse potenti. In faucibus
-									massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Nullam eu convallis tortor.</p>
-								<div class="offers_icons">
-									<ul class="offers_icons_list">
-										<li class="offers_icons_item"><img
-											src="resources/images/post.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/compass.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/bicycle.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/sailboat.png" alt=""></li>
-									</ul>
+							</div>
+							<p class="offer_reviews_title" style="color: black;">대구광역시 중구
+								서성로16길 46-5</p>
+							<p class="offers_text">더한옥&스파</p>
+
+							<div class="button search_button">
+								<a href="hotelResForm.do?hotel_id=6">예약<span></span><span></span><span></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- Offers Item -->
+			<div class="col-lg-6 offers_col">
+				<div class="offers_item">
+					<div class="row">
+						<div class="col-lg-5 col-1680-4">
+							<div class="offers_image_container">
+								<!-- Image by https://unsplash.com/@kensuarez -->
+								<div class="offers_image_background">
+									<a href="hotelSelect.do?hotel_id=23"> <img alt="숙소 섬네일"
+										src="http://tong.visitkorea.or.kr/cms/resource/74/220174_image2_1.jpg"
+										style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+									</a>
 								</div>
-								<div class="offers_link">
-									<a href="offers.html">read more</a>
+
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="offers_content"></div>
+							<div class="row">
+								<div class="col-lg-10">
+									<div class="offers_price" style="font-size: 20px;">창앤영펜션</div>
 								</div>
+							</div>
+							<div class="offer_reviews">
+								<div class="offer_reviews_content">
+									<div class="offer_reviews_title"
+										style="font-size: 12px; font-weight: 700; color: #2d2c2c; text-transform: uppercase;">70000원</div>
+								</div>
+							</div>
+							<p class="offer_reviews_title" style="color: black;">대구광역시 달성군 유가읍 휴양림길 532</p>
+							<p class="offers_text">창앤영펜션</p>
+
+							<div class="button search_button">
+								<a href="hotelResForm.do?hotel_id=23">예약<span></span><span></span><span></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Offers Item -->
+			<div class="col-lg-6 offers_col">
+				<div class="offers_item">
+					<div class="row">
+						<div class="col-lg-5 col-1680-4">
+							<div class="offers_image_container">
+								<!-- Image by https://unsplash.com/@kensuarez -->
+								<div class="offers_image_background">
+									<a href="hotelSelect.do?hotel_id=24"> <img alt="숙소 섬네일"
+										src="http://tong.visitkorea.or.kr/cms/resource/65/2377765_image2_1.jpg"
+										style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+									</a>
+								</div>
+
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="offers_content"></div>
+							<div class="row">
+								<div class="col-lg-10">
+									<div class="offers_price" style="font-size: 20px;">퀸벨호텔</div>
+								</div>
+							</div>
+							<div class="offer_reviews">
+								<div class="offer_reviews_content">
+									<div class="offer_reviews_title"
+										style="font-size: 12px; font-weight: 700; color: #2d2c2c; text-transform: uppercase;">70000원</div>
+								</div>
+							</div>
+							<p class="offer_reviews_title" style="color: black;">대구광역시 동구 동촌로 200</p>
+							<p class="offers_text">퀸벨호텔</p>
+
+							<div class="button search_button">
+								<a href="hotelResForm.do?hotel_id=24">예약<span></span><span></span><span></span></a>
 							</div>
 						</div>
 					</div>
@@ -359,134 +446,36 @@
 			<div class="col-lg-6 offers_col">
 				<div class="offers_item">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-5 col-1680-4">
 							<div class="offers_image_container">
-								<!-- Image by Egzon Bytyqi -->
-								<div class="offers_image_background"
-									style="background-image: url(resources/images/offer_2.jpg)"></div>
-								<div class="offer_name">
-									<a href="#">turkey hills</a>
+								<!-- Image by https://unsplash.com/@kensuarez -->
+								<div class="offers_image_background">
+									<a href="hotelSelect.do?hotel_id=30"> <img alt="숙소 섬네일"
+										src="resources/images/noimage.jpg"
+										style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+									</a>
 								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="offers_content">
-								<div class="offers_price">
-									$50<span>per night</span>
-								</div>
-								<div class="rating_r rating_r_4 offers_rating">
-									<i></i> <i></i> <i></i> <i></i> <i></i>
-								</div>
-								<p class="offers_text">Suspendisse potenti. In faucibus
-									massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Nullam eu convallis tortor.</p>
-								<div class="offers_icons">
-									<ul class="offers_icons_list">
-										<li class="offers_icons_item"><img
-											src="resources/images/post.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/compass.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/bicycle.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/sailboat.png" alt=""></li>
-									</ul>
-								</div>
-								<div class="offers_link">
-									<a href="offers.html">read more</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<!-- Offers Item -->
-			<div class="col-lg-6 offers_col">
-				<div class="offers_item">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="offers_image_container">
-								<!-- Image by https://unsplash.com/@nevenkrcmarek -->
-								<div class="offers_image_background"
-									style="background-image: url(resources/images/offer_3.jpg)"></div>
-								<div class="offer_name">
-									<a href="#">island dream</a>
-								</div>
 							</div>
 						</div>
-						<div class="col-lg-6">
-							<div class="offers_content">
-								<div class="offers_price">
-									$90<span>per night</span>
-								</div>
-								<div class="rating_r rating_r_4 offers_rating">
-									<i></i> <i></i> <i></i> <i></i> <i></i>
-								</div>
-								<p class="offers_text">Suspendisse potenti. In faucibus
-									massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Nullam eu convallis tortor.</p>
-								<div class="offers_icons">
-									<ul class="offers_icons_list">
-										<li class="offers_icons_item"><img
-											src="resources/images/post.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/compass.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/bicycle.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/sailboat.png" alt=""></li>
-									</ul>
-								</div>
-								<div class="offers_link">
-									<a href="offers.html">read more</a>
+						<div class="col-lg-7">
+							<div class="offers_content"></div>
+							<div class="row">
+								<div class="col-lg-10">
+									<div class="offers_price" style="font-size: 20px;">한옥게스트하우스 安(Ahn)</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+							<div class="offer_reviews">
+								<div class="offer_reviews_content">
+								<div class="offer_reviews_title"
+										style="font-size: 12px; font-weight: 700; color: #2d2c2c; text-transform: uppercase;">70000원</div>
+								</div>
+							</div>
+							<p class="offer_reviews_title" style="color: black;">대구광역시 중구 국채보상로149길 98</p>
+							<p class="offers_text">한옥게스트하우스 安(Ahn)</p>
 
-			<!-- Offers Item -->
-			<div class="col-lg-6 offers_col">
-				<div class="offers_item">
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="offers_image_container">
-								<!-- Image by https://unsplash.com/@mantashesthaven -->
-								<div class="offers_image_background"
-									style="background-image: url(resources/images/offer_4.jpg)"></div>
-								<div class="offer_name">
-									<a href="#">travel light</a>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6">
-							<div class="offers_content">
-								<div class="offers_price">
-									$30<span>per night</span>
-								</div>
-								<div class="rating_r rating_r_4 offers_rating">
-									<i></i> <i></i> <i></i> <i></i> <i></i>
-								</div>
-								<p class="offers_text">Suspendisse potenti. In faucibus
-									massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-									Nullam eu convallis tortor.</p>
-								<div class="offers_icons">
-									<ul class="offers_icons_list">
-										<li class="offers_icons_item"><img
-											src="resources/images/post.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/compass.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/bicycle.png" alt=""></li>
-										<li class="offers_icons_item"><img
-											src="resources/images/sailboat.png" alt=""></li>
-									</ul>
-								</div>
-								<div class="offers_link">
-									<a href="offers.html">read more</a>
-								</div>
+							<div class="button search_button">
+								<a href="hotelResForm.do?hotel_id=30">예약<span></span><span></span><span></span></a>
 							</div>
 						</div>
 					</div>
@@ -496,6 +485,3 @@
 		</div>
 	</div>
 </div>
-
-
-
