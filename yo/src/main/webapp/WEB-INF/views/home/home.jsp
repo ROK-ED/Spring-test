@@ -171,7 +171,7 @@
 						</div>
 
 						<button type="submit" class="button search_button">
-							search<span></span><span></span><span></span>
+							검색<span></span><span></span><span></span>
 						</button>
 					</form>
 				</div>
@@ -188,7 +188,7 @@
 						</div>
 
 						<button class="button search_button">
-							search<span></span><span></span><span></span>
+							검색<span></span><span></span><span></span>
 						</button>
 					</form>
 				</div>

@@ -118,7 +118,7 @@
 		<div class="home">
 
 			<div class="home_background parallax-window" data-parallax="scroll"
-				data-image-src="resources/images/single_background.jpg"></div>
+				data-image-src="resources/images/foodList_background.jpg"></div>
 
 
 			<div class="home_content">
