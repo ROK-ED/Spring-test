@@ -77,7 +77,7 @@
 							<li class="main_nav_item" style="margin-right: 15px;"><a href="boardSelectList.do">board</a></li>
 							<li class="main_nav_item" style="margin-right: 15px;"><a href="chat.do">chat</a></li>
 							<c:if test="${sessionScope.member_author == 'ADMIN' }">
-								<li class="main_nav_item" style="margin-right: 15px;"><a href="memberSelectList.do" >회원목록(ADMIN)</a></li>
+								<li class="main_nav_item" style="margin-right: 15px;"><a href="memberSelectList.do" >UserList(ADMIN)</a></li>
 							</c:if>
 						</ul>
 					</div>
@@ -124,7 +124,7 @@
 			<li class="menu_item"><a href="boardSelectList.do">board</a></li>
 			<li class="menu_item"><a href="chat.do">chat</a></li>
 			<c:if test="${sessionScope.member_author == 'ADMIN' }">
-				<li class="menu_item"><a href="memberSelectList.do">회원목록(ADMIN)</a></li>
+				<li class="menu_item"><a href="memberSelectList.do">UserList(ADMIN)</a></li>
 			</c:if>
 		</ul>
 	</div>

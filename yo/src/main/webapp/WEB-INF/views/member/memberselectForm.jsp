@@ -5,7 +5,7 @@
 
 <div class="home">
 	<div class="home_background parallax-window" data-parallax="scroll"
-		data-image-src="resources/images/contact_background.jpg"></div>
+		data-image-src="resources/images/userList_background.jpg"></div>
 	<div class="home_content">
 		<div class="home_title">마이페이지</div>
 	</div>

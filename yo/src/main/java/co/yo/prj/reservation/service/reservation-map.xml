@@ -7,18 +7,21 @@
 		resultType="co.yo.prj.reservation.service.ReservationVO">
 		SELECT * FROM
 		YO_RESERVATION
+		ORDER BY 1
 	</select>
 	
 	<select id="reservationUserSelect" resultType="co.yo.prj.reservation.service.ReservationVO">
 		SELECT * FROM
 		YO_RESERVATION
 		WHERE RESERVATION_MEMBER_EMAIL = #{reservation_member_email}
+		ORDER BY 1
 	</select>
 	
 	<select id="reservationHostSelect" resultType="co.yo.prj.reservation.service.ReservationVO">
 		SELECT * FROM
 		YO_RESERVATION
 		WHERE RESERVATION_HOST = #{reservation_host}
+		ORDER BY 1
 	</select>
 
 	<update id="reservationInsert"
