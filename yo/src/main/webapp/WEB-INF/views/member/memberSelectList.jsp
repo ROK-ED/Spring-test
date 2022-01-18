@@ -124,7 +124,17 @@ td {
 			},
 			dataType : "text",
 			success : function(str) {
-				alert("동결/해제 되었습니다.");
+				console.log(member_author);
+				if(member_author == 'ice'){
+				alert("USER로 해제 되었습니다. \nHOST권한을 원하시면 마이페이지에서 변경 바랍니다.");
+				} else if (member_author == 'USER'){
+					alert("동결 되었습니다.");	
+				} else if (member_author == 'HOST'){
+					alert("동결 되었습니다.");	
+				} else if (member_author == 'ADMIN'){
+					alert("관리가 계정은 동결할수 없습니다.");	
+				}
+				
 				location.reload();
 			},
 			error : function() {
